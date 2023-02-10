@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medecin index{% endblock %}
+
+{% block body %}
+    <h1>Medecin index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+             
+                <th>Email</th>
+               
+                <th>Nom</th>
+                <th>Prenom</th>
+         
+                <th>Telephone</th>
+                <th>Gouvernorat</th>
+                <th>Adresse</th>
+              
+                <th>Titre</th>
+                <th>Adresse_cabinet</th>
+           
+              
+                <th>Tarif</th>
+              
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for medecin in medecins %}
+            <tr>
+                <td>{{ medecin.id }}</td>
+                <td>{{ medecin.email }}</td>
+                <td>{{ medecin.roles ? medecin.roles|json_encode : '' }}</td>
+                <td>{{ medecin.password }}</td>
+                <td>{{ medecin.nom }}</td>
+                <td>{{ medecin.prenom }}</td>
+                <td>{{ medecin.cin }}</td>
+                <td>{{ medecin.sexe }}</td>
+                <td>{{ medecin.telephone }}</td>
+                <td>{{ medecin.gouvernorat }}</td>
+                <td>{{ medecin.adresse }}</td>
+                <td>{{ medecin.confirmPassword }}</td>
+                <td>{{ medecin.titre }}</td>
+                <td>{{ medecin.adresseCabinet }}</td>
+                <td>{{ medecin.fixe }}</td>
+                <td>{{ medecin.diplomeFormation }}</td>
+                <td>{{ medecin.tarif }}</td>
+                <td>{{ medecin.cnam ? 'Yes' : 'No' }}</td>
+                <td>{{ medecin.horraireOuverture ? medecin.horraireOuverture|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_medecin_show', {'id': medecin.id}) }}">show</a>
+                    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="20">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medecin_new') }}">Create new</a>
+{% endblock %}

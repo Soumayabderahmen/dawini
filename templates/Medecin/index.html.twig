@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medecins
+{% endblock %}
+
+{% block content %}
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3"></h4>
+			<div class="row">
+				<div class="col-xl-12 col-sm-12 col-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h5 class="card-title">Doctors</h5>
+								</div>
+								<div class="col-auto d-flex flex-wrap">
+									<div class="form-custom me-2">
+										<div id="tableSearch" class="dataTables_wrapper"></div>
+									</div>
+									<div class="multipleSelection">
+										<div class="selectBox">
+											<p class="mb-0 me-2">
+												<i class="feather-filter me-1"></i>
+												Filter By
+												                                                    Speciality
+											</p>
+											<span class="down-icon">
+												<i class="feather-chevron-down"></i>
+											</span>
+										</div>
+										<div id="checkBoxes">
+											<form>
+												<p class="lab-title">Specialities</p>
+												<div class="selectBox-cont">
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year" checked>
+														<span class="checkmark"></span>
+														Urology
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Neurology
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Orthopedic
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Cardiologist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Dentist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Gynacologist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Pediatrist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Orthopedic
+													</label>
+												</div>
+												<button type="submit" class="btn w-100 btn-primary">Apply</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
+
+							<div class="card-body">
+								<table class="table datatable-basic table table-borderless hover-table" id="datatable">
+									<thead class="thead-light">
+										<th>Nom</th>
+										<th>Prenom</th>
+										<th>Telephone</th>
+										<th>Gouvernorat</th>
+										<th>Adresse</th>
+										<th>Titre</th>
+										<th>Adresse_cabinet</th>
+										<th>Tarif</th>
+										<th>Actions</th>
+									</thead>
+									<tbody>
+
+										{% for medecin in medecins %}
+											<tr>
+
+												<td>{{ medecin.nom }}</td>
+												<td>{{ medecin.prenom }}</td>
+
+												<td>{{ medecin.telephone }}</td>
+												<td>{{ medecin.gouvernorat }}</td>
+												<td>{{ medecin.adresse }}</td>
+												<td>{{ medecin.titre }}</td>
+												<td>{{ medecin.adresseCabinet }}</td>
+
+												<td>{{ medecin.tarif }}</td>
+												<td>
+													<a href="{{ path('app_medecin_show', {'id': medecin.id}) }}">show</a>
+													<a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
+												</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="20">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				{% endblock %}
+

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medecin{% endblock %}
+
+{% block body %}
+    <h1>Medecin</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medecin.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ medecin.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ medecin.roles ? medecin.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ medecin.password }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ medecin.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ medecin.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ medecin.cin }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ medecin.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ medecin.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Gouvernorat</th>
+                <td>{{ medecin.gouvernorat }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ medecin.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Confirm_password</th>
+                <td>{{ medecin.confirmPassword }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ medecin.titre }}</td>
+            </tr>
+            <tr>
+                <th>Adresse_cabinet</th>
+                <td>{{ medecin.adresseCabinet }}</td>
+            </tr>
+            <tr>
+                <th>Fixe</th>
+                <td>{{ medecin.fixe }}</td>
+            </tr>
+            <tr>
+                <th>Diplome_formation</th>
+                <td>{{ medecin.diplomeFormation }}</td>
+            </tr>
+            <tr>
+                <th>Tarif</th>
+                <td>{{ medecin.tarif }}</td>
+            </tr>
+            <tr>
+                <th>Cnam</th>
+                <td>{{ medecin.cnam ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Horraire_ouverture</th>
+                <td>{{ medecin.horraireOuverture ? medecin.horraireOuverture|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_medecin_index') }}">back to list</a>
+
+    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
+
+    {{ include('medecin/_delete_form.html.twig') }}
+{% endblock %}
