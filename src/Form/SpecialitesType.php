@@ -6,6 +6,7 @@ use App\Entity\Specialites;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class SpecialitesType extends AbstractType
 {
@@ -14,6 +15,13 @@ class SpecialitesType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
+            ->add('images', FileType::class,[
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Images'
+            ])
             ->add('Enregistrer', SubmitType::class)
          
           

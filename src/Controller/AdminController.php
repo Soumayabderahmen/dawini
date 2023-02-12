@@ -27,13 +27,13 @@ class AdminController extends AbstractController
         $user=$this->getUser();
         $role=$user->getRoles();
         if (in_array("ROLE_ASSISTANT", $role)) 
-            return $this->redirectToRoute('app_assistant_index');
+            return $this->redirectToRoute('app_dashAss');
             if (in_array("ROLE_PATIENT", $role)) 
-              return $this->redirectToRoute('app_list');
+              return $this->redirectToRoute('app_dashpat');
               if (in_array("ROLE_MEDECIN", $role)) 
-              return $this->redirectToRoute('app_medecin_index');
+              return $this->redirectToRoute('app_dash');
               if (in_array("ROLE_ADMIN", $role)) 
-              return $this->redirectToRoute('app_test2');
+              return $this->redirectToRoute('Dashboard');
         return $this->render('admin/index.html.twig', [
             'users' => $userRepository->findAll(),
         ]);

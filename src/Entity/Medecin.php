@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\MedecinRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 class Medecin extends User
@@ -28,11 +31,35 @@ class Medecin extends User
     #[ORM\Column]
     private ?bool $cnam = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $horraire_ouverture = null;
+   
+    
 
-    #[ORM\ManyToOne(inversedBy: 'medecins')]
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Article::class)]
+    private Collection $articles;
+
+    #[ORM\ManyToOne(inversedBy: 'medecin')]
     private ?Specialites $specialites = null;
+
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Consulation::class)]
+    private Collection $consulations;
+
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: RendezVous::class)]
+    private Collection $rendezVouses;
+
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Images::class)]
+    private Collection $imagesCabinet;
+
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Dossier::class)]
+    private Collection $dossiers;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+        $this->consulations = new ArrayCollection();
+        $this->rendezVouses = new ArrayCollection();
+        $this->imagesCabinet = new ArrayCollection();
+        $this->dossiers = new ArrayCollection();
+    }
 
     public function getTitre(): ?string
     {
@@ -106,14 +133,35 @@ class Medecin extends User
         return $this;
     }
 
-    public function getHorraireOuverture(): ?\DateTimeInterface
+    
+   
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticles(): Collection
     {
-        return $this->horraire_ouverture;
+        return $this->articles;
     }
 
-    public function setHorraireOuverture(\DateTimeInterface $horraire_ouverture): self
+    public function addArticle(Article $article): self
     {
-        $this->horraire_ouverture = $horraire_ouverture;
+        if (!$this->articles->contains($article)) {
+            $this->articles->add($article);
+            $article->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getMedecin() === $this) {
+                $article->setMedecin(null);
+            }
+        }
 
         return $this;
     }
@@ -126,6 +174,126 @@ class Medecin extends User
     public function setSpecialites(?Specialites $specialites): self
     {
         $this->specialites = $specialites;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Consulation>
+     */
+    public function getConsulations(): Collection
+    {
+        return $this->consulations;
+    }
+
+    public function addConsulation(Consulation $consulation): self
+    {
+        if (!$this->consulations->contains($consulation)) {
+            $this->consulations->add($consulation);
+            $consulation->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsulation(Consulation $consulation): self
+    {
+        if ($this->consulations->removeElement($consulation)) {
+            // set the owning side to null (unless already changed)
+            if ($consulation->getMedecin() === $this) {
+                $consulation->setMedecin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RendezVous>
+     */
+    public function getRendezVouses(): Collection
+    {
+        return $this->rendezVouses;
+    }
+
+    public function addRendezVouse(RendezVous $rendezVouse): self
+    {
+        if (!$this->rendezVouses->contains($rendezVouse)) {
+            $this->rendezVouses->add($rendezVouse);
+            $rendezVouse->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezVouse(RendezVous $rendezVouse): self
+    {
+        if ($this->rendezVouses->removeElement($rendezVouse)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezVouse->getMedecin() === $this) {
+                $rendezVouse->setMedecin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImagesCabinet(): Collection
+    {
+        return $this->imagesCabinet;
+    }
+
+    public function addImagesCabinet(Images $imagesCabinet): self
+    {
+        if (!$this->imagesCabinet->contains($imagesCabinet)) {
+            $this->imagesCabinet->add($imagesCabinet);
+            $imagesCabinet->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImagesCabinet(Images $imagesCabinet): self
+    {
+        if ($this->imagesCabinet->removeElement($imagesCabinet)) {
+            // set the owning side to null (unless already changed)
+            if ($imagesCabinet->getMedecin() === $this) {
+                $imagesCabinet->setMedecin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Dossier>
+     */
+    public function getDossiers(): Collection
+    {
+        return $this->dossiers;
+    }
+
+    public function addDossier(Dossier $dossier): self
+    {
+        if (!$this->dossiers->contains($dossier)) {
+            $this->dossiers->add($dossier);
+            $dossier->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossier(Dossier $dossier): self
+    {
+        if ($this->dossiers->removeElement($dossier)) {
+            // set the owning side to null (unless already changed)
+            if ($dossier->getMedecin() === $this) {
+                $dossier->setMedecin(null);
+            }
+        }
 
         return $this;
     }

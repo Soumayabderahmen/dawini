@@ -1,55 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}users
+{% endblock %}
 
-{% block body %}
-    <h1>User index</h1>
+{% block content %}
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3"></h4>
+			<div class="row">
+				<div class="col-xl-12 col-sm-12 col-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h5 class="card-title">Assistants</h5>
+								</div>
+								<div class="col-auto d-flex flex-wrap">
+									<div class="form-custom me-2">
+										<div id="tableSearch" class="dataTables_wrapper"></div>
+									</div>
+									<div class="multipleSelection">
+										<div class="selectBox">
+											<p class="mb-0 me-2">
+												<i class="feather-filter me-1"></i>
+												Filter By
+												                                                    Speciality
+											</p>
+											<span class="down-icon">
+												<i class="feather-chevron-down"></i>
+											</span>
+										</div>
+										<div id="checkBoxes">
+											<form>
+												<p class="lab-title">Specialities</p>
+												<div class="selectBox-cont">
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year" checked>
+														<span class="checkmark"></span>
+														Urology
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Neurology
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Orthopedic
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Cardiologist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Dentist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Gynacologist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Pediatrist
+													</label>
+													<label class="custom_check w-100">
+														<input type="checkbox" name="year">
+														<span class="checkmark"></span>
+														Orthopedic
+													</label>
+												</div>
+												<button type="submit" class="btn w-100 btn-primary">Apply</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card">
 
-    <table class="table">
-        <thead>
-            <tr>
+							<div class="card-body">
+								<table class="table datatable-basic table table-borderless hover-table" id="datatable">
+									<thead class="thead-light">
+										 <tr>
                 <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
+               
                 <th>Nom</th>
                 <th>Prenom</th>
-                <th>Cin</th>
+         
                 <th>Sexe</th>
                 <th>Telephone</th>
                 <th>Gouvernorat</th>
                 <th>Adresse</th>
-                <th>Confirm_password</th>
+             
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
+         {% if user.roles == ["ROLE_ASSISTANT"]%}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
+              
                 <td>{{ user.nom }}</td>
                 <td>{{ user.prenom }}</td>
-                <td>{{ user.cin }}</td>
+               
                 <td>{{ user.sexe }}</td>
                 <td>{{ user.telephone }}</td>
                 <td>{{ user.gouvernorat }}</td>
                 <td>{{ user.adresse }}</td>
-                <td>{{ user.confirmPassword }}</td>
-                <td>
-                    <a href="{{ path('app_assistant_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_assistant_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+               
+												<td>
+													<a href="{{ path('app_assistant_show', {'id': user.id}) }}">show</a>
+													<a href="{{ path('app_assistant_edit', {'id': user.id}) }}">edit</a>
+												</td>
+											</tr>
+                                            {%endif%}
+										{% else %}
+											<tr>
+												<td colspan="20">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
 
-    <a href="{{ path('app_assistant_new') }}">Create new</a>
-{% endblock %}
+							</div>
+						</div>
+					</div>
+				{% endblock %}
+

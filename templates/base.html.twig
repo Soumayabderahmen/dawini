@@ -30,14 +30,6 @@
 
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css')}}">
 
-
-
-
-  
-
-  
-
-
     <link rel="stylesheet" href="{{ asset('admin/assets/plugins/datatables/datatables.min.css')}}">
 
 </head>
@@ -191,7 +183,7 @@
                                     class="avatar-img rounded-circle">
                             </div>
                             <div class="user-text">
-                                <h6>Robert Haddin</h6>
+                                {# <h6>{{app.user.nom}}</h6> #}
                                 <p class="text-muted mb-0">Administrator</p>
                             </div>
                         </div>
@@ -200,7 +192,7 @@
                         <a class="dropdown-item" href="account-settings.html"><i class="feather-sliders me-1"></i>
                             Account Settings</a>
                         <hr class="my-0 ms-2 me-2">
-                        <a class="dropdown-item" href="login.html"><i class="feather-log-out me-1"></i> Logout</a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="feather-log-out me-1"></i> Logout</a>
                     </div>
                 </li>
 
@@ -221,10 +213,10 @@
                             <a href="{{ path('app_list')}}"><i class="feather-user-plus"></i> <span>Medecins</span></a>
                         </li>
                          <li>
-                            <a href="patient-list.html"><i class="feather-users"></i> <span>Assistants</span></a>
+                            <a href="{{ path('app_assistant_index')}}"><i class="feather-users"></i> <span>Assistants</span></a>
                         </li>
                         <li>
-                            <a href="patient-list.html"><i class="feather-users"></i> <span>Patients</span></a>
+                            <a href="{{ path('app_patient_index')}}"><i class="feather-users"></i> <span>Patients</span></a>
                         </li>
                         
                         <li>
@@ -286,7 +278,7 @@
      <script data-cfasync="false"
         src="{{ asset('admin/https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js')}}"></script>
 
-<script src="{{ asset('admin1/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+     <script src="{{ asset('admin1/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script src="{{ asset('admin1/global_assets/js/demo_pages/datatables_basic.js') }}"></script>
    
 

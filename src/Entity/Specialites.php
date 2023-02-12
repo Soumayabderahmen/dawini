@@ -23,17 +23,23 @@ class Specialites
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'specialites', targetEntity: Medecin::class)]
-    private Collection $medecins;
+    private Collection $medecin;
 
-   
-
-   
+    #[ORM\OneToMany(mappedBy: 'specialite', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $images;
 
     public function __construct()
     {
-        $this->medecins = new ArrayCollection();
-  
+        $this->medecin = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
+
+
+   
+
+   
+
+  
 
     public function getId(): ?int
     {
@@ -67,15 +73,15 @@ class Specialites
     /**
      * @return Collection<int, Medecin>
      */
-    public function getMedecins(): Collection
+    public function getMedecin(): Collection
     {
-        return $this->medecins;
+        return $this->medecin;
     }
 
     public function addMedecin(Medecin $medecin): self
     {
-        if (!$this->medecins->contains($medecin)) {
-            $this->medecins->add($medecin);
+        if (!$this->medecin->contains($medecin)) {
+            $this->medecin->add($medecin);
             $medecin->setSpecialites($this);
         }
 
@@ -84,7 +90,7 @@ class Specialites
 
     public function removeMedecin(Medecin $medecin): self
     {
-        if ($this->medecins->removeElement($medecin)) {
+        if ($this->medecin->removeElement($medecin)) {
             // set the owning side to null (unless already changed)
             if ($medecin->getSpecialites() === $this) {
                 $medecin->setSpecialites(null);
@@ -96,5 +102,37 @@ class Specialites
 
     
 
-   
+   public function __toString(): string{
+    return (string)$this->nom;
+   }
+
+   /**
+    * @return Collection<int, Images>
+    */
+   public function getImages(): Collection
+   {
+       return $this->images;
+   }
+
+   public function addImage(Images $image): self
+   {
+       if (!$this->images->contains($image)) {
+           $this->images->add($image);
+           $image->setSpecialite($this);
+       }
+
+       return $this;
+   }
+
+   public function removeImage(Images $image): self
+   {
+       if ($this->images->removeElement($image)) {
+           // set the owning side to null (unless already changed)
+           if ($image->getSpecialite() === $this) {
+               $image->setSpecialite(null);
+           }
+       }
+
+       return $this;
+   }
 }

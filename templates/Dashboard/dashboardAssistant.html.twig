@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from doccure.dreamguystech.com/html/template/doctor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:39:00 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Doccure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="{{asset('doctor/assets/img/favicon.png')}}" rel="icon">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/css/bootstrap.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+    <link rel="stylesheet" href="{{asset('doctor/assets/plugins/fontawesome/css/all.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/css/feather.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/plugins/select2/css/select2.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/css/owl.carousel.min.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/plugins/apex/apexcharts.css')}}">
+
+    <link rel="stylesheet" href="{{asset('doctor/assets/css/style.css')}}">
+    
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+
+        <header class="header">
+            <nav class="navbar navbar-expand-lg header-nav">
+                <div class="navbar-header">
+                    <a id="mobile_btn" href="javascript:void(0);">
+                        <span class="bar-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="index.html" class="navbar-brand logo">
+                        <img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
+                    </a>
+                </div>
+                <div class="main-menu-wrapper">
+                    <div class="menu-header">
+                        <a href="index.html" class="menu-logo">
+                            <img src="{{asset('doctor/assets/img/logo.png')}}" class="img-fluid" alt="Logo">
+                        </a>
+                        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                  
+                </div>
+                <ul class="nav header-navbar-rht">
+                    <li class="nav-item contact-item">
+                        <div class="header-contact-img">
+                            <i class="far fa-hospital"></i>
+                        </div>
+                        <div class="header-contact-detail">
+                            <p class="contact-header">Contact</p>
+                            <p class="contact-info-header"> +1 315 369 5943</p>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="{{asset('doctor/assets/img/doctors/doctor-thumb-02.jpg')}}" width="31"
+                                    alt="Darren Elder">
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <div class="user-header">
+                                <div class="avatar avatar-sm">
+                                    <img src="{{asset('doctor/assets/img/doctors/doctor-thumb-02.jpg')}}" alt="User Image"
+                                        class="avatar-img rounded-circle">
+                                </div>
+                                <div class="user-text">
+                                    <h6>Darren Elder</h6>
+                                    <p class="text-muted mb-0">Doctor</p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="doctor-dashboard.html">Dashboard</a>
+                            <a class="dropdown-item" href="doctor-profile-settings.html">Profile Settings</a>
+                            <a class="dropdown-item" href="login.html">Logout</a>
+                        </div>
+                    </li>
+
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+                        <div class="profile-sidebar">
+                            <div class="widget-profile pro-widget-content">
+                                <div class="profile-info-widget">
+                                    <a href="#" class="booking-doc-img">
+                                        <img src="{{asset('doctor/assets/img/doctors/doctor-thumb-02.jpg')}}" alt="User Image">
+                                    </a>
+                                    <div class="profile-det-info">
+                                        <h3>L'Assistant </h3>
+                                        <div class="patient-details">
+                                            <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-widget">
+                                <nav class="dashboard-menu">
+                                    <ul>
+                                        <li class="active">
+                                            <a href="doctor-dashboard.html">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="appointments.html">
+                                                <i class="fas fa-calendar-check"></i>
+                                                <span>Appointments</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="my-patients.html">
+                                                <i class="fas fa-user-injured"></i>
+                                                <span>Patients</span>
+                                            </a>
+                                        </li>
+                                       
+                                        <li>
+                                            <a href="available-timings.html">
+                                                <i class="fas fa-clock"></i>
+                                                <span>Available Timings</span>
+                                            </a>
+                                        </li>
+                                       
+                                        
+                                        <li>
+                                            <a href="reviews.html">
+                                                <i class="fas fa-star"></i>
+                                                <span>Reviews</span>
+                                            </a>
+                                        </li>
+                                       
+                                       
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card dash-cards">
+                                    <div class="card-body">
+                                        <div class="dash-top-content">
+                                            <div class="circle-bar circle-bar1">
+                                                <div class="circle-graph1" data-percent="75">
+                                                    <img src="{{asset('doctor/assets/img/icon-01.png')}}" class="img-fluid" alt="patient">
+                                                </div>
+                                            </div>
+                                            <div class="dash-widget-info">
+                                                <h6>Total Patient All time</h6>
+                                                <h3>1500</h3>
+                                            </div>
+                                        </div>
+                                        <div class="dash-bottom-content">
+                                            <h6> <span> <i class="fas fa-caret-up"></i> 9.5%</span> last Week</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card dash-cards">
+                                    <div class="card-body">
+                                        <div class="dash-top-content">
+                                            <div class="circle-bar circle-bar2">
+                                                <div class="circle-graph2" data-percent="75">
+                                                    <img src="{{asset('doctor/assets/img/icon-03.png')}}" class="img-fluid" alt="patient">
+                                                </div>
+                                            </div>
+                                            <div class="dash-widget-info">
+                                                <h6>Total Appointements</h6>
+                                                <h3>4587</h3>
+                                            </div>
+                                        </div>
+                                        <div class="dash-bottom-content">
+                                            <h6> <span> <i class="fas fa-caret-up"></i> 5.5%</span> last Week</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card dash-cards">
+                                    <div class="card-body">
+                                        <div class="dash-top-content">
+                                            <div class="circle-bar circle-bar3">
+                                                <div class="circle-graph3" data-percent="50">
+                                                    <img src="{{asset('doctor/assets/img/icon-4.png')}}" class="img-fluid" alt="patient">
+                                                </div>
+                                            </div>
+                                            <div class="dash-widget-info">
+                                                <h6>Today’s Income</h6>
+                                                <h3>€1454</h3>
+                                            </div>
+                                        </div>
+                                        <div class="dash-bottom-content low-percent">
+                                            <h6> <span> <i class="fas fa-caret-down"></i> 5.5%</span> Yesterday</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card dash-cards">
+                                    <div class="card-header">
+                                        <div class="today-appointment-title">
+                                            <h5 class="mb-0">Today’s Appointments</h5>
+                                            <a href="appointments.html">
+                                                <h6 class="mb-0">View All <i class="feather-arrow-right"></i></h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar ">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a
+                                                                    href="patient-profile.html">Richard<span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            <div class="consult-type d-flex flex-column">
+                                                                <h6 class="mb-0">Online Consultation</h6>
+                                                                <p class="mb-0"><img
+                                                                        src="{{asset('doctor/assets/img/icons/video-icon-sm.svg')}}" alt="">
+                                                                    Video Call</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><a class="call-status"
+                                                                href="video-call.html">Start&nbsp;Call</a></td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient2.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a href="patient-profile.html">Wilson
+                                                                    <span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            <div class="consult-type d-flex flex-column">
+                                                                <h6 class="mb-0">Online Consultation</h6>
+                                                                <p class="mb-0"><img
+                                                                        src="{{asset('doctor/assets/img/icons/video-icon-sm.svg')}}" alt="">
+                                                                    Video Call</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><a class="call-status"
+                                                                href="video-call.html">Join Call</a></td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient3.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a href="patient-profile.html">James
+                                                                    <span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            <div class="consult-type d-flex flex-column">
+                                                                <h6 class="mb-0">Online Consultation</h6>
+                                                                <p class="mb-0"><img
+                                                                        src="{{asset('doctor/assets/img/icons/audio-icon-sm.svg')}}"
+                                                                        alt="">Audio Call</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><a class="call-status"
+                                                                href="voice-call.html">Join Call</a></td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient4.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a href="patient-profile.html">Hendry
+                                                                    <span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            <div class="consult-type d-flex flex-column">
+                                                                <h6 class="mb-0">Online Consultation</h6>
+                                                                <p class="mb-0"><img src="{{asset('doctor/assets/img/icons/chat-sm.svg')}}"
+                                                                        alt=""> Chat</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><a class="call-status"
+                                                                href="chat.html">Ongoing</a></td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card dash-cards">
+                                    <div class="card-header">
+                                        <div class="today-appointment-title">
+                                            <h5 class="mb-0">Patients</h5>
+                                            <a href="my-patients.html">
+                                                <h6 class="mb-0">View All<i class="feather-arrow-right"></i></h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a
+                                                                    href="patient-profile.html">Richard<span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient2.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a
+                                                                    href="patient-profile.html">Wilson<span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient3.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a href="patient-profile.html">James
+                                                                    <span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="patient-profile.html"
+                                                                    class="avatar avatar-m me-2"><img class="avatar-img"
+                                                                        src="{{asset('doctor/assets/img/patients/patient4.jpg')}}"
+                                                                        alt="User Image"></a>
+                                                                <a
+                                                                    href="patient-profile.html">Hendry<span>#PT0016</span></a>
+                                                            </h2>
+                                                        </td>
+                                                        <td class="text-center"><a href="patient-profile.html"><i
+                                                                    class="fas fa-chevron-right"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+    </div>
+
+
+    <script data-cfasync="false"
+        src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{{asset('doctor/assets/js/jquery-3.6.0.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/js/bootstrap.bundle.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/plugins/theia-sticky-sidebar/ResizeSensor.js')}}"></script>
+    <script src="{{asset('doctor/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/js/circle-progress.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/js/feather.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/plugins/select2/js/select2.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/js/owl.carousel.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/plugins/apex/apexcharts.min.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/plugins/apex/chart-data.js')}}"></script>
+
+    <script src="{{asset('doctor/assets/js/script.js')}}"></script>
+</body>
+
+<!-- Mirrored from doccure.dreamguystech.com/html/template/doctor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:39:21 GMT -->
+
+</html>

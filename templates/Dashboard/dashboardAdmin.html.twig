@@ -341,125 +341,53 @@
 							</div>
 						</div>
 						<div class="card-body p-0">
-							<div class="table-responsive">
-								<table class="table table-borderless hover-table">
-									<thead class="thead-light">
-										<tr>
-											<th>ID</th>
-											<th>Patient</th>
-											<th>Disease</th>
-											<th>Member since
-											</th>
-											<th>Status</th>
-											<th class="text-right"></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>#4546</td>
-											<td>
-												<h2 class="table-avatar">
-													<a href="profile.html"><img class="avatar avatar-img" src="assets/img/profiles/avatar-07.jpg" alt="User Image"></a>
-													<a href="#" class="user-name">Bess Twishes
-														<span class="text-muted">Male, 40 Years Old</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="disease-name">Allergies & Asthma</span>
-											</td>
-											<td>
-												<span class="text-yellow user-name">New Patient</span>
-												<span class="d-block">23 Nov 2020</span>
-											</td>
-											<td>
-												<span class="badge bg-badge-grey text-success">
-													<i class="fas fa-circle me-1"></i>
-													Enabled</span>
-											</td>
-											<td class="text-right">
-												<i class="feather-chevron-right"></i>
-											</td>
-										</tr>
-										<tr>
-											<td>#8774</td>
-											<td>
-												<h2 class="table-avatar">
-													<a href="profile.html"><img class="avatar avatar-img" src="assets/img/profiles/avatar-04.jpg" alt="User Image"></a>
-													<a href="#" class="user-name">Bess Twishes
-														<span class="text-muted">Female,30 Years Old</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="disease-name">Sleep Problem</span>
-											</td>
-											<td>
-												<span class="text-danger user-name">Old Patient</span>
-												<span class="d-block">23 Nov 2020</span>
-											</td>
-											<td>
-												<span class="badge bg-badge-grey text-danger">
-													<i class="fas fa-circle me-1"></i>
-													Disabled</span>
-											</td>
-											<td class="text-right">
-												<i class="feather-chevron-right"></i>
-											</td>
-										</tr>
-										<tr>
-											<td>#4546</td>
-											<td>
-												<h2 class="table-avatar">
-													<a href="profile.html"><img class="avatar avatar-img" src="assets/img/profiles/avatar-02.jpg" alt="User Image"></a>
-													<a href="#" class="user-name">Abdul Aziz Lazis
-														<span class="text-muted">Male, 25 Years Old</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="disease-name">Tooth Pain</span>
-											</td>
-											<td>
-												<span class="text-danger user-name">Old Patient</span>
-												<span class="d-block">23 Nov 2020</span>
-											</td>
-											<td>
-												<span class="badge bg-badge-grey text-success">
-													<i class="fas fa-circle me-1"></i>
-													Enabled</span>
-											</td>
-											<td class="text-right">
-												<i class="feather-chevron-right"></i>
-											</td>
-										</tr>
-										<tr>
-											<td>#4546</td>
-											<td>
-												<h2 class="table-avatar">
-													<a href="profile.html"><img class="avatar avatar-img" src="assets/img/profiles/avatar-05.jpg" alt="User Image"></a>
-													<a href="#" class="user-name">Alex Siauw
-														<span class="text-muted">Male, 29 Years Old</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="disease-name">Pain on knee</span>
-											</td>
-											<td>
-												<span class="text-yellow user-name">New Patient</span>
-												<span class="d-block">23 Nov 2020</span>
-											</td>
-											<td>
-												<span class="badge bg-badge-grey text-success">
-													<i class="fas fa-circle me-1"></i>
-													Enabled</span>
-											</td>
-											<td class="text-right">
-												<i class="feather-chevron-right"></i>
-											</td>
-										</tr>
-									</tbody>
+								<div class="table-responsive">
+									<table class="table table-borderless hover-table">
+										<thead class="thead-light">
+											<tr>
+										
+                <th>Email</th>
+              
+                <th>Nom</th>
+                <th>Prenom</th>
+          
+                <th>Sexe</th>
+                <th>Telephone</th>
+                <th>Gouvernorat</th>
+                <th>Adresse</th>
+               
+                <th>actions</th>
+												<th class="text-right"></th>
+											</tr>
+										</thead>
+									  <tbody>
+        {% for user in users %}
+        {% if user.roles == ["ROLE_PATIENT"]%}
+            <tr>
+               
+                <td>{{ user.email }}</td>
+              
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+           
+                <td>{{ user.sexe }}</td>
+                <td>{{ user.telephone }}</td>
+                <td>{{ user.gouvernorat }}</td>
+                <td>{{ user.adresse }}</td>
+         
+                <td>
+                    <a href="{{ path('app_patient_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_patient_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+			      {%endif%}
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+      
+        {% endfor %}
+        </tbody>
 								</table>
 							</div>
 						</div>

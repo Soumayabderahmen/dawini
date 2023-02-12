@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Images;
 use App\Entity\Specialites;
 use App\Form\SpecialitesType;
 use App\Repository\SpecialitesRepository;
@@ -29,6 +29,25 @@ class SpecialitesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //on recupere les images transmises
+            $images = $form->get('images')->getData();
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $img->setUrl($fichier);
+                $specialite->addImage($img);
+            }
             $specialitesRepository->save($specialite, true);
 
             return $this->redirectToRoute('app_specialites_index', [], Response::HTTP_SEE_OTHER);
@@ -55,6 +74,25 @@ class SpecialitesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+    
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $img->setUrl($fichier);
+                $specialite->addImage($img);
+            }
             $specialitesRepository->save($specialite, true);
 
             return $this->redirectToRoute('app_specialites_index', [], Response::HTTP_SEE_OTHER);
@@ -74,5 +112,23 @@ class SpecialitesController extends AbstractController
         }
 
         return $this->redirectToRoute('app_specialites_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    
+    #[Route('image/delete/{id}', name: 'image_delete_specialite')]
+    public function deleteImages($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $images = $this->getDoctrine()->getRepository(Images::class);
+        $images = $images->find($id);
+        $specialite = $images->getSpecialite($id);
+        if (!$images) {
+            throw $this->createNotFoundException(
+                'There are no specialite with the following id: ' . $id
+            );
+        }
+        $em->remove($images);
+        $em->flush();
+        return $this->redirectToRoute('app_specialites_edit', ['id' => $specialite->getId()]);
     }
 }

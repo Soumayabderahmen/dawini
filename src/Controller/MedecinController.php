@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 #[Route('/medecin')]
 class MedecinController extends AbstractController
 {
@@ -51,7 +52,7 @@ class MedecinController extends AbstractController
             $user->setRoles($roles);
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('app_medecin_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('medecin/new.html.twig', [

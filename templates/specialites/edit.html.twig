@@ -1,11 +1,6 @@
-{# templates/article/edit.html.twig #}
 
-{% extends 'base.html.twig' %}
+	{{ include('specialites/_form.html.twig') }}
+	
 
-{% block body %}
-    <h1>Modifier un article</h1>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit">Enregistrer les modifications</button>
-    {{ form_end(form) }}
-{% endblock %}
+
+
