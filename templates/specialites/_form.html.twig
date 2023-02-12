@@ -43,35 +43,39 @@
 <div class="change-photo-btn  bg-grey">
 <div>
 <i class="feather-upload"></i>
+<p>Upload File</p>
 </div>
-								{{ form_widget(form.images, {attr:{'class':'form-control change-photo-btn  bg-grey'}}) }}
+								{{ form_widget(form.images, {attr:{'class':'upload'}}) }}
 </div>
 
 <div class="upload-file">
-<h6>Uploaded files</h6>
+<h6>Les Images</h6>
+
 <div class="up-img">
 {# Si la route est app_specialites_edit on affiche les images #}
 	{% if app.request.attributes.get('_route') == 'app_specialites_edit' %}
   
           <div class="col-sm-10">
-
+{# up-img #}
         {% for image in  specialite.images %}
            
     
              
               
-                <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150">
-      
+                <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150px" height="150px"/>
 
-  <a class="btn edit btn-danger"  href ='{{path('image_delete_specialite',{id: image.id}) }}' ><i class="icon-trash-alt"></i></a>           
-      
-        {% endfor %}
+  {# <a class="btn edit btn-danger"  href ='{{path('image_delete_specialite',{id: image.id}) }}' ><i class="icon-trash-alt"></i></a>            #}
+      <a href ='{{path('image_delete_specialite',{id: image.id}) }}' class="close icon text-danger " ><i  class="feather-x-circle "></i></a>
+        {# {% endfor %}
   
+ {% endif %} #}
+    
+
+
+ {% endfor %}
  {% endif %}
-    <button class="btn">{{ button_label|default('Save') }}</button>
 </div>
-<p>IMG_3892.jpg</p>
-</div>
+
 					
 					<div class="col-12">
 								<div class="doctor-submit text-end">
