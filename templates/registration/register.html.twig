@@ -1,0 +1,196 @@
+{% block title %}{% endblock %}
+{% block body %}
+	<!DOCTYPE html>
+	<html
+		lang="en">
+
+		<!-- Mirrored from doccure.dreamguystech.com/html/template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:42:01 GMT -->
+		<head>
+			<meta charset="utf-8">
+			<title>Doccure</title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+			<link href="{{ asset('admin/assets/img/logo_small.png') }}" rel="icon">
+
+			<link rel="stylesheet" href="{{ asset('login/assets/css/bootstrap.min.css') }}">
+
+			<link rel="stylesheet" href="{{ asset('login/assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('login/assets/plugins/fontawesome/css/all.min.css') }}">
+
+			<link rel="stylesheet" href="{{ asset('login/assets/css/feather.css') }}">
+
+			<link rel="stylesheet" href="{{ asset('login/assets/css/style.css') }}">
+		</head>
+		<body class="account-page">
+
+			<div class="main-wrapper">
+				<div class="content">
+					<div class="container-fluid">
+						<div class="row">
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+     
+											<img src="{{ asset('login/assets/img/login-banner.png')}}" class="img-fluid" alt="Doccure Register">
+										
+    </div>
+    <div class="col">
+     <div class="col-md-12 col-lg-12 login-right">
+											<div class="login-header">
+												<h3>Patient Register
+													<a href={{ path('app_register_medecin')}}>Are you a Doctor?</a>
+												</h3>
+											</div>
+											{{ form_start(registrationForm) }}
+											<div class="row">
+
+								
+
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Nom
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.nom, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Prenom
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.prenom, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Carte D'identité
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.cin, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Sexe
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.sexe, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.telephone, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-xl-6">
+									<div class="form-group local-forms">
+										<label>Gouvernorat<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.gouvernorat, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Email
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.email, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>
+											Password
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.password, {attr:{'class':'form-control'}}) }}
+
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Confirme Password
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.confirm_password, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Address
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(registrationForm.adresse, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+
+								<div class="upload-img">
+									<div class="change-photo-btn">
+										<span>
+											<i class="fa fa-upload"></i>
+											Upload Photo</span>
+
+										{{ form_widget(registrationForm.photo, {attr:{'class':'upload'}}) }}
+
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max
+																				                                                            size of 2MB</small>
+								</div>
+
+
+								<div class="col-12">
+									<div class="doctor-submit text-end">
+										<div class="text-right">
+											{{ form_row(registrationForm.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+										</div>
+
+									</div>
+								</div>
+							</div>
+											{{ form_end(registrationForm) }}
+										</div>
+									</div>
+    </div>
+    
+  </div>
+</div>
+
+
+							{# <div class="col-md-8 offset-md-2">
+
+								<div class="account-content">
+									<div class="row align-items-center justify-content-center">
+										<div class="col-md-7 col-lg-6 login-left">
+											<img src="{{ asset('login/assets/img/login-banner.png')}}" class="img-fluid" alt="Doccure Register">
+										</div>
+										
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div> #}
+
+
+			</div>
+			<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+			<script src="{{asset('login/assets/js/jquery-3.6.0.min.js') }}"></script>
+			<script src="{{ asset('login/assets/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('login/assets/js/feather.min.js') }}"></script>
+			<script src="{{ asset('login/assets/js/script.js') }}"></script>
+		</body>
+	</html>
+{% endblock %}
+

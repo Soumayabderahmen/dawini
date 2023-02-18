@@ -2,43 +2,6 @@
 {% endblock %}
 
 {% block body %}
-	{# <form method="post">
-		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		{% endif %}
-
-		{% if app.user %}
-			<div class="mb-3">
-				You are logged in as
-				{{ app.user.userIdentifier }},
-				<a href="{{ path('app_logout') }}">Logout</a>
-			</div>
-		{% endif %}
-
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-		<label for="inputEmail">Email</label>
-		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		<label for="inputPassword">Password</label>
-		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-		<input
-		type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-		{#
-		        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-		        See https://symfony.com/doc/current/security/remember_me.html
-		
-		        <div class="checkbox mb-3">
-		            <label>
-		                <input type="checkbox" name="_remember_me"> Remember me
-		            </label>
-		        </div>
-		    
-
-		<button class="btn btn-lg btn-primary" type="submit">
-			Sign in
-		</button>
-	</form> #}
 	<!DOCTYPE html>
 	<html
 		lang="en">
@@ -49,7 +12,7 @@
 			<title>Doccure</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
-			<link href="{{ asset('/login/assets/img/favicon.png') }}" rel="icon">
+			<link href="{{ asset('admin/assets/img/logo_small.png') }}" rel="icon">
 
 			<link rel="stylesheet" href="{{ asset('login/assets/css/bootstrap.min.css') }}">
 
@@ -75,7 +38,7 @@
 				<div class="account-content">
 					<div class="row align-items-center justify-content-center">
 						<div class="col-md-7 col-lg-6 login-left">
-							<img src="{{ asset('login/assets/img/login-banner.png') }}" class="img-fluid" alt="Doccure Login">
+							<img src="{{ asset('login/assets/img/user.webp') }}" class="img-fluid" alt="Doccure Login">
 						</div>
 						<div class="col-md-12 col-lg-6 login-right">
 							<div class="login-header">
@@ -125,7 +88,7 @@
 									</div>
 								</div>
 								<div class="text-center dont-have">Don’t have an account?
-									<a href="register.html">Register</a>
+									<a href="{{ path('app_register') }}">Register</a>
 								</div>
 						
 						</div>

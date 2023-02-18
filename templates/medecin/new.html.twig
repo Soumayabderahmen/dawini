@@ -4,7 +4,7 @@
 {% block content %}
 	<h1>Create new Specialites</h1>
 	{# 
-		{{ include('specialites/_form.html.twig') }} #}
+			{{ include('specialites/_form.html.twig') }} #}
 
 	{# <a href="{{ path('app_specialites_index') }}">back to list</a> #}
 	<div class="page-wrapper">
@@ -13,164 +13,180 @@
 				<div class="col-sm-12">
 					<div class="card">
 						<div class="card-body">
-							 {{ form_start(form) }}
-								<div class="row">
-                                
-									<div class="col-12">
-										<div class="form-heading">
-											<h4>Doctor Details</h4>
-										</div>
-									</div>
+							{{ form_start(form) }}
+							<div class="row">
 
-   
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Nom
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Prenom
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Carte D'identité
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Sexe
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.sexe, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Telephone
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-                                    <div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Telephone Fixe
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-6">
-										<div class="form-group local-forms">
-											<label>Gouvernorat<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.gouvernorat, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-	<div class="col-12 col-md-6 col-xl-6">
-										<div class="form-group local-forms">
-											<label>Titre
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.titre, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Email
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>
-												Password
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.password, {attr:{'class':'form-control'}}) }}
-
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Confirme Password
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.confirm_password, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-								<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Tarif<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.tarif, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Spécialité<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.specialites, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-                                    	<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>CNAM<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.cnam, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-                                    <div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Address
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.adresse, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Addresse Cabinet
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.adresse_cabinet, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									
-									<div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Diplome et Formation<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.diplome_formation, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-
-
-									
-
-
-									
-									<div class="col-12">
-										<div class="doctor-submit text-end">
-                            													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }} </div>
-
-										</div>
+								<div class="col-12">
+									<div class="form-heading">
+										<h4>Doctor Details</h4>
 									</div>
 								</div>
+
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Nom
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Prenom
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Carte D'identité
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Sexe
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.sexe, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone Fixe
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-6">
+									<div class="form-group local-forms">
+										<label>Gouvernorat<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.gouvernorat, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-6">
+									<div class="form-group local-forms">
+										<label>Titre
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.titre, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Email
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>
+											Password
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.password, {attr:{'class':'form-control'}}) }}
+
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Confirme Password
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.confirm_password, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Tarif<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.tarif, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Spécialité<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.specialites, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>CNAM<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.cnam, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Address
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.adresse, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Addresse Cabinet
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.adresse_cabinet, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Diplome et Formation<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.diplome_formation, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+
+
+								  
+
+
+								<div class="upload-img">
+									<div class="change-photo-btn">
+										<span>
+											<i class="fa fa-upload"></i>
+											Upload Photo</span>
+									
+										{{ form_widget(form.photo, {attr:{'class':'upload'}}) }}
+
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max
+										                                                            size of 2MB</small>
+								</div>
+								
+
+								<div class="col-12">
+									<div class="doctor-submit text-end">
+										<div class="text-right">
+											{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+										</div>
+
+									</div>
+								</div>
+							</div>
 							{{ form_end(form) }}
 						</div>
 					</div>
@@ -180,3 +196,4 @@
 
 	</div>
 {% endblock %}
+

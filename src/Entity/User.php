@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -18,14 +19,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'Type', type: 'string')]
 #[DiscriminatorMap(['user' => User::class, 'admin' => Admin::class,'patient'=>Patient::class,'assistant'=>Assistant::class ,'medecin'=>Medecin::class])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[ORM\Column(length: 180, unique: true)]
+    // #[Assert\Unique]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -37,10 +43,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+
+    
     #[ORM\Column(length: 255)]
+    //  #[Assert\NotBlank(message: 'Le nom du ne peut pas être vide')]
+  
+    // #[Assert\Length(
+    //     min: 2,
+    //     max: 50,
+    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
+    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    // )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    // #[Assert\Length(
+    //     min: 2,
+    //     max: 50,
+    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
+    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    // )]
     private ?string $prenom = null;
 
     #[ORM\Column]
@@ -50,9 +72,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column]
+    // #[Assert\Length(
+    //     min: 8,
+    //     max: 8,
+    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
+    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    // )]
     private ?int $telephone = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $gouvernorat = null;
 
     #[ORM\Column(length: 255)]
@@ -73,14 +102,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reclamation::class)]
     private Collection $reclamations;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Images::class)]
-    private Collection $images;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
+ 
+
+    // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    // private Collection $images;
+
+    // #[ORM\OneToMany(mappedBy: 'images', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    // private Collection $images;
+
+    
+
+   
+  
 
     public function __construct()
     {
+       
+       
         $this->commentaires = new ArrayCollection();
         $this->reclamations = new ArrayCollection();
-        $this->images = new ArrayCollection();
+     
+       
+       
+       
+       
     }
 
 
@@ -326,35 +374,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+
+
+
+    
     }
 
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImages(): Collection
+    public function getImage(): ?string
     {
-        return $this->images;
+        return $this->image;
     }
 
-    public function addImage(Images $image): self
+    public function setImage(?string $image): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images->add($image);
-            $image->setUser($this);
-        }
+        $this->image = $image;
 
         return $this;
     }
 
-    public function removeImage(Images $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getUser() === $this) {
-                $image->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }
+
+   
+   
+
+
+    
+
+   
+
+ 
+  
+  
+
+    
+
+   
+ 
+    
+
+
+
+  
+
+       
+    
+
+ 
+

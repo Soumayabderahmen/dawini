@@ -46,19 +46,25 @@ class Medecin extends User
     #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: RendezVous::class)]
     private Collection $rendezVouses;
 
-    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Images::class)]
-    private Collection $imagesCabinet;
+    // #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Images::class)]
+    // private Collection $imagesCabinet;
 
     #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Dossier::class)]
     private Collection $dossiers;
 
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Avis::class)]
+    private Collection $avis;
+
+   
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->consulations = new ArrayCollection();
         $this->rendezVouses = new ArrayCollection();
-        $this->imagesCabinet = new ArrayCollection();
+       
         $this->dossiers = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+       
     }
 
     public function getTitre(): ?string
@@ -238,35 +244,7 @@ class Medecin extends User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Images>
-     */
-    public function getImagesCabinet(): Collection
-    {
-        return $this->imagesCabinet;
-    }
-
-    public function addImagesCabinet(Images $imagesCabinet): self
-    {
-        if (!$this->imagesCabinet->contains($imagesCabinet)) {
-            $this->imagesCabinet->add($imagesCabinet);
-            $imagesCabinet->setMedecin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImagesCabinet(Images $imagesCabinet): self
-    {
-        if ($this->imagesCabinet->removeElement($imagesCabinet)) {
-            // set the owning side to null (unless already changed)
-            if ($imagesCabinet->getMedecin() === $this) {
-                $imagesCabinet->setMedecin(null);
-            }
-        }
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection<int, Dossier>
@@ -297,4 +275,39 @@ class Medecin extends User
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getMedecin() === $this) {
+                $avi->setMedecin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+   
+
 }

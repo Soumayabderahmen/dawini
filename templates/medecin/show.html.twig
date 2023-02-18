@@ -1,94 +1,125 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Medecin{% endblock %}
-
-{% block body %}
-    <h1>Medecin</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ medecin.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ medecin.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ medecin.roles ? medecin.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ medecin.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ medecin.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ medecin.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Cin</th>
-                <td>{{ medecin.cin }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ medecin.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ medecin.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Gouvernorat</th>
-                <td>{{ medecin.gouvernorat }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ medecin.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Confirm_password</th>
-                <td>{{ medecin.confirmPassword }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ medecin.titre }}</td>
-            </tr>
-            <tr>
-                <th>Adresse_cabinet</th>
-                <td>{{ medecin.adresseCabinet }}</td>
-            </tr>
-            <tr>
-                <th>Fixe</th>
-                <td>{{ medecin.fixe }}</td>
-            </tr>
-            <tr>
-                <th>Diplome_formation</th>
-                <td>{{ medecin.diplomeFormation }}</td>
-            </tr>
-            <tr>
-                <th>Tarif</th>
-                <td>{{ medecin.tarif }}</td>
-            </tr>
-            <tr>
-                <th>Cnam</th>
-                <td>{{ medecin.cnam ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Horraire_ouverture</th>
-                <td>{{ medecin.horraireOuverture ? medecin.horraireOuverture|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_medecin_index') }}">back to list</a>
-
-    <a href="{{ path('app_medecin_edit', {'id': medecin.id}) }}">edit</a>
-
-    {{ include('medecin/_delete_form.html.twig') }}
+{% block title %}
+	Dawini
 {% endblock %}
+{% block css %}
+	{{parent()}}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<link href="{{asset('admin/assets/img/favicon.png')}}" rel="icon">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/plugins/fontawesome/css/all.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/feather.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
+{% endblock %}
+{%block content%}
+<div class="page-wrapper" style="width: 919px;">
+	<div class="content container-fluid pb-0">
+		<div class="card">
+			<div class="col-md-12 col-12">
+				<nav aria-label="breadcrumb" class="page-breadcrumb">
+					<ol class="breadcrumb"></ol>
+				</nav>
+			</div>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row" style="justify-content: center;">
+						<div class="page-header">
+							<div class="row align-items-center">
+								<div class="col-md-12 d-flex justify-content-end">
+									<div class="text-right">
+										<a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_medecin_index') }}">
+											<i class="feather-corner-up-left "></i>
+											Liste Medecin
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><br>
+					<div class="card">
+						<div class="card-body">
+							<table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+								<tbody>
+									<tr>
+										<th>Email</th>
+										<td>{{ medecin.email }}</td>
+									</tr>
+									<tr>
+										<th>Nom</th>
+										<td>{{ medecin.nom }}</td>
+									</tr>
+									<tr>
+										<th>Prenom</th>
+										<td>{{ medecin.prenom }}</td>
+									</tr>
+									<tr>
+										<th>Cin</th>
+										<td>{{ medecin.cin }}</td>
+									</tr>
+                                    <tr>
+										<th>Specialité</th>
+										<td>{{ medecin.specialites }}</td>
+									</tr>
+
+									<tr>
+										<th>Telephone</th>
+										<td>{{ medecin.telephone }}</td>
+									</tr>
+									<tr>
+										<th>Gouvernorat</th>
+										<td>{{ medecin.gouvernorat }}</td>
+									</tr>
+									<tr>
+										<th>Adresse</th>
+										<td>{{ medecin.adresse }}</td>
+									</tr>
+									<tr>
+										<th>Titre</th>
+										<td>{{ medecin.titre }}</td>
+									</tr>
+									<tr>
+										<th>Adresse Cabinet</th>
+										<td>{{ medecin.adresseCabinet }}</td>
+									</tr>
+									<tr>
+										<th>Telephone fixe</th>
+										<td>{{ medecin.fixe }}</td>
+									</tr>
+									<tr>
+										<th>Diplome</th>
+										<td>{{ medecin.diplomeFormation }}</td>
+									</tr>
+									<tr>
+										<th>Cnam</th>
+										<td>{{ medecin.cnam ? 'Yes' : 'No' }}</td>
+									</tr>
+
+									<tr>
+										<th>Tarif</th>
+										<td>{{ medecin.tarif }}</td>
+									</tr>
+									<tr>
+										<th>sexe</th>
+										<td>{{ medecin.sexe }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
+{%block script%}
+{{parent()}}
+<script src="{{asset('admin/assets/js/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/feather.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/script.js')}}"></script>
+{%endblock%}
+
+

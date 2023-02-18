@@ -1,12 +1,38 @@
 {% extends 'base.html.twig' %}
+{% block title %}
+	Dawini
+{% endblock %}
 
-{% block title %}User{% endblock %}
+{%block content%}
+<div class="page-wrapper" style="width: 919px;">
+	<div class="content container-fluid pb-0">
+		<div class="card">
+			<div class="col-md-12 col-12">
+				<nav aria-label="breadcrumb" class="page-breadcrumb">
+					<ol class="breadcrumb"></ol>
+				</nav>
+			</div>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row" style="justify-content: center;">
+						<div class="page-header">
+							<div class="row align-items-center">
+								<div class="col-md-12 d-flex justify-content-end">
+									<div class="text-right">
+										<a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_assistant_index') }}">
+											<i class="icon-reply "></i>
+											Liste des Assistants
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><br>
+					<div class="card">
+						<div class="card-body">
+							<table class="table ">
 
-{% block body %}
-    <h1>User</h1>
-
-    <table class="table">
-        <tbody>
+								 <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ user.id }}</td>
@@ -15,14 +41,8 @@
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
+           
+            
             <tr>
                 <th>Nom</th>
                 <td>{{ user.nom }}</td>
@@ -51,16 +71,18 @@
                 <th>Adresse</th>
                 <td>{{ user.adresse }}</td>
             </tr>
-            <tr>
-                <th>Confirm_password</th>
-                <td>{{ user.confirmPassword }}</td>
-            </tr>
+           
+           
         </tbody>
-    </table>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}
 
-    <a href="{{ path('app_assistant_index') }}">back to list</a>
 
-    <a href="{{ path('app_assistant_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('assistant/_delete_form.html.twig') }}
-{% endblock %}

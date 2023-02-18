@@ -21,7 +21,7 @@ class DashboardController extends AbstractController
     #[Route('/list', name: 'app_list')]
     public function list(MedecinRepository $userRepository): Response
     {
-        return $this->render('Medecin/index.html.twig', [
+        return $this->render('medecin/medecin.html.twig', [
             'medecins' => $userRepository->findAll(),
         ]);
     }

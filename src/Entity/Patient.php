@@ -23,12 +23,19 @@ class Patient extends User
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Diagnostique::class)]
     private Collection $diagnostiques;
 
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Avis::class)]
+    private Collection $avis;
+
+   
+
     public function __construct()
     {
         $this->consulations = new ArrayCollection();
         $this->paiements = new ArrayCollection();
         $this->dossiers = new ArrayCollection();
         $this->diagnostiques = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+        
     }
 
     /**
@@ -150,4 +157,37 @@ class Patient extends User
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getPatient() === $this) {
+                $avi->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+ 
+ 
 }

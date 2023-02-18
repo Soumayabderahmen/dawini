@@ -27,15 +27,12 @@
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-              
                 <td>{{ user.nom }}</td>
                 <td>{{ user.prenom }}</td>
-               
                 <td>{{ user.sexe }}</td>
                 <td>{{ user.telephone }}</td>
                 <td>{{ user.gouvernorat }}</td>
                 <td>{{ user.adresse }}</td>
-               
                 <td>
                     <a href="{{ path('app_admin_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_admin_edit', {'id': user.id}) }}">edit</a>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ImagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
@@ -22,19 +24,31 @@ class Images
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Article $aticles = null;
 
-    #[ORM\ManyToOne(inversedBy: 'images')]
-    private ?User $user = null;
+   
 
-    #[ORM\ManyToOne(inversedBy: 'imagesCabinet')]
-    private ?Medecin $medecin = null;
+  
 
     #[ORM\ManyToOne(inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Specialites $specialite = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Dossier $dossier = null;
 
+  
+
+    // #[ORM\ManyToOne(inversedBy: 'images')]
+    // #[ORM\JoinColumn(nullable: false,referencedColumnName:"id",name:"user_id")]
+    // private ?User $users = null;
+
+   
+
+   
+  
+
+  
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -76,29 +90,13 @@ class Images
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+ 
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
+  
 
-        return $this;
-    }
+ 
 
-    public function getMedecin(): ?Medecin
-    {
-        return $this->medecin;
-    }
-
-    public function setMedecin(?Medecin $medecin): self
-    {
-        $this->medecin = $medecin;
-
-        return $this;
-    }
+   
 
     public function getSpecialite(): ?Specialites
     {
@@ -123,4 +121,22 @@ class Images
 
         return $this;
     }
+
+   
+   
+
+   
+   
+    
+
+    
+
+    
+    
+
+  
+
+   
+
+   
 }

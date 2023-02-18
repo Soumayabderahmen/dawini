@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html
+	lang="en">
+
+	<!-- Mirrored from doccure.dreamguystech.com/html/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:31:34 GMT -->
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        
+		<title>	{% block title %}
+		Dawini
+	{% endblock %}</title>
+{% block css %}
+		<link type="image/x-icon" href="{{asset('client/assets/img/favicon.png')}}" rel="icon">
+
+		<link rel="stylesheet" href="{{asset('client/assets/css/bootstrap.min.css')}}">
+
+		<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+		<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/all.min.css')}}">
+
+		<link rel="stylesheet" href="{{asset('client/assets/css/aos.css')}}">
+
+		<link rel="stylesheet" href="{{asset('client/assets/css/style.css')}}">
+			</head>
+{% endblock %}
+
+
+	<body>
+
+	 <div class="main-wrapper">
+
+	    <header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+				{% block nav %}
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon bar-icon-one">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="index.html" class="navbar-brand logo">
+					      <img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="index.html" class="menu-logo">
+								    <img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li class="has-submenu active">
+								<a href="{{ path('app_front') }}">Acceuil
+									
+								</a>
+								
+							</li>
+							<li class="has-submenu">
+								<a href="#">Rendez-vous
+									
+								</a>
+								
+							</li>
+							<li class="has-submenu">
+								<a href="#">Article
+									
+								</a>
+								
+							
+									
+							</li>
+							<li class="has-submenu">
+								<a href="#">Forum
+									
+								</a>
+								
+							</li>
+							<li class="has-submenu">
+								<a href="#">a propos 
+									
+								</a>
+							</li>	
+								
+					<li class="login-link">
+						<a href="login.html">Se connecter/ S'inscrire </a>
+					</li>
+				</ul>
+			</div>
+			<ul class="nav header-navbar-rht">
+				<li class="nav-item contact-item">
+					<div class="header-contact-img">
+						<i class="far fa-hospital"></i>
+					</div>
+					<div class="header-contact-detail">
+						<p class="contact-header">Contact</p>
+						<p class="contact-info-header">
+							+216 27 841 624</p>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link header-login btn-one-light" href="login.html">Se connecter/ S'inscrire
+					</a>
+				</li>
+			</ul>
+			{% endblock %}
+		</nav>
+		
+	</body>
+
+</html>
+
+</header>
+{% block body %}
+<section class="section section-search">
+<div class="container-fluid">
+	<div class="banner-wrapper">
+		<div class="banner-header text-center aos" data-aos="fade-up">
+			<h1>Prendre un rendez-vous</h1>
+			<p>Découvrez les meilleurs médecins les plus proches de chez vous .</p>
+		</div>
+
+		<div class="search-box aos" data-aos="fade-up">
+			<form action="https://doccure.dreamguystech.com/html/template/search.html">
+				<div class="form-group search-location">
+					<input type="text" class="form-control" placeholder="Chercher selon localisation">
+					<span class="form-text">Basé sur votre localisation</span>
+				</div>
+				<div class="form-group search-info">
+					<input type="text" class="form-control" placeholder="Chercher des médecins">
+					
+				</div>
+				<button type="submit" class="btn btn-primary search-btn mt-0">
+					<i class="fas fa-search"></i>
+					<span>Cherchez</span>
+				</button>
+			</form>
+		</div>
+
+	</div>
+</div></section>
+	
+<section class="section section-specialities">
+<div class="container-fluid">
+	<div class="section-header text-center aos" data-aos="fade-up">
+		<h2> Nos Specialités</h2>
+		
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-9 aos" data-aos="fade-up">
+
+			<div class="specialities-slider slider">
+
+				<div class="speicality-item text-center">
+					<div class="speicality-img">
+						<img src="{{asset('client/assets/img/specialities/specialities-01.png ')}}" class="img-fluid" alt="Speciality">
+						<span>
+							<i class="fa fa-circle" aria-hidden="true"></i>
+						</span>
+					</div>
+					<p>Asthme  </p>
+				</div>
+
+
+				<div class="speicality-item text-center">
+					<div class="speicality-img">
+						<img src="{{asset('client/assets/img/specialities/specialities-02.png ')}}" class="img-fluid" alt="Speciality">
+						<span>
+							<i class="fa fa-circle" aria-hidden="true"></i>
+						</span>
+					</div>
+					<p> Cancer</p>
+				</div>
+
+
+				<div class="speicality-item text-center">
+					<div class="speicality-img">
+						<img src="{{asset('client/assets/img/specialities/specialities-03.png ')}} " class="img-fluid" alt="Speciality">
+						<span>
+							<i class="fa fa-circle" aria-hidden="true"></i>
+						</span>
+					</div>
+					<p>Diabète</p>
+				</div>
+
+
+				<div class="speicality-item text-center">
+					<div class="speicality-img">
+						<img src="{{asset('client/assets/img/specialities/specialities-04.png ')}}" class="img-fluid" alt="Speciality">
+						<span>
+							<i class="fa fa-circle" aria-hidden="true"></i>
+						</span>
+					</div>
+					<p>Cardiovasculaires</p>
+				</div>
+
+
+				<div class="speicality-item text-center">
+					<div class="speicality-img">
+						<img src="{{asset('client/assets/img/specialities/specialities-05.png ')}}" class="img-fluid" alt="Speciality">
+						<span>
+							<i class="fa fa-circle" aria-hidden="true"></i>
+						</span>
+					</div>
+					<p>maux de dos</p>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div></section>
+<section class="section section-doctor">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4">
+			<div class="section-header aos" data-aos="fade-up">
+				<h2>Réservez notre médecin</h2>
+			</div>
+			<div class="about-content aos" data-aos="fade-up">
+				Consultez des médecins inscrits à l’ordre des médecins: examen de votre dossier, discussion par messages avec médecin , rendez-vous par vidéo avec médecin via ordinateur , récupérez votre traitement en ligne.
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div class="doctor-slider slider aos" data-aos="fade-up">
+{% for medecin in medecins %}
+				<div class="profile-widget">
+					<div class="doc-img">
+						<a href="doctor-profile.html">
+							<img class="img-fluid" alt="User Image" src="{{asset('client/assets/img/doctors/doctor-01.jpg')}}">
+						</a>
+						<a href="javascript:void(0)" class="fav-btn">
+							<i class="far fa-bookmark"></i>
+						</a>
+					</div>
+						
+					<div class="pro-content">
+						<h3 class="title">
+
+							<a href="doctor-profile.html">{{ medecin.nom }} {{ medecin.prenom }}</a>
+							<i class="fas fa-check-circle verified"></i>
+						</h3>
+						<p class="speciality"><td>{{ medecin.specialites.nom }}</td></p>
+						<div class="rating">
+							<i class="fas fa-star filled"></i>
+							<i class="fas fa-star filled"></i>
+							<i class="fas fa-star filled"></i>
+							<i class="fas fa-star filled"></i>
+							<i class="fas fa-star filled"></i>
+							<span class="d-inline-block average-rating">(17)</span>
+						</div>
+						<ul class="available-info">
+							<li>
+								<i class="fas fa-map-marker-alt"></i>
+								<td>{{ medecin.gouvernorat }}</td>
+							</li>
+							
+							<li>
+								<i class="far fa-money-bill-alt"></i>
+								<td>{{ medecin.tarif }}</td>
+								<i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Lorem Ipsum"></i>
+							</li>
+						</ul>
+						<div class="row row-sm">
+							<div class="col-6">
+								<a href="{{ path('app_profil',{id: medecin.id})}}" class="btn view-btn">Voir le profil</a>
+							</div>
+							<div class="col-6">
+								<a href="booking.html" class="btn book-btn">rendez-vous</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+ {% endfor %}
+
+			
+
+
+				
+
+			</div>
+		</div>
+	</div>
+</div></section>
+<section class="section section-blogs">
+<div class="container-fluid">
+
+	<div class="section-header text-center aos" data-aos="fade-up">
+		<h2>Nos articles</h2>
+		
+	</div>
+
+	<div class="row blog-grid-row aos" data-aos="fade-up">
+		<div class="col-md-6 col-lg-3 col-sm-12">
+
+			<div class="blog grid-blog">
+				<div class="blog-image">
+					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-01.jpg')}}" alt="Post Image"></a>
+				</div>
+				<div class="blog-content">
+					<ul class="entry-meta meta-item">
+						<li>
+							<div class="post-author">
+								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-01.jpg')}}" alt="Post Author">
+									<span>Dr. Ruby Perrin</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<i class="far fa-clock"></i>
+							4 Dec 2019</li>
+					</ul>
+					<h3 class="blog-title">
+						<a href="blog-details.html">Doccure – Making your clinic painless visit?</a>
+					</h3>
+					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-6 col-lg-3 col-sm-12">
+
+			<div class="blog grid-blog">
+				<div class="blog-image">
+					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-02.jpg')}}" alt="Post Image"></a>
+				</div>
+				<div class="blog-content">
+					<ul class="entry-meta meta-item">
+						<li>
+							<div class="post-author">
+								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-02.jpg')}}" alt="Post Author">
+									<span>Dr. Darren Elder</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<i class="far fa-clock"></i>
+							3 Dec 2019</li>
+					</ul>
+					<h3 class="blog-title">
+						<a href="blog-details.html">What are the benefits of Online Doctor Booking?</a>
+					</h3>
+					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-6 col-lg-3 col-sm-12">
+
+			<div class="blog grid-blog">
+				<div class="blog-image">
+					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-03.jpg')}}" alt="Post Image"></a>
+				</div>
+				<div class="blog-content">
+					<ul class="entry-meta meta-item">
+						<li>
+							<div class="post-author">
+								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-03.jpg')}}" alt="Post Author">
+									<span>Dr. Deborah Angel</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<i class="far fa-clock"></i>
+							3 Dec 2019</li>
+					</ul>
+					<h3 class="blog-title">
+						<a href="blog-details.html">Benefits of consulting with an Online Doctor</a>
+					</h3>
+					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-md-6 col-lg-3 col-sm-12">
+
+			<div class="blog grid-blog">
+				<div class="blog-image">
+					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-04.jpg')}}" alt="Post Image"></a>
+				</div>
+				<div class="blog-content">
+					<ul class="entry-meta meta-item">
+						<li>
+							<div class="post-author">
+								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-04.jpg')}}" alt="Post Author">
+									<span>Dr. Sofia Brient</span>
+								</a>
+							</div>
+						</li>
+						<li>
+							<i class="far fa-clock"></i>
+							2 Dec 2019</li>
+					</ul>
+					<h3 class="blog-title">
+						<a href="blog-details.html">5 Great reasons to use an Online Doctor</a>
+					</h3>
+					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="view-all text-center aos" data-aos="fade-up">
+		<a href="blog-list.html" class="btn btn-primary">View All</a>
+	</div>
+</div>
+</section>
+{% endblock %}
+
+<footer class="footer">
+{% block footer %}
+<div class="footer-top aos" data-aos="fade-up">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+
+				<div class="footer-widget footer-about">
+					<div class="footer-logo">
+						<img src="assets/img/footer-logo.png" alt="logo">
+					</div>
+					<div class="footer-about-content">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						</p>
+						<div class="social-icon">
+							<ul>
+								<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-3 col-md-6">
+
+				<div class="footer-widget footer-menu">
+					<h2 class="footer-title">For Patients</h2>
+					<ul>
+						<li><a href="search.html">Search for Doctors</a></li>
+						<li><a href="login.html">Login</a></li>
+						<li><a href="register.html">Register</a></li>
+						<li><a href="booking.html">Booking</a></li>
+						<li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col-lg-3 col-md-6">
+
+				<div class="footer-widget footer-menu">
+					<h2 class="footer-title">For Doctors</h2>
+					<ul>
+						<li><a href="appointments.html">Appointments</a></li>
+						<li><a href="chat.html">Chat</a></li>
+						<li><a href="login.html">Login</a></li>
+						<li><a href="doctor-register.html">Register</a></li>
+						<li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col-lg-3 col-md-6">
+
+				<div class="footer-widget footer-contact">
+					<h2 class="footer-title">Contact Us</h2>
+					<div class="footer-contact-info">
+						<div class="footer-address">
+							<span>
+								<i class="fas fa-map-marker-alt"></i>
+							</span>
+							<p>
+								3556 Beech Street, San Francisco,<br>
+								California, CA 94108
+							</p>
+						</div>
+						<p>
+							<i class="fas fa-phone-alt"></i>
+							+1 315 369 5943
+						</p>
+						<p class="mb-0">
+							<i class="fas fa-envelope"></i>
+							<a href="https://doccure.dreamguystech.com/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="b1d5ded2d2c4c3d4f1d4c9d0dcc1ddd49fd2dedc">[email&#160;protected]</a>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="footer-bottom">
+	<div class="container-fluid">
+
+		<div class="copyright">
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<div class="copyright-text">
+						<p class="mb-0">&copy; 2022 Doccure. All rights reserved.</p>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6">
+
+					<div class="copyright-menu">
+						<ul class="policy-menu">
+							<li>
+								<a href="term-condition.html">Terms and Conditions</a>
+							</li>
+							<li>
+								<a href="privacy-policy.html">Policy</a>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div></footer>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+</script>
+<script src="{{asset('client/assets/js/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('client/assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('client/assets/js/slick.js')}}"></script>
+<script src="{{asset('client/assets/js/aos.js')}}"></script>
+<script src="{{asset('client/assets/js/script.js')}}"></script>
+{% endblock %}
+
+</body>
