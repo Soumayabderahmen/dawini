@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\User;
 use App\Form\AvisType;
 use App\Repository\AvisRepository;
 use App\Repository\MedecinRepository;
-
+use App\Repository\PatientRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +21,19 @@ class FrontController extends AbstractController
     {
         return $this->render('home.html.twig', [
             'medecins' => $userRepository->findAll(),
+            'users' => $userRepository->findAll(),
         ]);
     }
 
     #[Route('/profil/{id}', name: 'app_profil')]
-    public function avis(MedecinRepository $medecinRepository, Request $request,$id,AvisRepository $avisRepository): Response
-    {    
+    public function avis(MedecinRepository $medecinRepository, User $user,PatientRepository $patientRepository,Request $request,$id,AvisRepository $avisRepository): Response
+    {  
         $medecin = $medecinRepository->findById($id);
-       
-       
+        $medecinSelectioner = $medecinRepository->findOneBy(['id' => $id]);
+
+       $iduser=$this->getUser();
+     
+      
         $avi = new Avis();
         $avis=$avisRepository->findByMedecin($id);
         $countavis = count($avisRepository->findByMedecin($id));
@@ -35,10 +41,12 @@ class FrontController extends AbstractController
         $formAvis->handleRequest($request);
         if ($formAvis->isSubmitted() && $formAvis->isValid()) {
             $medecinSelectioner = $medecinRepository->findOneBy(['id' => $id]);
+            $patientConnecter = $patientRepository->findOneBy(['id' => $iduser]);
+
             $avi->setDate(new \DateTime('now'));
             $avi->setStatut("Activer");
             $avi->setMedecin($medecinSelectioner);
-
+            $avi->setPatient($patientConnecter);
             $avisRepository->save($avi, true);
             
             return $this->redirectToRoute('app_profil' ,['id'=>$id]);
@@ -47,6 +55,7 @@ class FrontController extends AbstractController
             'formAvis' => $formAvis,
             'countavis'=>$countavis,
             'avis'=>$avis,
+            'medecin'=>$medecin,
         ]);
     }
 }

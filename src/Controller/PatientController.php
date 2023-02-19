@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Patient;
 use App\Entity\User;
+use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -148,5 +149,35 @@ class PatientController extends AbstractController
         }
 
         return $this->redirectToRoute('app_patient_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/profile/patient', name: 'app_patient_profile')]
+    public function profile(Request $request): Response
+    {
+
+        $patient = $this->getUser();
+
+        if ($patient instanceof Patient) {
+            $form = $this->createForm(UserProfileType::class, $patient);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Profil mis à jour avec succès.');
+
+                return $this->redirectToRoute('app_patient_profile');
+            }
+
+            return $this->render('profile/patient_profile.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+
+        throw new \LogicException('Erreur : l\'utilisateur courant n\'est pas un admin.');
+    
+        // return $this->render('profile/med_profile.html.twig');
     }
 }

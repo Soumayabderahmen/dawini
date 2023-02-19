@@ -31,6 +31,7 @@ class AvisController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avi->setDate(new \DateTime('now'));
+            
             $avisRepository->save($avi, true);
 
             return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);

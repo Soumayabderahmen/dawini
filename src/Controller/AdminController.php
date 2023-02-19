@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\User;
+use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,11 +30,11 @@ class AdminController extends AbstractController
         $user=$this->getUser();
         $role=$user->getRoles();
         if (in_array("ROLE_ASSISTANT", $role)) 
-            return $this->redirectToRoute('app_dashAss');
+            return $this->redirectToRoute('app_front');
             if (in_array("ROLE_PATIENT", $role)) 
-              return $this->redirectToRoute('app_dashpat');
+              return $this->redirectToRoute('app_front');
               if (in_array("ROLE_MEDECIN", $role)) 
-              return $this->redirectToRoute('app_dash');
+              return $this->redirectToRoute('app_front');
               if (in_array("ROLE_ADMIN", $role)) 
               return $this->redirectToRoute('Dashboard');
         return $this->render('Dashboard/dashboardAdmin.html.twig', [
@@ -157,6 +158,38 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/profile/admin', name: 'app_admin_profile')]
+    public function profile(Request $request): Response
+    {
+
+        $admin = $this->getUser();
+
+        if ($admin instanceof Admin) {
+            $form = $this->createForm(UserProfileType::class, $admin);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Profil mis à jour avec succès.');
+
+                return $this->redirectToRoute('app_admin_profile');
+            }
+
+            return $this->render('profile/admin_profile.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+
+        throw new \LogicException('Erreur : l\'utilisateur courant n\'est pas un admin.');
+    
+        // return $this->render('profile/med_profile.html.twig');
+    }
+
+
 
   
 }

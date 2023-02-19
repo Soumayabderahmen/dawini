@@ -85,9 +85,39 @@
 									
 								</a>
 							</li>	
-								
+
+							{% if is_granted('ROLE_PATIENT') %}
+
+							 <li class="has-submenu">
+								<a href="{{ path('app_dashpat') }}">Dashboard 
+									
+								</a>
+							</li>	
+        
+                            {% endif %}
+	{% if is_granted('ROLE_ASSISTANT') %}
+
+							 <li class="has-submenu">
+								<a href="{{ path('app_dashAss') }}">Dashboard 
+									
+								</a>
+							</li>	
+        
+                            {% endif %}
+
+							 {% if is_granted('ROLE_MEDECIN') %}
+
+							 <li class="has-submenu">
+								<a href="{{ path('app_dash') }}">Dashboard 
+									
+								</a>
+							</li>	
+        
+                            {% endif %}
+
+							
 					<li class="login-link">
-						<a href="login.html">Se connecter/ S'inscrire </a>
+						<a href="{{ path('app_login') }}">Se connecter/ S'inscrire </a>
 					</li>
 				</ul>
 			</div>
@@ -103,7 +133,7 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link header-login btn-one-light" href="login.html">Se connecter/ S'inscrire
+					<a class="nav-link header-login btn-one-light" href="{{ path('app_login') }}">Se connecter/ S'inscrire
 					</a>
 				</li>
 			</ul>

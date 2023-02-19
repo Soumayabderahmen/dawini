@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Assistant;
 use App\Entity\User;
+use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -145,5 +146,35 @@ class AssistantController extends AbstractController
         }
 
         return $this->redirectToRoute('app_assistant_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/profile/assistant', name: 'app_assistant_profile')]
+    public function profile(Request $request): Response
+    {
+
+        $assistant = $this->getUser();
+
+        if ($assistant instanceof Assistant) {
+            $form = $this->createForm(UserProfileType::class, $assistant);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Profil mis à jour avec succès.');
+
+                return $this->redirectToRoute('app_assistant_profile');
+            }
+
+            return $this->render('profile/assistant_profile.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+
+        throw new \LogicException('Erreur : l\'utilisateur courant n\'est pas un assistant.');
+    
+        // return $this->render('profile/med_profile.html.twig');
     }
 }

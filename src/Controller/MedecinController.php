@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\MedecinType;
+use App\Form\MedProfileType;
 use App\Repository\MedecinRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -151,9 +152,62 @@ class MedecinController extends AbstractController
 
 
 
-    #[Route('/profile', name: 'app_medecin_profile')]
-    public function profile(): Response
+    #[Route('/profile/medecin', name: 'app_medecin_profile')]
+    public function profile(Request $request, SluggerInterface $slugger): Response
     {
-        return $this->render('medecin/profile.html.twig');
+
+        $medecin = $this->getUser();
+
+        if ($medecin instanceof Medecin) {
+            $form = $this->createForm(MedProfileType::class, $medecin);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $photo = $form->get('photo')->getData();
+
+                // this condition is needed because the 'brochure' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                if ($photo) {
+                    $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+    
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $photo->move(
+                            $this->getParameter('images_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                    }
+    
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $medecin->setImage($newFilename);
+                }
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Profil mis à jour avec succès.');
+                
+
+                return $this->redirectToRoute('app_medecin_profile');
+            }
+
+            return $this->render('profile/med_profile.html.twig', [
+                'form' => $form->createView(),
+                // 'medecins' => $userRepository->findByImage($medecin),
+            ]);
+        }
+
+        throw new \LogicException('Erreur : l\'utilisateur courant n\'est pas un médecin.');
+    
+        // return $this->render('profile/med_profile.html.twig');
     }
+
+
+
+
+    
 }

@@ -1,0 +1,256 @@
+{% extends 'basedashboard.html.twig' %}
+{% block title %}
+	Profile
+{% endblock %}
+{% block content %}
+	<div class="col-lg-8 col-md-16">
+		<div class="onboarding-content-box">
+			<div class="onboarding-title profile-title">
+				<h2>Personalize Your Profile
+					<span>*</span>
+				</h2>
+			</div>
+			<div class="onboarding-content passcode-wrap mail-box">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+							{{ form_start(form) }}
+							{% if app.session.flashBag.has('success') %}
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									{{ app.session.flashBag.get('success')[0] }}
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							{% endif %}
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<div class="upload-pic">
+										<img class="upload-pic" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="31"  /> 
+
+											
+											
+											<div class="upload-pics">
+												<a class="btn-profile"><img src="{{asset('login/assets/img/icons/edit.svg')}}" alt=""></a>
+												{{ form_widget(form.photo, {attr:{'class':'upload'}}) }}
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Nom
+
+										</label>
+										{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Prenom
+
+										</label>
+										{{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+								<div class="col">
+
+									<div class="form-group local-forms">
+										<label>Email
+
+										</label>
+										{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="container">
+							<div class="row">
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+								<div class="col">
+
+									<div class="form-group local-forms">
+										<label>Telephone fixe
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Carte D'identité
+											<span class="login-danger">*</span>
+										</label>
+										{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Gender
+											<span>*</span>
+										</label>
+										{{ form_widget(form.sexe, {attr:{'class':'form-control select'}}) }}
+
+
+									</div>
+								</div>
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Specialites<span>*</span>
+										</label>
+
+										{{ form_widget(form.specialites, {attr:{'class':'form-control select'}}) }}
+
+									</div>
+
+								</div>
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Cnam
+											<span>*</span>
+										</label>
+										{{ form_widget(form.cnam, {attr:{'class':'form-control select'}}) }}
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div class="col">
+
+									<div class="form-group local-forms">
+										<label>Tarif
+
+										</label>
+										{{ form_widget(form.tarif, {attr:{'class':'form-control'}}) }}
+
+									</div>
+								</div>
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Titre
+										</label>
+
+										{{ form_widget(form.titre, {attr:{'class':'form-control select'}}) }}
+
+									</div>
+
+								</div>
+								<div class="col">
+
+									<div class="form-group">
+										<label class="onboarding-lable">Gouvernorat
+										</label>
+
+										{{ form_widget(form.gouvernorat, {attr:{'class':'form-control select'}}) }}
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label class="onboarding-lable">Addresse<span>*</span>
+											</label>
+											{{ form_widget(form.adresse, {attr:{'class':'form-control'}}) }}
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label class="onboarding-lable">Addresse Cabinet<span>*</span>
+											</label>
+											{{ form_widget(form.adresse_cabinet, {attr:{'class':'form-control'}}) }}
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="container">
+							<div class="row">
+								<div class="col">
+
+									<div class="col-lg-12">
+										<div class="form-group">
+											<label class="onboarding-lable">Diplome Et Formation<span>*</span>
+											</label>
+											{{ form_widget(form.diplome_formation, {attr:{'class':'form-control'}}) }}
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+				<div class="col-12">
+					<div class="doctor-submit text-end">
+						<div class="text-right">
+							{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+						</div>
+
+					</div>
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

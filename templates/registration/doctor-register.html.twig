@@ -8,7 +8,7 @@
 		<!-- Mirrored from doccure.dreamguystech.com/html/template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:42:01 GMT -->
 		<head>
 			<meta charset="utf-8">
-			<title>Doccure</title>
+			<title>Dawini</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 			<link href="{{ asset('admin/assets/img/logo_small.png') }}" rel="icon">
 			<link rel="stylesheet" href="{{ asset('admin/assets/css/owl.carousel.min.css') }}">
@@ -34,7 +34,7 @@
 									<h3>Welcome to Dawini</h3>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+																																								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
 									</p>
 								</div>
 							</div>
@@ -50,67 +50,217 @@
 										<img src="assets/img/onboard-img/onb-logo.png" alt=""></a>
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-12">
-								<div class="on-board-wizard">
-									<ul>
-										<li><a href="{{ path('app_register_medecin') }}"><div class="onboarding-progress active"><span>1</span></div><div class="onboarding-list"><h6>Registration</h6><p>Enter Details for Register</p></div></a></li>
-										<li><a href="{{ path('app_register_identify') }}"><div class="onboarding-progress"><span>2</span></div><div class="onboarding-list"><h6>Upload Identity</h6><p>Upload your Identity for Verification</p></div></a></li>
-										<li><a href="{{ path('app_register_personnel') }}"><div class="onboarding-progress"><span>3</span></div><div class="onboarding-list"><h6>Personal Details</h6><p>Enter your Personal Details</p></div></a></li>
-										<li><a href="{{ path('app_register_verif') }}"><div class="onboarding-progress"><span>4</span></div><div class="onboarding-list"><h6>Doctor Verification</h6><p>Upload Documents for the Verification</p></div></a></li>
-										
-									</ul>
-								</div>
-							</div>
-							<div class="col-lg-8 col-md-12">
+				
+							<div class="col-lg-12 col-md-12">
 								<div class="onboarding-content-box content-wrap">
 									<div class="onborad-set">
 										<div class="onboarding-title">
-											<h2>Whats your Primary email?<span>*</span>
-											</h2>
-											<h6>We will only use it to advise you for any important changes.</h6>
+											<h1 style="color: #0c4f8a"><span>Inscription</span>
+											</h1>
+											<h6></h6>
 										</div>
 										<div class="onboarding-content">
 											<div class="row">
-												<div class="col-lg-12">
-													<div class="form-group">
-														<div class="input-placeholder form-focus passcode-wrap mail-box">
-															<label class="focus-label">Email Address<span>*</span>
-															</label>
-															<input type="text" class="form-control floating mail-icon" required="">
+												{{ form_start(registrationForm) }}
+												<div class="row">
+
+
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Nom
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.nom, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Prenom
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.prenom, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Email
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.email, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+
+												
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Carte D'identité
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.cin, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Titre
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.titre, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Sexe
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.sexe, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Telephone
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.telephone, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Telephone Fixe
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.fixe, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Cnam
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.cnam, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+
+												<div class="col-12 col-md-6 col-xl-6">
+													<div class="form-group local-forms">
+														<label>Gouvernorat<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.gouvernorat, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-md-6 col-xl-6">
+													<div class="form-group local-forms">
+														<label>Specialites<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.specialites, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+
+												
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>
+															Password
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.password, {attr:{'class':'form-control'}}) }}
+
+													</div>
+												</div>
+												
+												<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>Confirme Password
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.confirm_password, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+														<div class="col-12 col-md-6 col-xl-4">
+													<div class="form-group local-forms">
+														<label>
+															Tarif
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.tarif, {attr:{'class':'form-control'}}) }}
+
+													</div>
+												</div>
+
+
+												<div class="col-12 col-sm-12">
+													<div class="form-group local-forms">
+														<label>Address
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.adresse, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												
+												<div class="col-12 col-sm-12">
+													<div class="form-group local-forms">
+														<label>Address Cabinet
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.adresse_cabinet, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+												<div class="col-12 col-sm-12">
+													<div class="form-group local-forms">
+														<label>Diplome et Formation
+															<span class="login-danger">*</span>
+														</label>
+														{{ form_widget(registrationForm.diplome_formation, {attr:{'class':'form-control'}}) }}
+													</div>
+												</div>
+
+												<div class="col-12 col-sm-12">
+													<div class="form-group local-forms">
+														<div class="upload-img">
+															<div class="change-photo-btn">
+																<span>
+																	<i class="fa fa-upload"></i>
+																	Upload Photo</span>
+
+																{{ form_widget(registrationForm.photo, {attr:{'class':'upload'}}) }}
+															</div>
 														</div>
-														<br>
-														<div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group pass-group">
-                                                <div class="input-placeholder form-focus passcode-wrap mail-box">
-                                                    <label class="focus-label">Enter New Password<span>*</span></label>
-                                                    <input type="password" class="form-control floating pass-icon"
-                                                        required="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <div class="input-placeholder form-focus passcode-wrap mail-box">
-                                                    <label class="focus-label">Enter Confirm
-                                                        Password<span>*</span></label>
-                                                    <input type="password" class="form-control floating pass-icon-1"
-                                                        required="">
-                                                </div>
-                                            </div>
-                                        </div>
+													</div>
+												
+																																		                                                            
+												</div>
+ <div class="form-group">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <label class="custom_check mr-2 mb-0"> I agree to the <a href="#"
+                                                class="text-primary"> terms of service</a> and <a href="#"
+                                                class="text-primary">privacy policy</a>
+                                           
+											{{ form_widget(registrationForm.agreeTerms, {attr:{'class':'custom_check mr-2 mb-0'}}) }}
+                                            <span class="checkmark"></span>
+                                        </label>
                                     </div>
+                                </div>
+                            </div>
+
+												<div class="col-12">
+													<div class="doctor-submit text-end">
+														<div class="text-right">
+															{{ form_row(registrationForm.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+														</div>
+
 													</div>
 												</div>
 											</div>
+												{{ form_end(registrationForm) }}
+											</div>
 										</div>
 									</div>
-									<div class="onboarding-btn">
-										<a href="{{ path('app_register_identify') }}">Continue</a>
-									</div>
+
 								</div>
 							</div>
+
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -129,4 +279,3 @@
 
 	</html>
 {% endblock %}
-
