@@ -31,7 +31,7 @@
 						<div id="onboard-slider" class="owl-carousel owl-theme onboard-slider slider">
 							<div class="onboard-item text-center">
 								<div class="onboard-content">
-									<h3>Welcome to Dawini</h3>
+									<h3>Bienvenue A Dawini</h3>
 									<p>
 										Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
 																																								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
@@ -61,7 +61,7 @@
 										</div>
 										<div class="onboarding-content">
 											<div class="row">
-												{{ form_start(registrationForm) }}
+												{{ form_start(registrationForm,{'attr':{'novalidate':'novalidate'}}) }}
 												<div class="row">
 
 
@@ -70,7 +70,11 @@
 														<label>Nom
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.nom, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.nom,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.nom) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.nom) }} </div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-md-6 col-xl-4">
@@ -78,7 +82,12 @@
 														<label>Prenom
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.prenom, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.prenom,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.prenom) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.prenom) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-md-6 col-xl-4">
@@ -86,7 +95,12 @@
 														<label>Email
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.email, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.email,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.email) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.email) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 
@@ -96,7 +110,12 @@
 														<label>Carte D'identité
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.cin, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.cin,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.cin) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.cin) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-md-6 col-xl-4">
@@ -120,7 +139,12 @@
 														<label>Telephone
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.telephone, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.telephone,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.telephone) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.telephone) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-md-6 col-xl-4">
@@ -128,7 +152,12 @@
 														<label>Telephone Fixe
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.fixe, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.fixe,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.fixe) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.fixe) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-md-6 col-xl-4">
@@ -181,7 +210,12 @@
 															Tarif
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.tarif, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.tarif,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.tarif) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.tarif) }}
+														</div>
+														{% endif %}
 
 													</div>
 												</div>
@@ -192,16 +226,26 @@
 														<label>Address
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.adresse, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.adresse,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.adresse) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.adresse) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												
 												<div class="col-12 col-sm-12">
 													<div class="form-group local-forms">
-														<label>Address Cabinet
+														<label>Addresse Cabinet
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.adresse_cabinet, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.adresse_cabinet,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.adresse_cabinet) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.adresse_cabinet) }}
+														</div>
+														{% endif %}
 													</div>
 												</div>
 												<div class="col-12 col-sm-12">
@@ -209,7 +253,12 @@
 														<label>Diplome et Formation
 															<span class="login-danger">*</span>
 														</label>
-														{{ form_widget(registrationForm.diplome_formation, {attr:{'class':'form-control'}}) }}
+														{{ form_widget(registrationForm.diplome_formation,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(registrationForm.diplome_formation) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(registrationForm.diplome_formation) }}
+														</div>
+														{% endif %} 
 													</div>
 												</div>
 

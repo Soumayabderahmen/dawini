@@ -13,13 +13,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Symfony\Component\Console\Color;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'Type', type: 'string')]
 #[DiscriminatorMap(['user' => User::class, 'admin' => Admin::class,'patient'=>Patient::class,'assistant'=>Assistant::class ,'medecin'=>Medecin::class])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé. Veuillez en choisir un autre.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -28,10 +29,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     
     #[ORM\Column(length: 180, unique: true)]
-    // #[Assert\Unique]
-    #[Assert\Email(
-        message: 'The email {{ value }} is not a valid email.',
-    )]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Regex(
+            pattern:'/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            message:'L\'email {{ value }} n\'est pas un email valide.',
+         )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -41,43 +43,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    // #[Assert\Length(
+    //     min: 6,
+    //     minMessage: 'Votre mot de passe doit comporter au minimum {{ limit }} caractères',
+       
+    // )]
     private ?string $password = null;
 
 
     
     #[ORM\Column(length: 255)]
-    //  #[Assert\NotBlank(message: 'Le nom du ne peut pas être vide')]
-  
-    // #[Assert\Length(
-    //     min: 2,
-    //     max: 50,
-    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
-    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
-    // )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    // #[Assert\Length(
-    //     min: 2,
-    //     max: 50,
-    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
-    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
-    // )]
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        
+        min: 8,
+        max: 8,
+        exactMessage: 'Cette champ doit comporter exactement 8 caractères',
+       
+    )]
     private ?int $cin = null;
 
     #[ORM\Column(length: 255)]
     private ?string $sexe = null;
 
     #[ORM\Column]
-    // #[Assert\Length(
-    //     min: 8,
-    //     max: 8,
-    //     minMessage: 'Your first name must be at least {{ limit }} characters long',
-    //     maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
-    // )]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        
+        min: 8,
+        max: 8,
+        exactMessage: 'Cette champ doit comporter exactement 8 caractères',
+       
+    )]
     private ?int $telephone = null;
 
     #[ORM\Column(length: 255)]
@@ -85,15 +89,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $gouvernorat = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        min: 8,
+        minMessage: 'Cette champ doit comporter au moins 8 caractères',
+       
+    )]
     private ?string $adresse = null;
-    /**
-     * @Assert\EqualTo(propertyPath = "password",
-     * message="Vous n'avez pas saisi le même mot de passe !" )
-     */
+   
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    // #[Assert\EqualTo(
+    //     propertyPath : 'password',
+    //     message :'Vous n\'avez pas saisi le même mot de passe !',
+    //     )]
     private $confirm_password=null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaire::class)]

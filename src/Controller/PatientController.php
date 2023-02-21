@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Patient;
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -153,7 +154,7 @@ class PatientController extends AbstractController
 
 
     #[Route('/profile/patient', name: 'app_patient_profile')]
-    public function profile(Request $request): Response
+    public function profile(Request $request, SluggerInterface $slugger): Response
     {
 
         $patient = $this->getUser();
@@ -163,6 +164,30 @@ class PatientController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
+                $photo = $form->get('photo')->getData();
+
+                // this condition is needed because the 'brochure' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                if ($photo) {
+                    $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+    
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $photo->move(
+                            $this->getParameter('images_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                    }
+    
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $patient->setImage($newFilename);
+                }
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
 
@@ -180,4 +205,46 @@ class PatientController extends AbstractController
     
         // return $this->render('profile/med_profile.html.twig');
     }
+
+
+    #[Route('/patient/change-password', name: 'app_patient_change-password')]
+    public function changePassword(Request $request)
+    {
+        $form = $this->createForm(ChangePasswordType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $password = $form->get('password')->getData();
+            $ConfirmPassword = $form->get('confirm_password')->getData();
+            $encoder = $this->userPasswordEncoder->encodePassword($user, $password, $ConfirmPassword);
+            $user->setPassword($encoder);
+            $user->setConfirmPassword($encoder);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+
+            return $this->redirectToRoute('app_patient_profile');
+        }
+
+        return $this->render('patient/change_password_patient.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

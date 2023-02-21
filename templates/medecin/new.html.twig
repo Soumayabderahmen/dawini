@@ -1,24 +1,20 @@
 {% extends 'base.html.twig' %}
-{% block title %}New Specialites
+{% block title %}Nouveau Medecin
 {% endblock %}
 {% block content %}
-	<h1>Create new Specialites</h1>
-	{# 
-			{{ include('specialites/_form.html.twig') }} #}
-
-	{# <a href="{{ path('app_specialites_index') }}">back to list</a> #}
+	
 	<div class="page-wrapper">
 		<div class="content">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="card">
 						<div class="card-body">
-							{{ form_start(form) }}
+							{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 							<div class="row">
 
 								<div class="col-12">
 									<div class="form-heading">
-										<h4>Doctor Details</h4>
+										<h4>Ajouter Medecin</h4>
 									</div>
 								</div>
 
@@ -29,6 +25,10 @@
 											<span class="login-danger">*</span>
 										</label>
 										{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
+                                                {% if form_errors(form.nom) is not empty %}
+                                                <div class="alert alert-danger" {{ form_errors(form.nom) }}
+                                                    </div>
+                                                    {% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -36,7 +36,12 @@
 										<label>Prenom
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.prenom,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.prenom) is not empty %}
+                                                <div class="alert alert-danger" {{ form_errors(form.prenom) }}
+                                                    </div>
+                                                    {% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -44,7 +49,12 @@
 										<label>Carte D'identité
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.cin,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.cin) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.cin) }} </div>
+														{% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -60,7 +70,12 @@
 										<label>Telephone
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.telephone,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.telephone) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.telephone) }} </div>
+														{% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -68,7 +83,12 @@
 										<label>Telephone Fixe
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.fixe,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.fixe) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.fixe) }} </div>
+														{% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-6">
@@ -92,7 +112,12 @@
 										<label>Email
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
+										 {{ form_widget(form.email,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.email) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.email) }} </div>
+														{% endif %}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -102,6 +127,7 @@
 											<span class="login-danger">*</span>
 										</label>
 										{{ form_widget(form.password, {attr:{'class':'form-control'}}) }}
+										{{ form_errors(form.password) }}
 
 									</div>
 								</div>
@@ -111,13 +137,21 @@
 											<span class="login-danger">*</span>
 										</label>
 										{{ form_widget(form.confirm_password, {attr:{'class':'form-control'}}) }}
+										{{ form_errors(form.confirm_password) }}
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
 									<div class="form-group local-forms">
 										<label>Tarif<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.tarif, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.tarif,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.tarif) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.tarif) }}
+														</div>
+														{% endif %}
+
+
 									</div>
 								</div>
 								<div class="col-12 col-md-6 col-xl-4">
@@ -139,7 +173,14 @@
 										<label>Address
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.adresse, {attr:{'class':'form-control'}}) }}
+
+										{{ form_widget(form.adresse,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.adresse) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.adresse) }}
+														</div>
+														{% endif %}
+										
 									</div>
 								</div>
 								<div class="col-12 col-sm-12">
@@ -147,7 +188,13 @@
 										<label>Addresse Cabinet
 											<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.adresse_cabinet, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.adresse_cabinet,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.adresse_cabinet) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.adresse_cabinet) }}
+														</div>
+														{% endif %}
+										
 									</div>
 								</div>
 
@@ -155,45 +202,47 @@
 									<div class="form-group local-forms">
 										<label>Diplome et Formation<span class="login-danger">*</span>
 										</label>
-										{{ form_widget(form.diplome_formation, {attr:{'class':'form-control'}}) }}
+										{{ form_widget(form.diplome_formation,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.diplome_formation) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.diplome_formation) }}
+														</div>
+														{% endif %}
+										
 									</div>
 								</div>
 
 
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="form-group">
+												<div class="call-option file-option ">
+													<input type="file" id="radio1" name="selector" class="option-radio">
+													<a class="btn-profile"><img src="{{asset('client/assets/img/icons/file.png')}}" alt=""></a>
+													<label for="radio1" class="call-lable verify-lable verify-file">
+														Upload Image</label>
+													{{ form_widget(form.photo, {attr:{'class':'file'}}) }}
+													{{ form_errors(form.photo) }}
+												</div>
+											</div>
 
-								  
+											<div class="col-12">
+												<div class="doctor-submit text-end">
+													<div class="text-right">
+														{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+													</div>
 
-
-								<div class="upload-img">
-									<div class="change-photo-btn">
-										<span>
-											<i class="fa fa-upload"></i>
-											Upload Photo</span>
-									
-										{{ form_widget(form.photo, {attr:{'class':'upload'}}) }}
-
-									</div>
-									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max
-										                                                            size of 2MB</small>
-								</div>
-								
-
-								<div class="col-12">
-									<div class="doctor-submit text-end">
-										<div class="text-right">
-											{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+												</div>
+											</div>
 										</div>
-
+										{{ form_end(form) }}
 									</div>
 								</div>
 							</div>
-							{{ form_end(form) }}
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
 
-	</div>
-{% endblock %}
+				</div>
+			{% endblock %}
 

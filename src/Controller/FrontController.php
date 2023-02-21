@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\AvisType;
 use App\Repository\AvisRepository;
@@ -17,11 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontController extends AbstractController
 {
     #[Route('/front', name: 'app_front')]
-    public function index(MedecinRepository $userRepository): Response
+    public function index(MedecinRepository  $userRepository): Response
     {
+        
         return $this->render('home.html.twig', [
             'medecins' => $userRepository->findAll(),
             'users' => $userRepository->findAll(),
+            
+        
         ]);
     }
 
@@ -32,7 +36,6 @@ class FrontController extends AbstractController
         $medecinSelectioner = $medecinRepository->findOneBy(['id' => $id]);
 
        $iduser=$this->getUser();
-     
       
         $avi = new Avis();
         $avis=$avisRepository->findByMedecin($id);

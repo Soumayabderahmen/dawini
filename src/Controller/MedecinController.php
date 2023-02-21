@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Medecin;
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\MedecinType;
 use App\Form\MedProfileType;
 use App\Repository\MedecinRepository;
@@ -45,27 +46,27 @@ class MedecinController extends AbstractController
 
             $photo = $form->get('photo')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($photo) {
-                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $photo->move(
-                        $this->getParameter('images_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
+                // this condition is needed because the 'brochure' field is not required
+                // so the PDF file must be processed only when a file is uploaded
+                if ($photo) {
+                    $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                    // this is needed to safely include the file name as part of the URL
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+    
+                    // Move the file to the directory where brochures are stored
+                    try {
+                        $photo->move(
+                            $this->getParameter('images_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                    }
+    
+                    // updates the 'brochureFilename' property to store the PDF file name
+                    // instead of its contents
+                    $medecin->setImage($newFilename);
                 }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $medecin->setImage($newFilename);
-            }
             $this->addFlash('success', 'Ajout avec Success');
             if ($medecin->getPassword() && $medecin->getConfirmPassword()) {
                 $medecin->setPassword(
@@ -89,6 +90,9 @@ class MedecinController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    
+
 
     #[Route('/{id}', name: 'app_medecin_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -206,7 +210,33 @@ class MedecinController extends AbstractController
         // return $this->render('profile/med_profile.html.twig');
     }
 
+    #[Route('/medecin/change-password', name: 'app_medecin_change-password')]
+    public function changePassword(Request $request)
+    {
+        $form = $this->createForm(ChangePasswordType::class);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $password = $form->get('password')->getData();
+            $ConfirmPassword = $form->get('confirm_password')->getData();
+            $encoder = $this->userPasswordEncoder->encodePassword($user, $password, $ConfirmPassword);
+            $user->setPassword($encoder);
+            $user->setConfirmPassword($encoder);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+
+            return $this->redirectToRoute('app_medecin_profile');
+        }
+
+        return $this->render('medecin/change_password_medecin.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 
     

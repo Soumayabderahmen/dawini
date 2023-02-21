@@ -6,7 +6,7 @@ use App\Entity\Medecin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class MedecinType extends AbstractType
+class Medecin1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -84,8 +84,6 @@ class MedecinType extends AbstractType
         
         ->add('email')
      
-        ->add('password',PasswordType::class)
-        ->add('confirm_password',PasswordType::class)
         ->add('tarif')
         ->add('specialites')
         ->add('cnam' ,ChoiceType::class, [

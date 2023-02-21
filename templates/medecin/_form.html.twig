@@ -3,194 +3,248 @@
 {% endblock %}
 {% block content %}
 	
-	{# 
-		{{ include('specialites/_form.html.twig') }} #}
-
-	{# <a href="{{ path('app_specialites_index') }}">back to list</a> #}
 	<div class="page-wrapper">
 		<div class="content">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="card">
 						<div class="card-body">
-							 {{ form_start(form) }}
-                             <br />
-								<div class="row">
-                                
-									<div class="col-12">
-										<div class="form-heading">
-											<h4>Modifier Medecin</h4>
-										</div>
-									</div>
+							{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+							<div class="row">
 
-                                       <br />
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Nom
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
-										</div>
+								<div class="col-12">
+									<div class="form-heading">
+										<h4>Modifier Medecin</h4>
 									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Prenom
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Carte D'identité
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Sexe
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.sexe, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Telephone
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-                                    <div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Telephone Fixe
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-6">
-										<div class="form-group local-forms">
-											<label>Gouvernorat<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.gouvernorat, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-	<div class="col-12 col-md-6 col-xl-6">
-										<div class="form-group local-forms">
-											<label>Titre
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.titre, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Email
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>
-												Password
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.password, {attr:{'class':'form-control'}}) }}
-
-										</div>
-									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Confirme Password
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.confirm_password, {attr:{'class':'form-control'}}) }}
-										</div>
-									</div>
+								</div>
 
 
 								<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Tarif<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.tarif, {attr:{'class':'form-control'}}) }}
-										</div>
+									<div class="form-group local-forms">
+										<label>Nom
+											
+										</label>
+										
+										{{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
+                                                {% if form_errors(form.nom) is not empty %}
+                                                <div class="alert alert-danger" {{ form_errors(form.nom) }}
+                                                    </div>
+                                                    {% endif %}
 									</div>
-									<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>Spécialité<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.specialites, {attr:{'class':'form-control'}}) }}
-										</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Prenom
+											
+										</label>
+										{{ form_widget(form.prenom,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.prenom) is not empty %}
+                                                <div class="alert alert-danger" {{ form_errors(form.prenom) }}
+                                                    </div>
+                                                    {% endif %}
 									</div>
-                                    	<div class="col-12 col-md-6 col-xl-4">
-										<div class="form-group local-forms">
-											<label>CNAM<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.cnam, {attr:{'class':'form-control'}}) }}
-										</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Carte D'identité
+											
+										</label>
+										{{ form_widget(form.cin,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.cin) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.cin) }} </div>
+														{% endif %}
 									</div>
-                                    <div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Address
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.adresse, {attr:{'class':'form-control'}}) }}
-										</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Sexe
+											
+										</label>
+										{{ form_widget(form.sexe, {attr:{'class':'form-control'}}) }}
 									</div>
-									<div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Addresse Cabinet
-												<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.adresse_cabinet, {attr:{'class':'form-control'}}) }}
-										</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone
+											
+										</label>
+										{{ form_widget(form.telephone,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.telephone) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.telephone) }} </div>
+														{% endif %}
 									</div>
-									
-									<div class="col-12 col-sm-12">
-										<div class="form-group local-forms">
-											<label>Diplome et Formation<span class="login-danger">*</span>
-											</label>
-											{{ form_widget(form.diplome_formation, {attr:{'class':'form-control'}}) }}
-										</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Telephone Fixe
+											
+										</label>
+										{{ form_widget(form.fixe,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.fixe) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.fixe) }} </div>
+														{% endif %}
 									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-6">
+									<div class="form-group local-forms">
+										<label>Gouvernorat
+											
+										</label>
+										{{ form_widget(form.gouvernorat, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-6">
+									<div class="form-group local-forms">
+										<label>Titre
+											
+										</label>
+										{{ form_widget(form.titre, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Email
+											
+										</label>
+										 {{ form_widget(form.email,
+                                                    {attr:{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.email) is not empty %}
+													<div class="alert alert-danger" {{
+														form_errors(form.email) }} </div>
+														{% endif %}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>
+											Password
+											
+										</label>
+										{{ form_widget(form.password, {attr:{'class':'form-control'}}) }}
+										{{ form_errors(form.password) }}
+
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Confirme Password
+											
+										</label>
+										{{ form_widget(form.confirm_password, {attr:{'class':'form-control'}}) }}
+										{{ form_errors(form.confirm_password) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Tarif
+										</label>
+										{{ form_widget(form.tarif,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.tarif) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.tarif) }}
+														</div>
+														{% endif %}
 
 
-								<div class="upload-img">
-									<div class="change-photo-btn">
-										<span>
-											<i class="fa fa-upload"></i>
-											Upload Photo</span>
-									
-										{{ form_widget(form.photo, {attr:{'class':'upload'}}) }}
-
 									</div>
-									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max
-										                                                            size of 2MB</small>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>Spécialité
+										</label>
+										{{ form_widget(form.specialites, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-md-6 col-xl-4">
+									<div class="form-group local-forms">
+										<label>CNAM
+										</label>
+										{{ form_widget(form.cnam, {attr:{'class':'form-control'}}) }}
+									</div>
+								</div>
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Address
+											
+										</label>
+
+										{{ form_widget(form.adresse,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.adresse) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.adresse) }}
+														</div>
+														{% endif %}
+										
+									</div>
+								</div>
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Addresse Cabinet
+											
+										</label>
+										{{ form_widget(form.adresse_cabinet,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.adresse_cabinet) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.adresse_cabinet) }}
+														</div>
+														{% endif %}
+										
+									</div>
+								</div>
+
+								<div class="col-12 col-sm-12">
+									<div class="form-group local-forms">
+										<label>Diplome et Formation
+										</label>
+										{{ form_widget(form.diplome_formation,
+													{attr:{'class':'form-control'}}) }}
+													{% if form_errors(form.diplome_formation) is not empty %}
+													<div class="alert alert-danger" {{ form_errors(form.diplome_formation) }}
+														</div>
+														{% endif %}
+										
+									</div>
 								</div>
 
 
-									
-									<div class="col-12">
-										<div class="doctor-submit text-end">
-                            													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }} </div>
+								<div class="container">
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="form-group">
+												<div class="call-option file-option ">
+													<input type="file" id="radio1" name="selector" class="option-radio">
+													<a class="btn-profile"><img src="{{asset('client/assets/img/icons/file.png')}}" alt=""></a>
+													<label for="radio1" class="call-lable verify-lable verify-file">
+														Upload Image</label>
+													{{ form_widget(form.photo, {attr:{'class':'file'}}) }}
+													{{ form_errors(form.photo) }}
+												</div>
+											</div>
 
+											<div class="col-12">
+												<div class="doctor-submit text-end">
+													<div class="text-right">
+														{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+													</div>
+
+												</div>
+											</div>
 										</div>
+										{{ form_end(form) }}
 									</div>
 								</div>
-							{{ form_end(form) }}
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
 
-	</div>
-{% endblock %}
+				</div>
+			{% endblock %}
+

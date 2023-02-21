@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use phpDocumentor\Reflection\Types\Nullable;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
@@ -17,15 +18,41 @@ class Medecin extends User
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        min: 8,
+        minMessage: 'Cette champ doit comporter au moins 8 caractères',
+       
+    )]
     private ?string $adresse_cabinet = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Positive]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        min: 8,
+        max: 8,
+        exactMessage: 'Cette champ doit comporter exactement 8 caractères',
+       
+    )]
     private ?string $fixe = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Length(
+        min: 8,
+        minMessage: 'Cette champ doit comporter au moins 8 caractères',
+       
+    )]
     private ?string $diplome_formation = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    #[Assert\Type(
+    type: 'float',
+    message: 'La valeur {{ valeur }} n\'est pas un {{ type }} valide. Il doit s\'agir d\'un entier ou d\'un flottant.')]
+    #[Assert\Positive]
+    #[Assert\NotNull]
     private ?float $tarif = null;
 
     #[ORM\Column]

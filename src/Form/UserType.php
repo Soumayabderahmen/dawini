@@ -5,13 +5,15 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\File;
 
 class UserType extends AbstractType
@@ -20,8 +22,18 @@ class UserType extends AbstractType
     {
         $builder
             
-            ->add('nom')
-            ->add('prenom')
+        ->add('nom', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Veuillez renseigner ce champ .']),
+                new Length(['min' => 4, 'minMessage' => 'Veuillez avoir au moins {{ limit }} caractères','max' => 12, 'maxMessage' => 'Veuillez avoir au max {{ limit }} caractères']),
+            ],
+        ])
+        ->add('prenom', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Veuillez renseigner ce champ .']),
+                new Length(['min' => 4, 'minMessage' => 'Veuillez avoir au moins {{ limit }} caractères','max' => 12, 'maxMessage' => 'Veuillez avoir au max {{ limit }} caractères']),
+            ],
+        ])
             ->add('cin')
             ->add('sexe', ChoiceType::class, [
                 'choices'  => [
@@ -63,7 +75,7 @@ class UserType extends AbstractType
             ->add('adresse',TextareaType::class, [
                 'attr' => ['class' => 'tinymce'],
             ])
-            ->add('email',EmailType::class)
+            ->add('email')
             ->add('password',PasswordType::class)
             ->add('confirm_password',PasswordType::class)
             ->add('photo', FileType::class, [
@@ -77,7 +89,7 @@ class UserType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        
                         'mimeTypes' => [
                             'image/gif',
                             'image/jpeg',

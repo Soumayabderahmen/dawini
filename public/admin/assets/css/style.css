@@ -118,9 +118,26 @@ input:-webkit-autofill:focus {
 	font-weight: 400;
 	color: #1e2022;
 }
+
+.form-error{
+	border-color: red;
+	border: 1px solid #f90000;
+	border-radius: 5px;
+	box-shadow: none;
+	color: #ff0000;
+	padding: .54688rem .875rem;
+	font-size: .875rem;
+	height: calc(1.6em + 1.21875rem);
+	line-height: 1.6;
+	font-weight: 400;
+	color: #f00000;
+
+}
 textarea.form-control {
 	height: auto;
 }
+
+
 .form-control:focus {
 	box-shadow: 0 0 10px rgba(136, 136, 136, 0.125); 
 	outline: 0 none;

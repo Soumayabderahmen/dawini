@@ -71,25 +71,26 @@
                     <li class="nav-item dropdown has-arrow logged-item">
                         <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                             
-                               
-                                    <img class="rounded-circle" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="31"  /> 
-                           
+                                    <img  class="rounded-circle" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="40" height="40" /> 
                         </a>
+                        
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="user-header">
                                 <div class="avatar avatar-sm">
-                                    <img src="{{asset('doctor/assets/img/doctors/doctor-thumb-02.jpg')}}" alt="User Image"
-                                        class="avatar-img rounded-circle">
+                                     <img class="rounded-circle" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="31"  /> 
                                 </div>
                                 <div class="user-text">
                                     <h6>{{app.user.nom}}</h6>
-                                    <p class="text-muted mb-0">Doctor</p>
+                                    <p class="text-muted mb-0">{{app.user.prenom}}</p>
                                 </div>
                             </div>
                             {% if app.user.roles ==["ROLE_PATIENT"]%}
                             <a class="dropdown-item" href="{{ path('app_dashpat') }}">Dashboard</a>
                       
                             <a class="dropdown-item" href="{{ path('app_patient_profile') }}">Profile Settings</a>
+                              <a class="dropdown-item" href="{{ path('app_patient_change-password') }}"><i class="feather-sliders me-1"></i>
+                            Modifier Mot de Passe </a>
+                        <hr class="my-0 ms-2 me-2">
                             <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
                             {% endif %}
 
@@ -97,6 +98,9 @@
                             <a class="dropdown-item" href="{{ path('app_dash') }}">Dashboard</a>
                       
                             <a class="dropdown-item" href="{{ path('app_medecin_profile') }}">Profile Settings</a>
+                              <a class="dropdown-item" href="{{ path('app_medecin_change-password') }}"><i class="feather-sliders me-1"></i>
+                            Modifier Mot de Passe </a>
+                        <hr class="my-0 ms-2 me-2">
                             <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
                             {% endif %}
                              {% if app.user.roles ==["ROLE_ASSISTANT"]%}
@@ -104,6 +108,9 @@
                             
                       
                             <a class="dropdown-item" href="{{ path('app_assistant_profile') }}">Profile Settings</a>
+                                <a class="dropdown-item" href="{{ path('app_assistant_change-password') }}"><i class="feather-sliders me-1"></i>
+                            Modifier Mot de Passe </a>
+                        <hr class="my-0 ms-2 me-2">
                             <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
                             {% endif %}
                         </div>

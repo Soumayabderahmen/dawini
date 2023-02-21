@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationMedecinType extends AbstractType
 {
@@ -26,8 +29,18 @@ class RegistrationMedecinType extends AbstractType
         
        
         ->add('password',PasswordType::class)
-            ->add('nom')
-            ->add('prenom')
+        ->add('nom', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Veuillez renseigner ce champ .']),
+                new Length(['min' => 4, 'minMessage' => 'Veuillez avoir au moins {{ limit }} caractères','max' => 12, 'maxMessage' => 'Veuillez avoir au max {{ limit }} caractères']),
+            ],
+        ])
+        ->add('prenom', TextType::class, [
+            'constraints' => [
+                new NotBlank(['message' => 'Veuillez renseigner ce champ .']),
+                new Length(['min' => 4, 'minMessage' => 'Veuillez avoir au moins {{ limit }} caractères','max' => 12, 'maxMessage' => 'Veuillez avoir au max {{ limit }} caractères']),
+            ],
+        ])
             ->add('cin')
             ->add('sexe', ChoiceType::class, [
                 'choices'  => [
