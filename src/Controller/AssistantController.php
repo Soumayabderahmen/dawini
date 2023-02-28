@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Assistant;
+use App\Entity\Medecin;
 use App\Entity\User;
+use App\Form\AssistantType;
 use App\Form\ChangePasswordType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
@@ -36,7 +38,7 @@ class AssistantController extends AbstractController
     public function new(Request $request, UserRepository $userRepository, SluggerInterface $slugger): Response
     {
         $user = new Assistant();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AssistantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,6 +91,11 @@ class AssistantController extends AbstractController
         ]);
     }
 
+  
+
+
+
+
     #[Route('/{id}', name: 'app_assistant_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -100,7 +107,7 @@ class AssistantController extends AbstractController
     #[Route('/{id}/edit', name: 'app_assistant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository,SluggerInterface $slugger): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AssistantType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -232,4 +239,82 @@ class AssistantController extends AbstractController
         return $this->render('assistant/change_password_assistant.html.twig', [
             'form' => $form->createView(),
         ]);
-    }}
+    }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+    // #[Route('/newAss', name: 'medecin_ajouter_assistant', methods: ['GET', 'POST'])]
+    // public function ajouterAssistant(Request $request, Medecin $medecin,UserRepository $userRepository,SluggerInterface $slugger): Response
+    // {
+    //     $assistant = new Assistant();
+    //     $form = $this->createForm(AssistantType::class, $assistant);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $photo = $form->get('photo')->getData();
+
+    //         // this condition is needed because the 'brochure' field is not required
+    //         // so the PDF file must be processed only when a file is uploaded
+    //         if ($photo) {
+    //             $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+    //             // this is needed to safely include the file name as part of the URL
+    //             $safeFilename = $slugger->slug($originalFilename);
+    //             $newFilename = $safeFilename.'-'.uniqid().'.'.$photo->guessExtension();
+
+    //             // Move the file to the directory where brochures are stored
+    //             try {
+    //                 $photo->move(
+    //                     $this->getParameter('images_directory'),
+    //                     $newFilename
+    //                 );
+    //             } catch (FileException $e) {
+                 
+    //             }
+
+    //             // updates the 'brochureFilename' property to store the PDF file name
+    //             // instead of its contents
+    //             $assistant->setImage($newFilename);
+    //         }
+    //         $this->addFlash('success','Ajout avec Success');
+    //         if ($assistant->getPassword()&&$assistant->getConfirmPassword()) {
+    //             $assistant->setPassword(
+    //                 $this->userPasswordEncoder->encodePassword($assistant, $assistant->getPassword())
+    //             );
+    //             $assistant->setConfirmPassword(
+    //                 $this->userPasswordEncoder->encodePassword($assistant, $assistant->getConfirmPassword())
+    //             );
+    //             $assistant->eraseCredentials();
+    //         }
+    //         $roles[]='ROLE_ASSISTANT';
+    //         $assistant->setRoles($roles);
+    //         $userRepository->save($assistant, true);
+
+    //         return $this->redirectToRoute('app_assistant_index', ['id' => $medecin->getId()], Response::HTTP_SEE_OTHER);
+           
+    //        // return $this->redirectToRoute('medecin_afficher', ['id' => $medecin->getId()]);
+    //     }
+
+    //     return $this->renderForm('assistant/new.html.twig', [
+    //         'user' => $assistant,
+    //         'form' => $form,
+    //     ]);
+
+    //     }
+
+
+
+
+
+}

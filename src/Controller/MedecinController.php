@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Assistant;
 use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
 use App\Form\MedecinType;
+use App\Form\Medecin1Type;
 use App\Form\MedProfileType;
+use App\Repository\AssistantRepository;
 use App\Repository\MedecinRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,6 +36,18 @@ class MedecinController extends AbstractController
             'medecins' => $userRepository->findAll(),
         ]);
     }
+
+    #[Route('/assistante', name: 'medecin_assistant_index', methods: ['GET'])]
+    public function indexAssistant(AssistantRepository $userRepository): Response
+    {
+        $medecin = $this->getUser();
+        return $this->render('medecin/assistant.html.twig', [
+            'assistant' => $userRepository->findByMedecin($medecin),
+        ]);
+    }
+   
+
+
 
     #[Route('/new', name: 'app_medecin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, MedecinRepository $userRepository, SluggerInterface $slugger): Response
@@ -105,7 +119,7 @@ class MedecinController extends AbstractController
     #[Route('/{id}/edit', name: 'app_medecin_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, SluggerInterface $slugger, Medecin $medecin): Response
     {
-        $form = $this->createForm(MedecinType::class, $user);
+        $form = $this->createForm(Medecin1Type::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -238,6 +252,54 @@ class MedecinController extends AbstractController
         ]);
     }
 
+
+
+    
+    // #[Route('/add-assistant', name: 'medecin_add_assistant', methods: ['GET', 'POST'])]
+    // public function addAssistant(Request $request, Medecin $medecin,SluggerInterface $slugger): Response
+    // {
+    //     $assistant = new Assistant();
+    //     $form = $this->createForm(AssistantType::class, $assistant);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $photo = $form->get('photo')->getData();
+
+    //         // this condition is needed because the 'brochure' field is not required
+    //         // so the PDF file must be processed only when a file is uploaded
+    //         if ($photo) {
+    //             $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+    //             // this is needed to safely include the file name as part of the URL
+    //             $safeFilename = $slugger->slug($originalFilename);
+    //             $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+
+    //             // Move the file to the directory where brochures are stored
+    //             try {
+    //                 $photo->move(
+    //                     $this->getParameter('images_directory'),
+    //                     $newFilename
+    //                 );
+    //             } catch (FileException $e) {
+    //             }
+
+    //             // updates the 'brochureFilename' property to store the PDF file name
+    //             // instead of its contents
+    //             $medecin->setImage($newFilename);
+    //         }
+    //         $assistant->setMedecin($medecin);
+
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->persist($assistant);
+    //         $entityManager->flush();
+
+    //         return $this->redirectToRoute('app_medecin_show', ['id' => $medecin->getId()]);
+    //     }
+
+    //     return $this->render('medecin/add_assistant.html.twig', [
+    //         'medecin' => $medecin,
+    //         'assistant_form' => $form->createView(),
+    //     ]);
+    // }
 
     
 }

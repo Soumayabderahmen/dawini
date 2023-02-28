@@ -1,0 +1,12 @@
+{% extends 'basedashboard.html.twig' %}
+
+{% block title %}Add Assistant{% endblock %}
+
+{% block content %}
+    <h1>Add Assistant</h1>
+
+    {{ form_start(assistant_form) }}
+    {{ form_widget(assistant_form) }}
+    <button type="submit" class="btn btn-primary">Add Assistant</button>
+    {{ form_end(assistant_form) }}
+{% endblock %}

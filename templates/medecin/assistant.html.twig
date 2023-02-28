@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Assistant
+{% extends 'basedashboard.html.twig' %}
+{% block title %}
+	Asisstant
 {% endblock %}
 {% block content %}
-	<div class="page-wrapper">
+	<div class="col-lg-8 col-md-16">
 		<div class="content container-fluid pb-0">
 			<h4 class="mb-3">Assistant</h4>
 			<div class="row">
@@ -12,12 +12,12 @@
 						<div class="col-md-12 d-flex justify-content-end">
 							<div class="text-right">
 								
-								{% if is_granted('ROLE_MEDECIN') %}
+								{# {% if is_granted('ROLE_MEDECIN') %} #}
 					<a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_assistant_new') }}">
 									<i class="feather-plus-square me-1"></i>
 									Ajouter Assistant
 								</a>
-				{% endif %}
+				{# {% endif %} #}
 							</div>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 								</thead>
 								<tbody>
 
-									{% for user in users %}
+									{% for user in assistant %}
 									{% if user.roles ==["ROLE_ASSISTANT"]%}
 										<tr>
 											<td>{{ user.nom }}</td>
@@ -87,5 +87,6 @@
 					</div>
 				</div>
 			</div>
-		{% endblock %}
+	</div>
+{% endblock %}
 

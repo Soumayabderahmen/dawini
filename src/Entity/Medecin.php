@@ -47,7 +47,7 @@ class Medecin extends User
     private ?string $diplome_formation = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Type(
     type: 'float',
     message: 'La valeur {{ valeur }} n\'est pas un {{ type }} valide. Il doit s\'agir d\'un entier ou d\'un flottant.')]
@@ -82,6 +82,13 @@ class Medecin extends User
     #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Avis::class)]
     private Collection $avis;
 
+    #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Assistant::class)]
+    private Collection $assistant;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $enabled = null;
+
+   
    
     public function __construct()
     {
@@ -91,6 +98,9 @@ class Medecin extends User
        
         $this->dossiers = new ArrayCollection();
         $this->avis = new ArrayCollection();
+        $this->assistant = new ArrayCollection();
+        $this->enabled = false; // par défaut, le compte est désactivé
+       
        
     }
 
@@ -333,7 +343,54 @@ class Medecin extends User
         return $this;
     }
 
-    
+    /**
+     * @return Collection<int, Assistant>
+     */
+    public function getAssistant(): Collection
+    {
+        return $this->assistant;
+    }
+
+    public function addAssistant(Assistant $assistant): self
+    {
+        if (!$this->assistant->contains($assistant)) {
+            $this->assistant->add($assistant);
+            $assistant->setMedecin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssistant(Assistant $assistant): self
+    {
+        if ($this->assistant->removeElement($assistant)) {
+            // set the owning side to null (unless already changed)
+            if ($assistant->getMedecin() === $this) {
+                $assistant->setMedecin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+   
+
+   
+
+   
+   
 
    
 

@@ -29,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
     
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Regex(
             pattern:'/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             message:'L\'email {{ value }} n\'est pas un email valide.',
@@ -60,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    //#[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
         
         min: 8,
@@ -74,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
         
         min: 8,
@@ -89,7 +89,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $gouvernorat = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
         min: 8,
         minMessage: 'Cette champ doit comporter au moins 8 caractères',
@@ -117,7 +117,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
- 
+   
+    #[ORM\Column(length: 180, nullable: true)]
+    private ?string $reset_token;
 
     // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     // private Collection $images;
@@ -149,8 +151,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
+
+    
     public function __toString(): string{
-        return (string)$this->nom;
+        return (string)$this->nom.' '.(string)$this->prenom;
        }
     
     public function getEmail(): ?string
@@ -405,6 +409,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->image = $image;
 
         return $this;
+    }
+      /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->reset_token;
+    }
+
+    /**
+     * @param mixed $reset_token
+     */
+    public function setResetToken($reset_token): void
+    {
+        $this->reset_token = $reset_token;
     }
 
 }

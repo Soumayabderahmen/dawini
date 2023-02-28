@@ -3,20 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
-use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\AvisType;
+use App\Entity\Medecin;
 use App\Repository\AvisRepository;
+use App\Repository\UserRepository;
 use App\Repository\MedecinRepository;
 use App\Repository\PatientRepository;
-use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FrontController extends AbstractController
 {
+   
     #[Route('/front', name: 'app_front')]
     public function index(MedecinRepository  $userRepository): Response
     {
@@ -61,4 +62,6 @@ class FrontController extends AbstractController
             'medecin'=>$medecin,
         ]);
     }
+
+
 }

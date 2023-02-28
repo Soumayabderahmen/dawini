@@ -157,6 +157,19 @@
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
+                                          <li>
+                                            <a href="my-patients.html">
+                                                <i class="fas fa-user-injured"></i>
+                                                <span>My Patients</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('medecin_assistant_index') }}">
+                                            
+                                                <i class="fas fa-user-nurse"></i>
+                                                <span>Assistant</span>
+                                            </a>
+                                        </li>
                                         {% endif %}
 
                                           {% if app.user.roles ==["ROLE_PATIENT"]%}
@@ -166,6 +179,12 @@
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
+                                          <li>
+                                            <a href="my-patients.html">
+                                                <i class="fas fa-user-md"></i>
+                                                <span>My Medecins</span>
+                                            </a>
+                                        </li>
                                         {% endif %}
                                         <li>
                                             <a href="appointments.html">
@@ -173,12 +192,7 @@
                                                 <span>Appointments</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="my-patients.html">
-                                                <i class="fas fa-user-injured"></i>
-                                                <span>My Patients</span>
-                                            </a>
-                                        </li>
+                                      
                                        
                                         <li>
                                             <a href="available-timings.html">

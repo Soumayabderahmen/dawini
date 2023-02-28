@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Admin;
+use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\UserProfileType;
 use App\Form\ChangePasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -214,14 +216,6 @@ class AdminController extends AbstractController
         // return $this->render('profile/med_profile.html.twig');
     }
 
-
-
-
-  
-
-
-
-
     #[Route('/admin/change-password', name: 'app_admin_change-password')]
     public function changePassword(Request $request )
     {
@@ -250,7 +244,14 @@ class AdminController extends AbstractController
         ]);
     }
 
+ 
+    #[Route('/{id}/toggle-status', name: 'doctor_admin_toggle_status', methods: ['GET', 'POST'])]
+    public function toggleStatus(Medecin $doctor, EntityManagerInterface $entityManager): Response
+    {
+        $doctor->setEnabled(!$doctor->isEnabled());
+        $entityManager->flush();
 
-
+        return $this->redirectToRoute('app_medecin_index');
+    }
   
 }

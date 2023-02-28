@@ -35,6 +35,7 @@
         "symfony/security-bundle": "5.4.*",
         "symfony/serializer": "5.4.*",
         "symfony/string": "5.4.*",
+        "symfony/swiftmailer-bundle": "2.7|^3.3|^4.0",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
         "symfony/validator": "5.4.*",
@@ -48,7 +49,8 @@
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         },
         "optimize-autoloader": true,
         "preferred-install": {

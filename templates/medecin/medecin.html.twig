@@ -31,7 +31,7 @@
 									<th>Gouvernorat</th>
 									
 									
-									
+									 <th>Status</th>
 									<th>Images</th>
 									<th>Tarif</th>
 									<th colspan="3">
@@ -49,6 +49,11 @@
 											<td>{{ medecin.gouvernorat }}</td>
 											
 											
+											
+											<td>{{ medecin.enabled ? 'Enabled' : 'Disabled' }}</td>
+											   
+                       
+                   
 											<td>
 											 <img src="{{ asset('/uploads/'~medecin.image) }}" alt="" width="40" height="40" /> 
 											</td>
@@ -77,6 +82,10 @@
 												</a>
 												&nbsp;
 												{{ include('medecin/_delete_form.html.twig') }}
+&nbsp;
+												 <form action="{{ path('doctor_admin_toggle_status', {'id': medecin.id}) }}" method="post">
+                            <button type="submit">{{ medecin.enabled ? 'Disable' : 'Enable' }}</button>
+                        </form>
 											
 											</td>
 										

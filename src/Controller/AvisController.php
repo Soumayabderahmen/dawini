@@ -17,8 +17,11 @@ class AvisController extends AbstractController
     #[Route('/', name: 'app_avis_index', methods: ['GET'])]
     public function index(AvisRepository $avisRepository): Response
     {
+        $medecin = $this->getUser();
         return $this->render('avis/index.html.twig', [
             'avis' => $avisRepository->findAll(),
+            //'avis' => $avisRepository->findByMedecin($medecin),
+
         ]);
     }
 

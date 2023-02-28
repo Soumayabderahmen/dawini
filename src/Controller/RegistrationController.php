@@ -90,6 +90,7 @@ class RegistrationController extends AbstractController
     #[Route('/inscription/medecin', name: 'app_inscription_medecin')]
     public function registerMedecin(Request $request, SluggerInterface $slugger ,MedecinRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+      
         $user = new Medecin();
        
        
@@ -128,9 +129,12 @@ class RegistrationController extends AbstractController
             $user->setConfirmPassword($userPasswordHasher->hashPassword($user,$form->get('confirm_password')->getData()));
             $user->eraseCredentials();
             }
-            $roles[]='ROLE_MEDECIN';
+            $user->setEnabled(false); // Etat désactivé par défaut
+            $roles[]='ROLE_MEDECIN';// Rôle Médecin
             $user->setRoles($roles);
             $userRepository->save($user, true);
+            $this->addFlash('success', 'Votre compte a été créé avec succès. Veuillez attendre que l\'administrateur active votre compte.');
+
             // do anything else you need here, like send an email
             return $this->redirectToRoute('app_login', [$userAuthenticator->authenticateUser(
                 $user,
@@ -143,6 +147,9 @@ class RegistrationController extends AbstractController
         return $this->render('registration/doctor-register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+
+
+        
 
         // return $this->redirectToRoute('app_login');
     }
