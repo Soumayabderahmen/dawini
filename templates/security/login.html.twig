@@ -23,6 +23,13 @@
 			<link rel="stylesheet" href="{{ asset('login/assets/css/style.css') }}">
 		</head>
 		<body class="account-page">
+			{% if app.session.flashBag.get('error') is not empty %}
+				<div class="alert alert-danger">
+					{% for message in app.session.flashBag.get('error') %}
+						{{ message }}
+					{% endfor %}
+				</div>
+			{% endif %}
 			<div class="main-wrapper">
 				<div class="content">
 					<div class="container-fluid">
@@ -46,10 +53,10 @@
 												{% endif %}
 												{% if app.user %}
 													{# <div class="mb-3">
-																	You are logged in as
-																	{{ app.user.userIdentifier }},
-																	<a href="{{ path('app_logout') }}">Logout</a>
-																</div> #}
+																														You are logged in as
+																														{{ app.user.userIdentifier }},
+																														<a href="{{ path('app_logout') }}">Logout</a>
+																													</div> #}
 												{% endif %}
 												<div class="form-group form-focus">
 
@@ -60,49 +67,66 @@
 													<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 													<label class="focus-label" for="inputPassword">Password</label>
 													<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-													<br>
-													
-													<button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
-													<div class="login-or">
-														<span class="or-line"></span>
-														<span class="span-or">or</span>
-													</div>
-													<div class="row form-row social-login">
-														<div class="col-6">
-															<a href="#" class="btn btn-facebook w-100">
-																<i class="fab fa-facebook-f me-1"></i>
-																Login</a>
-														</div>
-														<div class="col-6">
-															<a href="#" class="btn btn-google w-100">
-																<i class="fab fa-google me-1"></i>
-																Login</a>
-														</div>
-													</div>
-													<div class="text-center dont-have">Don’t have an account?
-														<a href="{{ path('app_register') }}">Register</a>
-													</div>
-
 												</div>
+												<div class="col-12">
+													<div class="doctor-submit text-end">
+														<div class="text-right">
+														<div class="login-header">
+												<h6>
+													
+													<a href="{{ path('forgot') }}">Mot de passe oublié?</a>
+												</h6>
+											</div>
+															
+														</div>
+
+													</div>
+												</div>
+
+
+												{# <div class="text-center dont-have">
+																										<a href="{{ path('forgot') }}">Mot de passe oublié?</a>
+																									</div> #}
+												<button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
+												<div class="login-or">
+													<span class="or-line"></span>
+													<span class="span-or">or</span>
+												</div>
+
+												{# <div class="row form-row social-login">
+																										<div class="col-6">
+																											<a href="#" class="btn btn-facebook w-100">
+																												<i class="fab fa-facebook-f me-1"></i>
+																												Login</a>
+																										</div>
+																										<div class="col-6">
+																											<a href="#" class="btn btn-google w-100">
+																												<i class="fab fa-google me-1"></i>
+																												Login</a>
+																										</div>
+																									</div> #}
+												<div class="text-center dont-have">Vous n'avez pas de compte ?
+													<a href="{{ path('app_register') }}">Inscription</a>
+												</div>
+
 											</div>
 										</div>
-
 									</div>
+
 								</div>
 							</div>
 						</div>
-
-
 					</div>
-					<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-					<script src="{{asset('login/assets/js/jquery-3.6.0.min.js') }}"></script>
-					<script src="{{ asset('login/assets/js/bootstrap.bundle.min.js') }}"></script>
-					<script src="{{ asset('login/assets/js/feather.min.js') }}"></script>
-					<script src="{{ asset('login/assets/js/script.js') }}"></script>
-				</body>
-			</html>
-		{% endblock %}
-		
-	</body>
-</html>
+
+
+				</div>
+				<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+				<script src="{{asset('login/assets/js/jquery-3.6.0.min.js') }}"></script>
+				<script src="{{ asset('login/assets/js/bootstrap.bundle.min.js') }}"></script>
+				<script src="{{ asset('login/assets/js/feather.min.js') }}"></script>
+				<script src="{{ asset('login/assets/js/script.js') }}"></script>
+			</body>
+		</body>
+	</html>
+{% endblock %}</body></html>
 

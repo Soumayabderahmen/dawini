@@ -9,12 +9,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use phpDocumentor\Reflection\Types\Nullable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 class Medecin extends User
 {
    
     #[ORM\Column(length: 255)]
+    #[Groups('medecin')]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
@@ -24,6 +26,7 @@ class Medecin extends User
         minMessage: 'Cette champ doit comporter au moins 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?string $adresse_cabinet = null;
 
     #[ORM\Column(length: 255)]
@@ -35,6 +38,7 @@ class Medecin extends User
         exactMessage: 'Cette champ doit comporter exactement 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?string $fixe = null;
 
     #[ORM\Column(length: 255)]
@@ -44,6 +48,7 @@ class Medecin extends User
         minMessage: 'Cette champ doit comporter au moins 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?string $diplome_formation = null;
 
     #[ORM\Column]
@@ -53,9 +58,11 @@ class Medecin extends User
     message: 'La valeur {{ valeur }} n\'est pas un {{ type }} valide. Il doit s\'agir d\'un entier ou d\'un flottant.')]
     #[Assert\Positive]
     #[Assert\NotNull]
+    #[Groups('medecin')]
     private ?float $tarif = null;
 
     #[ORM\Column]
+    #[Groups('medecin')]
     private ?bool $cnam = null;
 
    
@@ -65,6 +72,7 @@ class Medecin extends User
     private Collection $articles;
 
     #[ORM\ManyToOne(inversedBy: 'medecin')]
+    #[Groups('medecin')]
     private ?Specialites $specialites = null;
 
     #[ORM\OneToMany(mappedBy: 'medecin', targetEntity: Consulation::class)]
@@ -86,6 +94,7 @@ class Medecin extends User
     private Collection $assistant;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('medecin')]
     private ?bool $enabled = null;
 
    

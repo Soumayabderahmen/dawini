@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/assistant')]
 class AssistantController extends AbstractController
@@ -90,6 +92,91 @@ class AssistantController extends AbstractController
             'form' => $form,
         ]);
     }
+//Mobile
+#[Route('/All', name: 'app_assistants_liste')]
+public function Listeassistant(UserRepository $assistant, SerializerInterface $serializer)
+{
+    $assistant = $assistant->findAll();
+    $assistantNormailize = $serializer->serialize($assistant, 'json', ['groups' => "medecin"]);
+
+    $json = json_encode($assistantNormailize);
+    return  new response($json);
+}
+#[Route('/assistantJson/{id}', name: 'app_assistant_seule')]
+public function assistantId($id,UserRepository $assistant, SerializerInterface $serializer)
+{
+    $assistant = $assistant->find($id);
+    $assistantNormailize = $serializer->serialize($assistant, 'json', ['groups' => "medecin"]);
+
+    $json = json_encode($assistantNormailize);
+    return  new response($json);
+}
+
+#[Route('/delete/AssistantJson/{id}', name: 'app_assistant_delete_seule')]
+public function deleteassistantJson($id,UserRepository $assistant, NormalizerInterface $normalizerInterface,Request $request)
+{
+    $em=$this->getDoctrine()->getManager();
+    $assistant=$em->getRepository(assistant::class)->find($id);
+    $em->remove($assistant);
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($assistant,'json',['groups'=>'medecin']);
+    return  new Response("assistant deleted successfully". json_encode($jsonContent));
+}
+#[Route('/add/AssistantJson', name: 'app_assistant_new_json')]
+public function addassistantJson(Request $request, NormalizerInterface $normalizerInterface): Response
+{   
+    $em=$this->getDoctrine()->getManager();
+    $assistant = new assistant();
+    $assistant->setEmail($request->get('email'));
+    $assistant->setPassword($request->get('password'));
+    $assistant->setConfirmPassword($request->get('confirm_password'));
+    $assistant->setNom($request->get('nom'));
+    $assistant->setPrenom($request->get('prenom'));
+    $assistant->setCin($request->get('cin'));
+    $assistant->setSexe($request->get('sexe'));
+    $assistant->setTelephone($request->get('telephone'));
+    $assistant->setGouvernorat($request->get('gouvernorat'));
+    $assistant->setAdresse($request->get('adresse'));
+    $assistant->setImage($request->get('photo'));
+    $em->persist($assistant);
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($assistant,'json',['groups'=>'medecin']);
+    return new Response(json_encode($jsonContent));
+
+  
+   
+
+}
+#[Route('/edit/{id}/assistantJson', name: 'app_assistant_edit_json')]
+public function editAssistantJson(Request $request, $id,NormalizerInterface $normalizerInterface): Response
+{   
+    $em=$this->getDoctrine()->getManager();
+    $assistant=$em->getRepository(Assistant::class)->find($id);
+   
+    $assistant->setEmail($request->get('email'));
+    $assistant->setPassword($request->get('password'));
+    $assistant->setConfirmPassword($request->get('confirm_password'));
+    $assistant->setNom($request->get('nom'));
+    $assistant->setPrenom($request->get('prenom'));
+    $assistant->setCin($request->get('cin'));
+    $assistant->setSexe($request->get('sexe'));
+    $assistant->setTelephone($request->get('telephone'));
+    $assistant->setGouvernorat($request->get('gouvernorat'));
+    $assistant->setAdresse($request->get('adresse'));
+    $assistant->setImage($request->get('photo'));
+   
+    
+
+   
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($assistant,'json',['groups'=>'medecin']);
+    return new Response(json_encode($jsonContent));
+
+  
+   
+
+}
+
 
   
 

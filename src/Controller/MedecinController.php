@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Assistant;
+
 use App\Entity\Medecin;
 use App\Entity\User;
 use App\Form\ChangePasswordType;
@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
@@ -45,7 +47,7 @@ class MedecinController extends AbstractController
             'assistant' => $userRepository->findByMedecin($medecin),
         ]);
     }
-   
+
 
 
 
@@ -60,27 +62,27 @@ class MedecinController extends AbstractController
 
             $photo = $form->get('photo')->getData();
 
-                // this condition is needed because the 'brochure' field is not required
-                // so the PDF file must be processed only when a file is uploaded
-                if ($photo) {
-                    $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                    // this is needed to safely include the file name as part of the URL
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
-    
-                    // Move the file to the directory where brochures are stored
-                    try {
-                        $photo->move(
-                            $this->getParameter('images_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                    }
-    
-                    // updates the 'brochureFilename' property to store the PDF file name
-                    // instead of its contents
-                    $medecin->setImage($newFilename);
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($photo) {
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $photo->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
                 }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $medecin->setImage($newFilename);
+            }
             $this->addFlash('success', 'Ajout avec Success');
             if ($medecin->getPassword() && $medecin->getConfirmPassword()) {
                 $medecin->setPassword(
@@ -104,8 +106,106 @@ class MedecinController extends AbstractController
             'form' => $form,
         ]);
     }
+    // partie mobile
+    #[Route('/All', name: 'app_medecins_liste')]
+    public function ListeMedecin(MedecinRepository $medecin, SerializerInterface $serializer)
+    {
+        $medecin = $medecin->findAll();
+        $medecinNormailize = $serializer->serialize($medecin, 'json', ['groups' => "medecin"]);
 
-    
+        $json = json_encode($medecinNormailize);
+        return  new response($json);
+    }
+    #[Route('/medecinJson/{id}', name: 'app_medecin_seule')]
+    public function MedecinId($id,MedecinRepository $medecin, SerializerInterface $serializer)
+    {
+        $medecin = $medecin->find($id);
+        $medecinNormailize = $serializer->serialize($medecin, 'json', ['groups' => "medecin"]);
+
+        $json = json_encode($medecinNormailize);
+        return  new response($json);
+    }
+
+    #[Route('/delete/medecinJson/{id}', name: 'app_medecin_delete_seule')]
+    public function deleteMedecinJson($id,MedecinRepository $medecin, NormalizerInterface $normalizerInterface,Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $medecin=$em->getRepository(Medecin::class)->find($id);
+        $em->remove($medecin);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($medecin,'json',['groups'=>'medecin']);
+        return  new Response("Medecin deleted successfully". json_encode($jsonContent));
+    }
+    #[Route('/add/MedecinJson', name: 'app_medecin_new_json')]
+    public function addMedecinJson(Request $request, NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $medecin = new Medecin();
+       
+        $medecin->setEmail($request->get('email'));
+        $medecin->setPassword($request->get('password'));
+        $medecin->setConfirmPassword($request->get('confirm_password'));
+        $medecin->setNom($request->get('nom'));
+        $medecin->setPrenom($request->get('prenom'));
+        $medecin->setCin($request->get('cin'));
+        $medecin->setSexe($request->get('sexe'));
+        $medecin->setTelephone($request->get('telephone'));
+        $medecin->setGouvernorat($request->get('gouvernorat'));
+        $medecin->setAdresse($request->get('adresse'));
+        $medecin->setImage($request->get('photo'));
+        $medecin->setTitre($request->get('titre'));
+        $medecin->setAdresseCabinet($request->get('adresse_cabinet'));
+        $medecin->setFixe($request->get('fixe'));
+        $medecin->setDiplomeFormation($request->get('diplome_formation'));
+        $medecin->setTarif($request->get('tarif'));
+        $medecin->setCnam($request->get('cnam'));
+        $medecin->setSpecialites($request->get('specialites'));
+
+        $em->persist($medecin);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($medecin,'json',['groups'=>'medecin']);
+        return new Response(json_encode($jsonContent));
+
+      
+       
+
+    }
+    #[Route('/edit/{id}/MedecinJson', name: 'app_medecin_edit_json')]
+    public function editMedecinJson(Request $request, $id,NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $medecin=$em->getRepository(Medecin::class)->find($id);
+       
+        $medecin->setEmail($request->get('email'));
+        $medecin->setPassword($request->get('password'));
+        $medecin->setConfirmPassword($request->get('confirm_password'));
+        $medecin->setNom($request->get('nom'));
+        $medecin->setPrenom($request->get('prenom'));
+        $medecin->setCin($request->get('cin'));
+        $medecin->setSexe($request->get('sexe'));
+        $medecin->setTelephone($request->get('telephone'));
+        $medecin->setGouvernorat($request->get('gouvernorat'));
+        $medecin->setAdresse($request->get('adresse'));
+        $medecin->setImage($request->get('photo'));
+        $medecin->setTitre($request->get('titre'));
+        $medecin->setAdresseCabinet($request->get('adresse_cabinet'));
+        $medecin->setFixe($request->get('fixe'));
+        $medecin->setDiplomeFormation($request->get('diplome_formation'));
+        $medecin->setTarif($request->get('tarif'));
+        $medecin->setCnam($request->get('cnam'));
+        
+
+       
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($medecin,'json',['groups'=>'medecin']);
+        return new Response(json_encode($jsonContent));
+
+      
+       
+
+    }
+
+   
 
 
     #[Route('/{id}', name: 'app_medecin_show', methods: ['GET'])]
@@ -190,7 +290,7 @@ class MedecinController extends AbstractController
                     // this is needed to safely include the file name as part of the URL
                     $safeFilename = $slugger->slug($originalFilename);
                     $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
-    
+
                     // Move the file to the directory where brochures are stored
                     try {
                         $photo->move(
@@ -199,7 +299,7 @@ class MedecinController extends AbstractController
                         );
                     } catch (FileException $e) {
                     }
-    
+
                     // updates the 'brochureFilename' property to store the PDF file name
                     // instead of its contents
                     $medecin->setImage($newFilename);
@@ -208,7 +308,7 @@ class MedecinController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Profil mis à jour avec succès.');
-                
+
 
                 return $this->redirectToRoute('app_medecin_profile');
             }
@@ -220,10 +320,10 @@ class MedecinController extends AbstractController
         }
 
         throw new \LogicException('Erreur : l\'utilisateur courant n\'est pas un médecin.');
-    
+
         // return $this->render('profile/med_profile.html.twig');
     }
-
+    // je suis une Alela tres grande et je mange le chokotome jour et nuis  
     #[Route('/medecin/change-password', name: 'app_medecin_change-password')]
     public function changePassword(Request $request)
     {
@@ -254,52 +354,10 @@ class MedecinController extends AbstractController
 
 
 
-    
-    // #[Route('/add-assistant', name: 'medecin_add_assistant', methods: ['GET', 'POST'])]
-    // public function addAssistant(Request $request, Medecin $medecin,SluggerInterface $slugger): Response
-    // {
-    //     $assistant = new Assistant();
-    //     $form = $this->createForm(AssistantType::class, $assistant);
-    //     $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $photo = $form->get('photo')->getData();
 
-    //         // this condition is needed because the 'brochure' field is not required
-    //         // so the PDF file must be processed only when a file is uploaded
-    //         if ($photo) {
-    //             $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-    //             // this is needed to safely include the file name as part of the URL
-    //             $safeFilename = $slugger->slug($originalFilename);
-    //             $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
+    // partie mobile 
 
-    //             // Move the file to the directory where brochures are stored
-    //             try {
-    //                 $photo->move(
-    //                     $this->getParameter('images_directory'),
-    //                     $newFilename
-    //                 );
-    //             } catch (FileException $e) {
-    //             }
 
-    //             // updates the 'brochureFilename' property to store the PDF file name
-    //             // instead of its contents
-    //             $medecin->setImage($newFilename);
-    //         }
-    //         $assistant->setMedecin($medecin);
 
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($assistant);
-    //         $entityManager->flush();
-
-    //         return $this->redirectToRoute('app_medecin_show', ['id' => $medecin->getId()]);
-    //     }
-
-    //     return $this->render('medecin/add_assistant.html.twig', [
-    //         'medecin' => $medecin,
-    //         'assistant_form' => $form->createView(),
-    //     ]);
-    // }
-
-    
 }

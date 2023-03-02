@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Component\Console\Color;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -26,6 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('medecin')]
     private ?int $id = null;
     
     #[ORM\Column(length: 180, unique: true)]
@@ -34,9 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             pattern:'/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             message:'L\'email {{ value }} n\'est pas un email valide.',
          )]
+         #[Groups('medecin')]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups('medecin')]
     private array $roles = [];
 
     /**
@@ -49,16 +53,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //     minMessage: 'Votre mot de passe doit comporter au minimum {{ limit }} caractères',
        
     // )]
+    #[Groups('medecin')]
     private ?string $password = null;
 
 
     
     #[ORM\Column(length: 255)]
+    #[Groups('medecin')]
     private ?string $nom = null;
-
+    
     #[ORM\Column(length: 255)]
+    #[Groups('medecin')]
     private ?string $prenom = null;
-
+   
     #[ORM\Column]
     //#[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
@@ -68,9 +75,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         exactMessage: 'Cette champ doit comporter exactement 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?int $cin = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('medecin')]
     private ?string $sexe = null;
 
     #[ORM\Column]
@@ -82,10 +91,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         exactMessage: 'Cette champ doit comporter exactement 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?int $telephone = null;
 
     #[ORM\Column(length: 255)]
-    
+    #[Groups('medecin')]
     private ?string $gouvernorat = null;
 
     #[ORM\Column(length: 255)]
@@ -95,6 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Cette champ doit comporter au moins 8 caractères',
        
     )]
+    #[Groups('medecin')]
     private ?string $adresse = null;
    
     /**
@@ -106,6 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //     propertyPath : 'password',
     //     message :'Vous n\'avez pas saisi le même mot de passe !',
     //     )]
+    #[Groups('medecin')]
     private $confirm_password=null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaire::class)]
@@ -115,10 +127,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reclamations;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('medecin')]
     private ?string $image = null;
 
    
     #[ORM\Column(length: 180, nullable: true)]
+    #[Groups('medecin')]
     private ?string $reset_token;
 
     // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]

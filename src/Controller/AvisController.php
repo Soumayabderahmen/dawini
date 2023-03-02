@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/avis')]
 class AvisController extends AbstractController
@@ -45,6 +47,82 @@ class AvisController extends AbstractController
             'form' => $form,
         ]);
     }
+    ///Mobile
+    #[Route('/All', name: 'app_avis_liste')]
+    public function ListeAvis(AvisRepository $avis, SerializerInterface $serializer)
+    {
+        $avis = $avis->findAll();
+        $avisNormailize = $serializer->serialize($avis, 'json', ['groups' => "avis"]);
+    
+        $json = json_encode($avisNormailize);
+        return  new response($json);
+    }
+
+    #[Route('/AvisJson/{id}', name: 'app_avis_seule')]
+public function adminId($id,AvisRepository $avis, SerializerInterface $serializer)
+{
+    $avis = $avis->find($id);
+    $avisNormailize = $serializer->serialize($avis, 'json', ['groups' => "avis"]);
+
+    $json = json_encode($avisNormailize);
+    return  new response($json);
+}
+
+    #[Route('/add/AvisJson', name: 'app_avis_new_json')]
+    public function addAvisJson(Request $request, NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $avis = new Avis();
+        $avis->setText($request->get('text'));
+        $avis->setNote($request->get('note'));
+        $avis->setStatut($request->get('statut'));
+        $avis->setDate(new \DateTime());
+        $avis->setPatient($request->get('patient'));
+        $avis->setMedecin($request->get('medecin'));
+        
+        
+        $em->persist($avis);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($avis,'json',['groups'=>'avis']);
+        return new Response(json_encode($jsonContent));
+    
+       
+    }
+
+
+    #[Route('/edit/{id}/AvisJson', name: 'app_avis_edit_json')]
+    public function editAvisJson(Request $request,$id,NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $avis=$em->getRepository(Avis::class)->find($id);
+        $avis->setText($request->get('text'));
+        $avis->setNote($request->get('note'));
+        $avis->setStatut($request->get('statut'));
+        $avis->setDate(new \DateTime());
+        $avis->setPatient($request->get('patient'));
+        $avis->setMedecin($request->get('medecin'));
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($avis,'json',['groups'=>'avis']);
+        return new Response(json_encode($jsonContent));
+    
+       
+    }
+    #[Route('/delete/AvisJson/{id}', name: 'app_avis_delete_seule')]
+    public function deleteAdminJson($id,AvisRepository $avis, NormalizerInterface $normalizerInterface,Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $avis=$em->getRepository(Avis::class)->find($id);
+        $em->remove($avis);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($avis,'json',['groups'=>'medecin']);
+        return  new Response("avis deleted successfully". json_encode($jsonContent));
+    }
+
+
+
+
+
+
 
     #[Route('/{id}', name: 'app_avis_show', methods: ['GET'])]
     public function show(Avis $avi): Response

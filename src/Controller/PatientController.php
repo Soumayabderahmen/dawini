@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/patient')]
@@ -89,6 +90,91 @@ class PatientController extends AbstractController
             'form' => $form,
         ]);
     }
+//Mobile
+    #[Route('/All', name: 'app_patients_liste')]
+    public function ListePatient(UserRepository $patient, SerializerInterface $serializer)
+    {
+        $patient = $patient->findAll();
+        $patientNormailize = $serializer->serialize($patient, 'json', ['groups' => "medecin"]);
+
+        $json = json_encode($patientNormailize);
+        return  new response($json);
+    }
+    #[Route('/patientJson/{id}', name: 'app_patient_seule')]
+    public function PatientId($id,UserRepository $patient, SerializerInterface $serializer)
+    {
+        $patient = $patient->find($id);
+        $patientNormailize = $serializer->serialize($patient, 'json', ['groups' => "medecin"]);
+
+        $json = json_encode($patientNormailize);
+        return  new response($json);
+    }
+
+    #[Route('/delete/patientJson/{id}', name: 'app_patient_delete_seule')]
+    public function deletePatientJson($id,UserRepository $patient, NormalizerInterface $normalizerInterface,Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $patient=$em->getRepository(Patient::class)->find($id);
+        $em->remove($patient);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($patient,'json',['groups'=>'medecin']);
+        return  new Response("Patient deleted successfully". json_encode($jsonContent));
+    }
+    #[Route('/add/PatientJson', name: 'app_patient_new_json')]
+    public function addPatientJson(Request $request, NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $patient = new Patient();
+        $patient->setEmail($request->get('email'));
+        $patient->setPassword($request->get('password'));
+        $patient->setConfirmPassword($request->get('confirm_password'));
+        $patient->setNom($request->get('nom'));
+        $patient->setPrenom($request->get('prenom'));
+        $patient->setCin($request->get('cin'));
+        $patient->setSexe($request->get('sexe'));
+        $patient->setTelephone($request->get('telephone'));
+        $patient->setGouvernorat($request->get('gouvernorat'));
+        $patient->setAdresse($request->get('adresse'));
+        $patient->setImage($request->get('photo'));
+        $em->persist($patient);
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($patient,'json',['groups'=>'medecin']);
+        return new Response(json_encode($jsonContent));
+
+      
+       
+
+    }
+    #[Route('/edit/{id}/PatientJson', name: 'app_patient_edit_json')]
+    public function editPatientJson(Request $request, $id,NormalizerInterface $normalizerInterface): Response
+    {   
+        $em=$this->getDoctrine()->getManager();
+        $patient=$em->getRepository(Patient::class)->find($id);
+       
+        $patient->setEmail($request->get('email'));
+        $patient->setPassword($request->get('password'));
+        $patient->setConfirmPassword($request->get('confirm_password'));
+        $patient->setNom($request->get('nom'));
+        $patient->setPrenom($request->get('prenom'));
+        $patient->setCin($request->get('cin'));
+        $patient->setSexe($request->get('sexe'));
+        $patient->setTelephone($request->get('telephone'));
+        $patient->setGouvernorat($request->get('gouvernorat'));
+        $patient->setAdresse($request->get('adresse'));
+        $patient->setImage($request->get('photo'));
+       
+        
+
+       
+        $em->flush();
+        $jsonContent=$normalizerInterface->normalize($patient,'json',['groups'=>'medecin']);
+        return new Response(json_encode($jsonContent));
+
+      
+       
+
+    }
+
 
     #[Route('/{id}', name: 'app_patient_show', methods: ['GET'])]
     public function show(User $user): Response

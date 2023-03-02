@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/admin8')]
 class AdminController extends AbstractController
@@ -101,6 +103,97 @@ class AdminController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    //Mobile
+#[Route('/All', name: 'app_admins_liste')]
+public function ListeAdmin(UserRepository $admin, SerializerInterface $serializer)
+{
+    $admin = $admin->findAll();
+    $adminNormailize = $serializer->serialize($admin, 'json', ['groups' => "medecin"]);
+
+    $json = json_encode($adminNormailize);
+    return  new response($json);
+}
+#[Route('/AdminJson/{id}', name: 'app_admin_seule')]
+public function adminId($id,UserRepository $admin, SerializerInterface $serializer)
+{
+    $admin = $admin->find($id);
+    $adminNormailize = $serializer->serialize($admin, 'json', ['groups' => "medecin"]);
+
+    $json = json_encode($adminNormailize);
+    return  new response($json);
+}
+
+#[Route('/delete/AdminJson/{id}', name: 'app_admin_delete_seule')]
+public function deleteAdminJson($id,UserRepository $admin, NormalizerInterface $normalizerInterface,Request $request)
+{
+    $em=$this->getDoctrine()->getManager();
+    $admin=$em->getRepository(Admin::class)->find($id);
+    $em->remove($admin);
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($admin,'json',['groups'=>'medecin']);
+    return  new Response("admin deleted successfully". json_encode($jsonContent));
+}
+#[Route('/add/AdminJson', name: 'app_admin_new_json')]
+public function addAdminJson(Request $request, NormalizerInterface $normalizerInterface): Response
+{   
+    $em=$this->getDoctrine()->getManager();
+    $admin = new Admin();
+    $admin->setEmail($request->get('email'));
+    $admin->setPassword($request->get('password'));
+    $admin->setConfirmPassword($request->get('confirm_password'));
+    $admin->setNom($request->get('nom'));
+    $admin->setPrenom($request->get('prenom'));
+    $admin->setCin($request->get('cin'));
+    $admin->setSexe($request->get('sexe'));
+    $admin->setTelephone($request->get('telephone'));
+    $admin->setGouvernorat($request->get('gouvernorat'));
+    $admin->setAdresse($request->get('adresse'));
+    $admin->setImage($request->get('photo'));
+    $em->persist($admin);
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($admin,'json',['groups'=>'medecin']);
+    return new Response(json_encode($jsonContent));
+
+  
+   
+
+}
+#[Route('/edit/{id}/AdminJson', name: 'app_admin_edit_json')]
+public function editAdminJson(Request $request, $id,NormalizerInterface $normalizerInterface): Response
+{   
+    $em=$this->getDoctrine()->getManager();
+    $admin=$em->getRepository(Admin::class)->find($id);
+   
+    $admin->setEmail($request->get('email'));
+    $admin->setPassword($request->get('password'));
+    $admin->setConfirmPassword($request->get('confirm_password'));
+    $admin->setNom($request->get('nom'));
+    $admin->setPrenom($request->get('prenom'));
+    $admin->setCin($request->get('cin'));
+    $admin->setSexe($request->get('sexe'));
+    $admin->setTelephone($request->get('telephone'));
+    $admin->setGouvernorat($request->get('gouvernorat'));
+    $admin->setAdresse($request->get('adresse'));
+    $admin->setImage($request->get('photo'));
+   
+    
+
+   
+    $em->flush();
+    $jsonContent=$normalizerInterface->normalize($admin,'json',['groups'=>'medecin']);
+    return new Response(json_encode($jsonContent));
+
+  
+   
+
+}
+
+
+  
+
+
+
 
     #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -245,13 +338,10 @@ class AdminController extends AbstractController
     }
 
  
-    #[Route('/{id}/toggle-status', name: 'doctor_admin_toggle_status', methods: ['GET', 'POST'])]
-    public function toggleStatus(Medecin $doctor, EntityManagerInterface $entityManager): Response
-    {
-        $doctor->setEnabled(!$doctor->isEnabled());
-        $entityManager->flush();
+   
 
-        return $this->redirectToRoute('app_medecin_index');
-    }
-  
+
+    //partie Mobile
+
+    
 }
