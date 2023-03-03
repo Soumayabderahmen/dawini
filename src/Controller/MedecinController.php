@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -352,12 +353,30 @@ class MedecinController extends AbstractController
         ]);
     }
 
+ 
+#[Route('/medecins/search', name: 'medecins_search', methods: ['GET', 'POST'])]
+public function search(Request $request, MedecinRepository $medecinRepository): JsonResponse
+{
+    // Récupérer le mot clé envoyé par la requête AJAX
+    $searchTerm = $request->get('search');
 
+    // Rechercher les médecins correspondants au mot clé
+    $medecins = $medecinRepository->searchByTerm($searchTerm);
 
+    // Construire un tableau de données pour la réponse JSON
+    $data = [];
+    foreach ($medecins as $medecin) {
+        $data[] = [
+            'nom' => $medecin->getNom(),
+            'prenom' => $medecin->getPrenom(),
+            'email' => $medecin->getEmail(),
+            'telephone' => $medecin->getTelephone(),
+            'tarif_fixe' => $medecin->getTarifFixe(),
+        ];
+    }
 
-
-    // partie mobile 
-
-
+    // Retourner la réponse JSON
+    return new JsonResponse(['data' => $data]);
+}
 
 }

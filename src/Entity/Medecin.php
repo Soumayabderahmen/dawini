@@ -5,12 +5,9 @@ namespace App\Entity;
 use App\Repository\MedecinRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 class Medecin extends User
 {
@@ -94,9 +91,15 @@ class Medecin extends User
     private Collection $assistant;
 
     #[ORM\Column(nullable: true)]
-    #[Groups('medecin')]
-    private ?bool $enabled = null;
+    private ?bool $status = null;
 
+   
+   
+
+
+    
+    
+    
    
    
     public function __construct()
@@ -108,7 +111,7 @@ class Medecin extends User
         $this->dossiers = new ArrayCollection();
         $this->avis = new ArrayCollection();
         $this->assistant = new ArrayCollection();
-        $this->enabled = false; // par défaut, le compte est désactivé
+    
        
        
     }
@@ -382,17 +385,24 @@ class Medecin extends User
         return $this;
     }
 
-    public function isEnabled(): ?bool
+    public function isStatus(): ?bool
     {
-        return $this->enabled;
+        return $this->status;
     }
 
-    public function setEnabled(?bool $enabled): self
+    public function setStatus(?bool $status): self
     {
-        $this->enabled = $enabled;
+        $this->status = $status;
 
         return $this;
     }
+
+
+
+   
+   
+
+   
 
    
 

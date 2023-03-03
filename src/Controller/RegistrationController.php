@@ -128,12 +128,14 @@ class RegistrationController extends AbstractController
                 // instead of its contents
                 $user->setImage($newFilename);
             }
+
             $user->setPassword($userPasswordHasher->hashPassword($user,$form->get('password')->getData() ));
             $user->setConfirmPassword($userPasswordHasher->hashPassword($user,$form->get('confirm_password')->getData()));
             $user->eraseCredentials();
             }
             
-           
+         // Compte désactivé en attendant vérification
+            $user->setStatus(false);
             $roles[]='ROLE_MEDECIN';// Rôle Médecin
             $user->setRoles($roles);
             $userRepository->save($user, true);

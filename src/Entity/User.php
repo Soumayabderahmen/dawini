@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        
     )]
     #[Groups('medecin')]
-    private ?int $telephone = null;
+    private ?String $telephone = null;
 
     #[ORM\Column(length: 255)]
     #[Groups('medecin')]
@@ -134,6 +134,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, nullable: true)]
     #[Groups('medecin')]
     private ?string $reset_token;
+
+   
 
     // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     // private Collection $images;
@@ -313,12 +315,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?String
     {
         return $this->telephone;
     }
 
-    public function setTelephone(int $telephone): self
+    public function setTelephone(String $telephone): self
     {
         $this->telephone = $telephone;
 
@@ -439,6 +441,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->reset_token = $reset_token;
     }
+
+   
+
+  
 
 }
 

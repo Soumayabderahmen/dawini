@@ -63,4 +63,28 @@ class MedecinRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+public function searchByTerm($searchTerm)
+{
+    $qb = $this->createQueryBuilder('m');
+
+    $qb->where($qb->expr()->orX(
+            $qb->expr()->like('m.nom', ':searchTerm'),
+            $qb->expr()->like('m.prenom', ':searchTerm'),
+            $qb->expr()->like('m.email', ':searchTerm'),
+            $qb->expr()->like('m.telephone', ':searchTerm'),
+            $qb->expr()->like('m.tarif', ':searchTerm'),
+            $qb->expr()->like('m.cin', ':searchTerm'),
+            $qb->expr()->like('m.specialites', ':searchTerm'),
+            $qb->expr()->like('m.adresse', ':searchTerm'),
+            $qb->expr()->like('m.sexe', ':searchTerm'),
+            $qb->expr()->like('m.titre', ':searchTerm'),
+            $qb->expr()->like('m.telephone', ':searchTerm'),
+        ))
+        ->setParameter('searchTerm', '%'.$searchTerm.'%');
+
+    return $qb->getQuery()->getResult();
+}
 }

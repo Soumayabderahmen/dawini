@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\Medecin;
+use Twilio\Rest\Client;
 use App\Entity\User;
 use App\Form\UserProfileType;
 use App\Form\ChangePasswordType;
@@ -341,7 +342,10 @@ public function editAdminJson(Request $request, $id,NormalizerInterface $normali
    
 
 
-    //partie Mobile
-
+    //   Vérification d'un compte médecin par l'administrateur
+     
+   
+    
+    
     
 }
