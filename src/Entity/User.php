@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-
-use Doctrine\ORM\Mapping\DiscriminatorColumn;
-use Doctrine\ORM\Mapping\DiscriminatorMap;
-use Doctrine\ORM\Mapping\InheritanceType;
+use App\Repository\UserRepository;
 use Symfony\Component\Console\Color;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[InheritanceType('JOINED')]
@@ -137,6 +137,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?bool $enabled = null;
+    
+    #[ORM\Column(length: 255, nullable: true)]
+    private  ?string $token;
+    
 
    
    
@@ -147,7 +151,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // #[ORM\OneToMany(mappedBy: 'images', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     // private Collection $images;
 
-    
+   
   
    
   
@@ -464,7 +468,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
 
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
 }
 
    

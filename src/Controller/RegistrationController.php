@@ -33,7 +33,18 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class RegistrationController extends AbstractController
 {
     
-    
+    private $mailer;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+
+    public function __construct( Mailer $mailer, UserRepository $userRepository)
+    {
+       
+        $this->mailer = $mailer;
+        $this->userRepository = $userRepository;
+    }
 
    
 
@@ -143,9 +154,9 @@ class RegistrationController extends AbstractController
             
             $roles[]='ROLE_MEDECIN';// Rôle Médecin
             $user->setRoles($roles);
-            
+            $user->setToken($this->generateToken());
             $userRepository->save($user, true);
-           
+            $this->mailer->sendEmail($user->getEmail(), $user->getToken());
             $this->addFlash('success', 'Votre compte a été créé avec succès. Veuillez attendre que l\'administrateur active votre compte.');
 
             // do anything else you need here, like send an email
@@ -166,9 +177,35 @@ class RegistrationController extends AbstractController
 
         // return $this->redirectToRoute('app_login');
     }
-   
+     /**
+     * @Route("/confirmer-mon-compte/{token}", name="confirm_account")
+     * @param string $token
+     */
+    public function confirmAccount(string $token)
+    {
+        $user = $this->userRepository->findOneBy(["token" => $token]);
+        if($user) {
+            $user->setToken(null);
+            $user->setEnabled(true);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash("success", "Compte actif !");
+            return $this->redirectToRoute("home");
+        } else {
+            $this->addFlash("error", "Ce compte n'exsite pas !");
+            return $this->redirectToRoute('home');
+        }
+    }
     
-    
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function generateToken()
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+    }
 
 
 
