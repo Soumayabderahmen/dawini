@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Patient;
 // use App\Entity\User;
 use App\Entity\Medecin;
-use App\Form\PersonnelRegisterType;
-use App\Form\Register1Type;
 
+// use App\Service\Mailer;
 use App\Form\RegistrationMedecinType;
 use App\Form\PatientRegistrationType;
-use App\Form\VerificationType;
 use App\Repository\MedecinRepository;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
@@ -22,14 +20,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Serializer\SerializerInterface;
+use App\Service\Mailer;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
+
+// use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+// use Symfony\Component\Serializer\SerializerInterface;
+// use Symfony\Component\Mailer\MailerInterface;
+// use Symfony\Component\HttpFoundation\JsonResponse;
 // use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
+    
+    
+
+   
+
     #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, SluggerInterface $slugger ,UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, LoginFormAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -134,11 +141,11 @@ class RegistrationController extends AbstractController
             $user->eraseCredentials();
             }
             
-         // Compte désactivé en attendant vérification
-            $user->setStatus(false);
             $roles[]='ROLE_MEDECIN';// Rôle Médecin
             $user->setRoles($roles);
+            
             $userRepository->save($user, true);
+           
             $this->addFlash('success', 'Votre compte a été créé avec succès. Veuillez attendre que l\'administrateur active votre compte.');
 
             // do anything else you need here, like send an email
@@ -159,43 +166,10 @@ class RegistrationController extends AbstractController
 
         // return $this->redirectToRoute('app_login');
     }
-    // #[Route('/inscriptionJson', name: 'app_inscription_json')]
-
-    // public function SignupAction(Request $request){
-    //    $email = $request->query->get('email');
-    //    $roles=$request->query->get('roles');
-    //    $password = $request->query->get('password');
-    //    $confirmPassword = $request->query->get('confirm_password');
-    //    $nom=$request->query->get('nom');
-    //    $prenom=$request->query->get('prenom');
-    //    $cin=$request->query->get('cin');
-    //    $sexe=$request->query->get('sexe');
-    //    $telephone=$request->query->get('telephone');
-    //    $gouvernort=$request->query->get('gouvernort');
-    //    $adresse=$request->query->get('adresse');
-    //    $titre=$request->query->get('titre');
-    //    $adresseCabinet=$request->query->get('adresse_cabinet');
+   
     
-    //     $medecin = new Medecin();
-    //     $medecin->setEmail($request->get('email'));
-    //     $medecin->setPassword($request->get('password'));
-    //     $medecin->setConfirmPassword($request->get('confirm_password'));
-    //     $medecin->setNom($request->get('nom'));
-    //     $medecin->setPrenom($request->get('prenom'));
-    //     $medecin->setCin($request->get('cin'));
-    //     $medecin->setSexe($request->get('sexe'));
-    //     $medecin->setTelephone($request->get('telephone'));
-    //     $medecin->setGouvernorat($request->get('gouvernorat'));
-    //     $medecin->setAdresse($request->get('adresse'));
-    //     $medecin->setImage($request->get('photo'));
-    //     $medecin->setTitre($request->get('titre'));
-    //     $medecin->setAdresseCabinet($request->get('adresse_cabinet'));
-    //     $medecin->setFixe($request->get('fixe'));
-    //     $medecin->setDiplomeFormation($request->get('diplome_formation'));
-    //     $medecin->setTarif($request->get('tarif'));
-    //     $medecin->setCnam($request->get('cnam'));
-    //     $medecin->setSpecialites($request->get('specialites'));
-    // }
+    
+
 
 
 }

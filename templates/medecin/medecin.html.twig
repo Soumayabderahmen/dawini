@@ -23,7 +23,12 @@
 				<div class="card">
 					<table class="table datatable-basic table " id="datatable">
 						<div class="card-body">
-	
+	{% if app.session.flashBag.has('success') %}
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									{{ app.session.flashBag.get('success')[0] }}
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							{% endif %}
 
 							<div class="header-elements">
 								<thead class="thead-light">
@@ -36,7 +41,7 @@
 									
 									<th>Images</th>
 									<th>Tarif</th>
-									
+									 <th>Statut</th>
 									<th colspan="3">
 										<center>Actions</center>
 									</th>
@@ -74,7 +79,21 @@
 									 
   			
                         
-                        
+                          <td>
+                    {% if medecin.isEnabled %}
+                        <span class="badge bg-danger">Bloqué</span>
+                    {% else %}
+                        <span class="badge bg-success">Actif</span>
+                    {% endif %}
+					
+                </td>
+                <td>
+                    {% if medecin.isEnabled %}
+                        <a href="{{ path('admin_medecin_unblock', {'id': medecin.id}) }}" class="btn btn-success">Enable</a>
+                    {% else %}
+                        <a href="{{ path('admin_medecin_block', {'id': medecin.id}) }}" class="btn btn-danger">Disable</a>
+                    {% endif %}
+                </td>
                         
                        
                         

@@ -15,7 +15,7 @@ class Medecin extends User
     #[ORM\Column(length: 255)]
     #[Groups('medecin')]
     private ?string $titre = null;
-
+   
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
@@ -94,6 +94,10 @@ class Medecin extends User
     private ?bool $status = null;
 
    
+
+   
+
+   
    
 
 
@@ -115,6 +119,7 @@ class Medecin extends User
        
        
     }
+   
 
     public function getTitre(): ?string
     {
@@ -396,6 +401,10 @@ class Medecin extends User
 
         return $this;
     }
+
+
+
+   
 
 
 

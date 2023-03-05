@@ -135,6 +135,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups('medecin')]
     private ?string $reset_token;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $enabled = null;
+
+   
    
 
     // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
@@ -144,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // private Collection $images;
 
     
-
+  
    
   
 
@@ -154,6 +158,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        
         $this->commentaires = new ArrayCollection();
         $this->reclamations = new ArrayCollection();
+        $this->enabled = true;
      
        
        
@@ -414,6 +419,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     
     }
+  
+    
 
     public function getImage(): ?string
     {
@@ -444,7 +451,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
    
 
-  
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    
 
 }
 

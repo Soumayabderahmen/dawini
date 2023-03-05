@@ -338,7 +338,35 @@ public function editAdminJson(Request $request, $id,NormalizerInterface $normali
         ]);
     }
 
- 
+  /**
+     * @Route("/admin/medecin/{id}/block", name="admin_medecin_block")
+     */
+    public function blockMedecin(Medecin $medecin): Response
+    {
+        $medecin->setEnabled(true);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($medecin);
+        $entityManager->flush();
+        
+        $this->addFlash('success', 'Le médecin a été bloqué avec succès');
+        
+        return $this->redirectToRoute('app_medecin_index');
+    }
+
+    /**
+     * @Route("/admin/medecin/{id}/unblock", name="admin_medecin_unblock")
+     */
+    public function unblockMedecin(Medecin $medecin): Response
+    {
+        $medecin->setEnabled(false);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($medecin);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le médecin a été débloqué avec succès');
+        
+        return $this->redirectToRoute('app_medecin_index');
+    }
    
 
 

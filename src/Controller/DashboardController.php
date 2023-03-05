@@ -11,10 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/test2', name: 'Dashboard')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository,MedecinRepository $medecinRepository): Response
     {
+        $countmedecin = count($medecinRepository->findAll());
         return $this->render('Dashboard/dashboardAdmin.html.twig', [
             'users' => $userRepository->findAll(),
+            'countmedecin'=>$countmedecin,
         ]);
     }
 

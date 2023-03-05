@@ -20,8 +20,15 @@ class Reclamation
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+
+
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+
+    private ?\DateTimeInterface $date = null;
+
     #[ORM\ManyToOne(inversedBy: 'reclamations')]
-    private ?User $utilisateur = null;
+    private ?Patient $patient = null;
 
     public function getId(): ?int
     {
@@ -52,14 +59,29 @@ class Reclamation
         return $this;
     }
 
-    public function getUtilisateur(): ?User
+
+
+
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->utilisateur;
+        return $this->date;
     }
 
-    public function setUtilisateur(?User $utilisateur): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->utilisateur = $utilisateur;
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPatient(): ?Patient
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(?Patient $patient): self
+    {
+        $this->patient = $patient;
 
         return $this;
     }
