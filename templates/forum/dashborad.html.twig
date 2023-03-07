@@ -1,0 +1,110 @@
+{% extends 'base.html.twig'%}
+
+{% set queryParams = app.request.query.all %}
+
+{% block title %}forum
+{% endblock %}
+
+{% block content %}
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3"></h4>
+			<div class="row">
+				<div class="col-xl-12 col-sm-12 col-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h5 class="card-title">Forum</h5>
+								</div>
+								<div class="col-auto d-flex flex-wrap">
+									<div class="form-custom me-2">
+										<div id="tableSearch" class="dataTables_wrapper"></div>
+									</div>
+									<div class="multipleSelection">
+										<div class="selectBox">
+											<p class="mb-0 me-2">
+												<i class="feather-filter me-1"></i>
+												Filter By Speciality
+											</p>
+											<span class="down-icon">
+												<i class="feather-chevron-down"></i>
+											</span>
+										</div>
+										<div id="checkBoxes">
+											<form id="filters">
+												<p class="lab-title">Specialities</p>
+												<div class="selectBox-cont">
+													{% for specialite in specialites%}
+													{% if queryParams is not empty and queryParams.specialites is defined %}
+													{% set checked = (specialite.id in queryParams.specialites) ? "checked" : "" %}
+												{% else %}
+													{% set checked = "" %}
+												{% endif %}
+							
+													<label class="custom_check w-100" for="sep{{specialite.id}}">
+														<input type="checkbox" name="specialite[]" id="sep{{specialite.id}}" value="{{specialite.id}}" {{checked}} >
+														<span class="checkmark"></span>{{specialite.nom}}</label>
+										{% endfor %}
+										
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card" id="content">
+
+							<div class="card-body">
+								<table class="table datatable-basic table table-borderless hover-table" id="datatable">
+									<thead class="thead-light">
+										<th>Id</th>
+										<th>Titre</th>
+                                        <th>Message</th>
+										<th>Description</th>
+										<th>Specialities</th>
+										
+										<th colspan="3"><center>Actions</center></th>
+									</thead>
+									<tbody>
+
+										{% for sujet in sujets %}
+											<tr>
+                                                <td>{{ sujet.id }}</td>
+												<td>{{ sujet.title }}</td>
+												<td>{{ sujet.message|slice(0,20)|raw}}</td>
+
+												<td>{{ sujet.Description|slice(0,20)|raw }}</td>
+												
+												<td>{{ sujet.specialites}}</td>
+												
+												<td style="display: inline-flex;margin-left: 150px;">
+                                              
+													<a href="{{ path('app_sujet_avoir_show', {'id': sujet.id}) }}" class="btn btn-sm bg-primary-light">
+														<i class="far fa-eye"></i>
+	
+													</a>
+
+													
+												</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="20">no records found</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								{% set queryParams = app.request.query.all %}
+							
+							</div>
+						</div>
+					</div>
+				{% endblock %}
+{% block script%}
+{{parent()}}
+<script src="{{asset('js/filters.js')}}"></script>
+
+				{% endblock %}

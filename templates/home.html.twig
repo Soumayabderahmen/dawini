@@ -21,6 +21,11 @@
 		<link rel="stylesheet" href="{{asset('client/assets/css/aos.css')}}">
 
 		<link rel="stylesheet" href="{{asset('client/assets/css/style.css')}}">
+
+
+
+<link rel="stylesheet" href="{{asset('client/assets/css/feather.css')}}">
+
 			</head>
 {% endblock %}
 
@@ -66,16 +71,18 @@
 								</a>
 								
 							</li>
-							<li class="has-submenu">
-								<a href="#">Article
-									
-								</a>
-								
 							
-									
-							</li>
+<li class="has-submenu">
+
+									<a href="{{ path('app_blog')}}">Article
+
+									</a>
+
+
+								</li>
+							
 							<li class="has-submenu">
-								<a href="#">Forum
+								<a href="{{path('app_sujet_index')}}">Forum
 									
 								</a>
 								
@@ -85,7 +92,12 @@
 									
 								</a>
 							</li>	
-
+                               <li class="has-submenu">
+								<a href="{{ path('contact') }}">ContactUs
+									
+								</a>
+								
+							</li>
 							{% if is_granted('ROLE_PATIENT') %}
 
 							 <li class="has-submenu">
@@ -311,127 +323,58 @@
 	</div>
 </div></section>
 <section class="section section-blogs">
-<div class="container-fluid">
+	<div class="container-fluid">
 
-	<div class="section-header text-center aos" data-aos="fade-up">
-		<h2>Nos articles</h2>
-		
-	</div>
-
-	<div class="row blog-grid-row aos" data-aos="fade-up">
-		<div class="col-md-6 col-lg-3 col-sm-12">
-
-			<div class="blog grid-blog">
-				<div class="blog-image">
-					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-01.jpg')}}" alt="Post Image"></a>
-				</div>
-				<div class="blog-content">
-					<ul class="entry-meta meta-item">
-						<li>
-							<div class="post-author">
-								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-01.jpg')}}" alt="Post Author">
-									<span>Dr. Ruby Perrin</span>
-								</a>
-							</div>
-						</li>
-						<li>
-							<i class="far fa-clock"></i>
-							4 Dec 2019</li>
-					</ul>
-					<h3 class="blog-title">
-						<a href="blog-details.html">Doccure – Making your clinic painless visit?</a>
-					</h3>
-					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
-				</div>
-			</div>
+		<div class="section-header text-center aos" data-aos="fade-up">
+			<h2>Nos Articles</h2>
 
 		</div>
-		<div class="col-md-6 col-lg-3 col-sm-12">
+ 
+		<div class="row blog-grid-row aos" data-aos="fade-up">
+		{% for article in articles %}
+			<div class="col-md-6 col-lg-3 col-sm-12">
+             
+				<div class="blog grid-blog">
+				
+					<div class="blog-image">
+					
+						<a href="{{ path('app_blog_details',{id: article.id})}}">
+						<img  {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="268,5" height="177,667" />  {% endfor %} </a> <div class="fav-btn"> </div>
+					</div>
+					<div class="blog-content">
+						<ul class="entry-meta meta-item">
+							<li>
+								<div class="post-author">
+									<a href="doctor-profile.html">
+									
+									<a href="doctor-profile.html"> <span> Dr. {{article.medecin }} </span>
+									</a>
+								</div>
+							</li>
+							<li>
+								<i class="far fa-clock"></i>
+								{{article.date|date ('d/m/y') }}</li></li>
+						</ul>
+						<h3 class="blog-title">
+									<a href="{{ path('app_blog_details',{id: article.id})}}">
+										{{article.nom }}</a>
+								</h3>
+								<p class="mb-0">{{article.description|slice(0,50)|raw }}</p>
+					</div>
+					
+				</div>
 
-			<div class="blog grid-blog">
-				<div class="blog-image">
-					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-02.jpg')}}" alt="Post Image"></a>
-				</div>
-				<div class="blog-content">
-					<ul class="entry-meta meta-item">
-						<li>
-							<div class="post-author">
-								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-02.jpg')}}" alt="Post Author">
-									<span>Dr. Darren Elder</span>
-								</a>
-							</div>
-						</li>
-						<li>
-							<i class="far fa-clock"></i>
-							3 Dec 2019</li>
-					</ul>
-					<h3 class="blog-title">
-						<a href="blog-details.html">What are the benefits of Online Doctor Booking?</a>
-					</h3>
-					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
-				</div>
 			</div>
-
-		</div>
-		<div class="col-md-6 col-lg-3 col-sm-12">
-
-			<div class="blog grid-blog">
-				<div class="blog-image">
-					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-03.jpg')}}" alt="Post Image"></a>
-				</div>
-				<div class="blog-content">
-					<ul class="entry-meta meta-item">
-						<li>
-							<div class="post-author">
-								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-03.jpg')}}" alt="Post Author">
-									<span>Dr. Deborah Angel</span>
-								</a>
-							</div>
-						</li>
-						<li>
-							<i class="far fa-clock"></i>
-							3 Dec 2019</li>
-					</ul>
-					<h3 class="blog-title">
-						<a href="blog-details.html">Benefits of consulting with an Online Doctor</a>
-					</h3>
-					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
-				</div>
-			</div>
-
-		</div>
-		<div class="col-md-6 col-lg-3 col-sm-12">
-
-			<div class="blog grid-blog">
-				<div class="blog-image">
-					<a href="blog-details.html"><img class="img-fluid" src="{{asset('client/assets/img/blog/blog-04.jpg')}}" alt="Post Image"></a>
-				</div>
-				<div class="blog-content">
-					<ul class="entry-meta meta-item">
-						<li>
-							<div class="post-author">
-								<a href="doctor-profile.html"><img src="{{asset('client/assets/img/doctors/doctor-thumb-04.jpg')}}" alt="Post Author">
-									<span>Dr. Sofia Brient</span>
-								</a>
-							</div>
-						</li>
-						<li>
-							<i class="far fa-clock"></i>
-							2 Dec 2019</li>
-					</ul>
-					<h3 class="blog-title">
-						<a href="blog-details.html">5 Great reasons to use an Online Doctor</a>
-					</h3>
-					<p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
-				</div>
-			</div>
-
+			{% endfor %}
 		</div>
 	</div>
-	<div class="view-all text-center aos" data-aos="fade-up">
-		<a href="blog-list.html" class="btn btn-primary">View All</a>
+	
+
+
+		<div class="view-all text-center aos" data-aos="fade-up">
+			<a href="{{ path('app_blog')}}" class="btn btn-primary">Voir Tous</a>
+		</div>
 	</div>
-</div>
 </section>
 {% endblock %}
 
@@ -562,6 +505,10 @@
 <script src="{{asset('client/assets/js/slick.js')}}"></script>
 <script src="{{asset('client/assets/js/aos.js')}}"></script>
 <script src="{{asset('client/assets/js/script.js')}}"></script>
+
+
+<script src="{{asset('client/assets/js/feather.min.js')}}"></script>
+
 {% endblock %}
 
 </body>

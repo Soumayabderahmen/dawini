@@ -28,13 +28,28 @@ class Article
     #[ORM\OneToMany(mappedBy: 'article', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
-    #[ORM\OneToMany(mappedBy: 'aticles', targetEntity: Images::class)]
+    #[ORM\OneToMany(mappedBy: 'aticles', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $images;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?Specialites $specialites = null;
+
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: ArticleFavorie::class)]
+    private Collection $articleFavories;
+
+    #[ORM\OneToMany(mappedBy: 'article', targetEntity: ArticleLike::class)]
+    private Collection $articleLikes;
 
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->articleFavories = new ArrayCollection();
+        $this->articleLikes = new ArrayCollection();
+        $this->date= new \DateTime();
     }
 
     public function getId(): ?int
@@ -137,4 +152,95 @@ class Article
 
         return $this;
     }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getSpecialites(): ?Specialites
+    {
+        return $this->specialites;
+    }
+
+    public function setSpecialites(?Specialites $specialites): self
+    {
+        $this->specialites = $specialites;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleFavorie>
+     */
+    public function getArticleFavories(): Collection
+    {
+        return $this->articleFavories;
+    }
+
+    public function addArticleFavory(ArticleFavorie $articleFavory): self
+    {
+        if (!$this->articleFavories->contains($articleFavory)) {
+            $this->articleFavories->add($articleFavory);
+            $articleFavory->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleFavory(ArticleFavorie $articleFavory): self
+    {
+        if ($this->articleFavories->removeElement($articleFavory)) {
+            // set the owning side to null (unless already changed)
+            if ($articleFavory->getArticle() === $this) {
+                $articleFavory->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleLike>
+     */
+    public function getArticleLikes(): Collection
+    {
+        return $this->articleLikes;
+    }
+
+    public function addArticleLike(ArticleLike $articleLike): self
+    {
+        if (!$this->articleLikes->contains($articleLike)) {
+            $this->articleLikes->add($articleLike);
+            $articleLike->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleLike(ArticleLike $articleLike): self
+    {
+        if ($this->articleLikes->removeElement($articleLike)) {
+            // set the owning side to null (unless already changed)
+            if ($articleLike->getArticle() === $this) {
+                $articleLike->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getLikesCount(): int
+    {
+        return $this->articleLikes->count();
+    }
+    public function __toString(): string{
+        return (string)$this->nom;
+       }
 }

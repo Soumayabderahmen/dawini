@@ -28,10 +28,18 @@ class Specialites
     #[ORM\OneToMany(mappedBy: 'specialite', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $images;
 
+    #[ORM\OneToMany(mappedBy: 'specialites', targetEntity: Sujet::class)]
+    private Collection $sujets;
+
+    #[ORM\OneToMany(mappedBy: 'specialites', targetEntity: Article::class)]
+    private Collection $articles;
+
     public function __construct()
     {
         $this->medecin = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->sujets = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
 
@@ -130,6 +138,66 @@ class Specialites
            // set the owning side to null (unless already changed)
            if ($image->getSpecialite() === $this) {
                $image->setSpecialite(null);
+           }
+       }
+
+       return $this;
+   }
+
+   /**
+    * @return Collection<int, Sujet>
+    */
+   public function getSujets(): Collection
+   {
+       return $this->sujets;
+   }
+
+   public function addSujet(Sujet $sujet): self
+   {
+       if (!$this->sujets->contains($sujet)) {
+           $this->sujets->add($sujet);
+           $sujet->setSpecialites($this);
+       }
+
+       return $this;
+   }
+
+   public function removeSujet(Sujet $sujet): self
+   {
+       if ($this->sujets->removeElement($sujet)) {
+           // set the owning side to null (unless already changed)
+           if ($sujet->getSpecialites() === $this) {
+               $sujet->setSpecialites(null);
+           }
+       }
+
+       return $this;
+   }
+
+   /**
+    * @return Collection<int, Article>
+    */
+   public function getArticles(): Collection
+   {
+       return $this->articles;
+   }
+
+   public function addArticle(Article $article): self
+   {
+       if (!$this->articles->contains($article)) {
+           $this->articles->add($article);
+           $article->setSpecialites($this);
+       }
+
+       return $this;
+   }
+
+   public function removeArticle(Article $article): self
+   {
+       if ($this->articles->removeElement($article)) {
+           // set the owning side to null (unless already changed)
+           if ($article->getSpecialites() === $this) {
+               $article->setSpecialites(null);
            }
        }
 

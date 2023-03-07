@@ -1,0 +1,189 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Article
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="row blog-grid-row">
+						{% for article in articles %}
+							<div class="col-md-6 col-sm-12">
+
+								<div class="blog grid-blog">
+									<div class="blog-image">
+
+										<a href="{{ path('app_blog_details',{id: article.id})}}">
+											<img</li Dr. </a> <center> {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="251,45" height="314" /> {% endfor %} </a> </div> <div class="blog-content"> <ul class="entry-meta meta-item"> <li> <div class="post-author"> <a href="doctor-profile.html"> <span> Dr. {{article.medecin }} </span>
+												<li>
+													<i class="far fa-clock"></i>
+													{{article.date|date ('d/m/y') }}</li>
+											</ul>
+											
+											<h3 class="blog-title">
+												<a href="{{ path('app_blog_details',{id: article.id})}}">
+													{{article.nom }}</a>
+
+											</h3>
+											 {{ include('front/_favorie.html.twig') }}
+
+											</div>
+											<p class="mb-0">{{article.description|slice(0,100)|raw }}</p>
+											
+										</div>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-12">
+										{{knp_pagination_render(articles,'pagination.html.twig') }}
+									</div>
+
+
+								</div>
+							</div>
+
+
+						{% endfor %}
+					
+
+
+					<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
+						<div class="card search-widget">
+							<div class="card-body">
+								<form class="search-form">
+									<div class="input-group">
+										<input type="text" placeholder="recherche..." class="form-control">
+										<button type="submit" class="btn btn-primary">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="card post-widget">
+							<div class="card-header">
+
+								<h4 class="card-title">Derniers Articles</h4>
+							</div>
+							<div class="card-body">
+								{% for article in articles|slice(0,2) %}
+
+									<ul class="latest-posts">
+										<span>
+											<li>
+												<div class="post-thumb">
+
+
+													<a href="{{ path('app_blog_details',{id: article.id}) }}">
+
+														{% for image in article.images|slice(0, 1) %}
+															<img src="{{ asset('/uploads/'~image.name) }}" alt="" width="80" height="53,3333"/>
+														{% endfor %}
+													</a>
+													<br>
+
+												</div>
+
+
+												<h4>
+													&nbsp;
+													<a href="blog-details.html">{{article.nom }}</a>
+												</h4>
+												<p>&nbsp;{{article.date|date('d/m/y') }}</p>
+
+											</li>
+
+
+										</span>
+
+									</ul>
+
+
+								{% endfor %}
+							</div>
+
+
+							<div class="card category-widget">
+								<div class="card-header">
+									<h4 class="card-title">Catégories des articles</h4>
+								</div>
+								{%for specialite in specialities %}
+									<div class="card-body">
+										<ul class="categories">
+											{{specialite.nom}}
+										</ul>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
+{% block script %}
+{{ parent() }}
+
+<script>
+
+$(document).on('click', ".add-to-favorites", function (e) {
+    e.preventDefault();
+
+    var url = $(this).attr('data-href');
+    var entityId = $(this).attr('data-entity-id');
+
+    $(this).hide();
+    $(this).nextAll('.remove-from-favorites').show();
+
+    $('#add-to-favorites-' + entityId).hide();
+    $('#remove-from-favorites-' + entityId).show();
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: url,
+        success: function () {
+            console.log('Success');
+        },
+        error: function () {
+            alert('erreur');
+            $('#remove-from-favorites-' + entityId).hide();
+            $('#add-to-favorites-' + entityId).show();
+        }
+    });
+});
+
+$(document).on('click', ".remove-from-favorites", function (e) {
+    e.preventDefault();
+    var url = $(this).attr('data-href');
+    var entityId = $(this).attr('data-entity-id');
+
+    $(this).hide();
+    $(this).prev('.add-to-favorites').show();
+    $('#remove-from-favorites-' + entityId).hide();
+    $('#add-to-favorites-' + entityId).show();
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: url,
+        success: function () {
+            console.log('Success');
+        },
+        error: function () {
+            alert('erreur');
+            $('#add-to-favorites-' + entityId).show();
+            $('#remove-from-favorites-' + entityId).hide();
+        }
+    });
+});
+
+
+</script>
+
+{% endblock %}

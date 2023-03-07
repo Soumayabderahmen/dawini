@@ -35,6 +35,9 @@ class Images
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Dossier $dossier = null;
 
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?ReplaySujet $replaySujet = null;
+
   
 
     // #[ORM\ManyToOne(inversedBy: 'images')]
@@ -118,6 +121,18 @@ class Images
     public function setDossier(?Dossier $dossier): self
     {
         $this->dossier = $dossier;
+
+        return $this;
+    }
+
+    public function getReplaySujet(): ?ReplaySujet
+    {
+        return $this->replaySujet;
+    }
+
+    public function setReplaySujet(?ReplaySujet $replaySujet): self
+    {
+        $this->replaySujet = $replaySujet;
 
         return $this;
     }

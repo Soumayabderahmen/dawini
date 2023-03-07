@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Articles
+{% endblock %}
+
+{% block content %}
+
+
+
+			    <div class="page-wrapper">
+            <div class="content container-fluid">
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <ul class="list-links mb-4">
+                           <h2>Les Articles </h2>
+                            
+                        </ul>
+                    </div>
+                   
+                </div>
+                
+                <div  class="row blog-grid-row">
+  {% for article in articles %}
+                    <div class="col-md-6 col-xl-4 col-sm-12 d-flex">
+                    
+                        <div class="blog grid-blog">
+                          <div class="blog-image">
+                                        <a href="{{ path('app_article_show',{id: article.id})}}"><img <center> {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="40" height="40" /> {% endfor %}</a>
+                                    <div class="fav-btn">
+                                    <img src="{{asset('admin/assets/img/icon/eye-icon.png')}}" alt="icon"> 225
+                                </div>
+                                    </div>
+                        
+                            
+                            <div class="blog-content">
+                                <ul class="entry-meta meta-item">
+                                    <li>
+                                        <div class="post-author">
+                                            <a href="profile.html">
+                                                <img src="{{ asset('/uploads/'~article.medecin.image) }}" alt="" width="152.26" height="228.4" />
+                                                <span>
+                                                    <span class="post-title">Dr.{{article.medecin}}</span>
+                                                    <span class="post-date"><i class="far fa-clock">{{article.date|date ('d/m/y') }}</i></span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <h3 class="blog-title"><a href="{{ path('app_blog_details',{id: article.id})}}"> {{article.nom }}</a></h3>
+                                <p class="mb-0">{{article.description|slice(0,100)|raw }}</p>
+                            </div>
+                           
+                        </div>
+                        	 
+                    </div>
+
+
+                    
+
+
+                    
+
+                      {% endfor %}
+
+                   
+
+                   
+
+
+                    
+
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="pagination-tab mt-md-5 d-flex justify-content-center">
+                            <ul class="pagination mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1"><i
+                                            class="feather-chevron-left mr-2"></i>Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next<i class="feather-chevron-right ml-2"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+				
+			{% endblock %}

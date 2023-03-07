@@ -1,0 +1,188 @@
+{% extends 'base.html.twig'%}
+{% block title %}Reponses
+{% endblock %}
+{% block css %}
+{{parent()}}
+<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/line-awesome.css')}}">
+<link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/jquery-te-1.4.0.css')}}">
+<link rel="stylesheet" href="{{asset('css/upvotejs.min.css')}}">
+<link rel="stylesheet" href="{{asset('css/selectize.css')}}">
+<link rel="stylesheet" href="{{asset('css/style.css')}}">
+{% endblock %}
+{% block content %}
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <h4 class="mb-3"></h4>
+        <div class="row">
+            <div class="col-xl-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="card-title">Reponses</h5>
+                                <section class="question-area pt-40px pb-40px">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <div class="question-main-bar mb-50px">
+                                                    <div class="question-highlight">
+                                                        <div
+                                                            class="media media-card shadow-none rounded-0 mb-0 bg-transparent p-0">
+
+                                                        </div><!-- end media -->
+                                                    </div>
+                                                    {% for replay in replays|slice(0,1) %}
+                                                    <div class="question-main-bar mb-50px">
+                                                        <div class="question-highlight">
+
+                                                            <div
+                                                                class="media media-card shadow-none rounded-0 mb-0 bg-transparent p-0">
+
+                                                                <div class="media-body">
+
+                                                                    <h5 class="fs-20"><a
+                                                                            href="{{path('app_forum_index')}}">{{replay.sujet.title}}</a>
+                                                                    </h5>
+                                                                    <div
+                                                                        class="meta d-flex flex-wrap align-items-center fs-13 lh-20 py-1">
+                                                                        <div class="pr-3">
+                                                                            <span>Poser</span>
+                                                                            <span
+                                                                                class="text-black">{{replay.sujet.date|date('d-m-y')}}</span>
+                                                                        </div>
+
+                                                                        <div class="pr-3">
+                                                                            <span class="pr-1">Reponses</span>
+                                                                            <span
+                                                                                class="text-black">{{countreponse|raw}}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div><!-- end media -->
+                                                        </div><!-- end question-highlight -->
+                                                        {%endfor%}
+                                                        {%for replay in replays%}
+                                                        <div
+                                                            class="subheader d-flex align-items-center justify-content-between">
+                                                            <div class="subheader-title">
+                                                                <h3 class="fs-16">1 Answer</h3>
+                                                            </div><!-- end subheader-title -->
+                                                            <div
+                                                                class="subheader-actions d-flex align-items-center lh-1">
+
+                                                                <h5>{{ include('forum/_delete_forum.html.twig') }}</h5>
+
+                                                                <div class="w-100px">
+
+                                                                </div>
+                                                            </div><!-- end subheader-actions -->
+                                                        </div>
+                                                        <div class="answer-wrap d-flex">
+                                                            <div class="votes votes-styled w-auto">
+                                                                <div id="vote2" class="upvotejs">
+                                                                    
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!-- end votes -->
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <p> {{replay.message|raw}}</p>
+                                                                    </div>
+                                                                    <div class="col">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        {% for image in replay.images|slice(0,1) %}
+                                                                        <img src="{{ asset('/uploads/'~image.name) }}"
+                                                                            alt="" width="818" height="150" />
+
+                                                                        {% endfor %}
+                                                                        <div class="col">
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+
+                                                                    </div>
+                                                                    <div class="col">
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="votes votes-styled w-auto">
+
+                                                            </div>
+                                                        </div><!-- end answer-wrap -->
+
+
+                                                    
+                                                        <div
+                                                        class="subheader d-flex align-items-center justify-content-between">
+                                                        <div class="subheader-title">
+                                                            <h3 class="fs-16"></h3>
+                                                        </div><!-- end subheader-title -->
+                                                        <div
+                                                            class="subheader-actions d-flex align-items-center lh-1">
+                                                            <label class="fs-13 fw-regular mr-1 mb-0"></label>
+                                                            <div class="w-100px">
+
+                                                            </div>
+                                                        </div><!-- end subheader-actions -->
+                                                    </div>
+                                                    <br>
+                                                        {% endfor %}
+                                                    </div><!-- end col-lg-9 -->
+                                                </div>
+                                            </div><!-- end question-main-bar -->
+                                        </div><!-- end col-lg-9 -->
+                                    </div>
+                            </div><!-- end question-main-bar -->
+                        </div><!-- end col-lg-9 -->
+
+                    </div><!-- end row -->
+                </div><!-- end container -->
+                </section>
+            </div><!-- end row -->
+        </div><!-- end question-area -->
+    </div>         <!-- ================================
+         END QUESTION AREA
+================================= -->
+
+                <!-- ================================
+         END FOOTER AREA
+
+<!-- ================================
+          END FOOTER AREA
+================================= -->
+</div></div></div>
+                <!-- start back to top -->
+                {%endblock%}
+
+                
+
+
+          
+            {%block script%}
+            {{parent()}}
+            <!-- template js files -->
+            <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+            <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+            <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+            <script src="{{asset('js/jquery-te-1.4.0.min.js')}}"></script>
+            <script src="{{asset('js/upvote.vanilla.js')}}"></script>
+            <script src="{{asset('js/upvote-script.js')}}"></script>
+            <script src="{{asset('js/selectize.min.js')}}"></script>
+            <script src="{{asset('js/jquery.multi-file.min.js')}}"></script>
+            <script src="{{asset('js/main.js')}}"></script>
+            {%endblock%}

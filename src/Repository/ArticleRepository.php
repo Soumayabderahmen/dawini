@@ -63,4 +63,17 @@ class ArticleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function getLikesCount($articleId)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('COUNT(l.id)');
+        $qb->leftJoin('a.likes', 'l');
+        $qb->where('a.id = :articleId');
+        $qb->setParameter('articleId', $articleId);
+        $query = $qb->getQuery();
+        $result = $query->getSingleScalarResult();
+    
+        return $result;
+    }
 }

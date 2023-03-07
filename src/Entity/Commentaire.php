@@ -33,6 +33,7 @@ class Commentaire
 
     public function __construct()
     {
+        $this->date= new \DateTime();
         $this->tags = new ArrayCollection();
     }
 

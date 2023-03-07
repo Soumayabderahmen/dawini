@@ -26,9 +26,6 @@ class Patient extends User
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Avis::class)]
     private Collection $avis;
 
-    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Reclamation::class)]
-    private Collection $reclamations;
-
    
 
     public function __construct()
@@ -38,7 +35,7 @@ class Patient extends User
         $this->dossiers = new ArrayCollection();
         $this->diagnostiques = new ArrayCollection();
         $this->avis = new ArrayCollection();
-        $this->reclamations = new ArrayCollection();
+      
         
     }
 
@@ -192,35 +189,9 @@ class Patient extends User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reclamation>
-     */
-    public function getReclamations(): Collection
-    {
-        return $this->reclamations;
-    }
-
-    public function addReclamation(Reclamation $reclamation): self
-    {
-        if (!$this->reclamations->contains($reclamation)) {
-            $this->reclamations->add($reclamation);
-            $reclamation->setPatient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReclamation(Reclamation $reclamation): self
-    {
-        if ($this->reclamations->removeElement($reclamation)) {
-            // set the owning side to null (unless already changed)
-            if ($reclamation->getPatient() === $this) {
-                $reclamation->setPatient(null);
-            }
-        }
-
-        return $this;
-    }
+   
+   
+   
 
  
  

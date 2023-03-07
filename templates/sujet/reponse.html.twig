@@ -1,0 +1,339 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Reponse
+{% endblock %}
+
+
+{% block css  %}
+	{{parent()}}
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/line-awesome.css')}}">
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery-te-1.4.0.css')}}">
+    <link rel="stylesheet" href="{{asset('css/upvotejs.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/selectize.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {% endblock %}
+
+
+    {% block body %}
+
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3"></h4>
+			<div class="row">
+				<div class="col-xl-12 col-sm-12 col-12">
+					<div class="card">
+<!-- start cssload-loader -->
+
+<!-- end cssload-loader -->
+
+<!--======================================
+        START HEADER AREA
+    ======================================-->
+
+<!--======================================
+        END HEADER AREA
+======================================-->
+
+<!--======================================
+        START HERO AREA
+======================================-->
+
+<!--======================================
+        END HERO AREA
+======================================-->
+
+<!-- ================================
+         START QUESTION AREA
+================================= -->
+<section class="question-area pt-40px pb-40px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="question-main-bar mb-50px">
+                    <div class="question-highlight">
+                        <div class="media media-card shadow-none rounded-0 mb-0 bg-transparent p-0">
+                           
+                        </div><!-- end media -->
+                    </div><!-- end question-highlight -->
+                    {% for replay in replays|slice(0,1) %}
+                    <div class="question-main-bar mb-50px">
+                        <div class="question-highlight">
+                           
+                            <div class="media media-card shadow-none rounded-0 mb-0 bg-transparent p-0">
+                              
+                                <div class="media-body">
+                                 
+                                    <h5 class="fs-20"><a href="question-details.html">{{replay.sujet.title}}</a> {%if replay.sujet.statut=="Sujet Resolut"%}<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                      </svg>
+                                      {%else %}
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                      </svg>
+                                      {%endif%}</h5>
+                                    <div class="meta d-flex flex-wrap align-items-center fs-13 lh-20 py-1">
+                                        <div class="pr-3">
+                                            <span>Poser</span>
+                                            <span class="text-black">{{replay.sujet.date|date('d-m-y')}}</span>
+                                        </div>
+                                        {% if app.user %}
+                                        <div class="pr-3">
+                                            <span class="pr-1">
+        
+      <a data-url="{{ path('sujet_like', {'id': replay.sujet.id}) }}" class="feather-thumbs-up"></a>
+				<a data-url="{{ path('sujet_undislike', {'id': replay.sujet.id}) }}" class="feather-thumbs-down"></a>
+				<span id="js-likes-count">{{ replay.sujet.sujetLikes|length }}</span> Likes
+				
+             
+        
+            </span>
+
+									
+{% endif %}
+</div>
+                                        <div class="pr-3">
+                                            <span class="pr-1">Reponses</span>
+                                            <span class="text-black">{{countreponse|raw}}</span>
+                                        </div>
+                                    </div>
+                                 
+										
+                              
+                            </div><!-- end media -->
+                        </div><!-- end question-highlight -->
+                        {%endfor%}
+                        {%for replay in replays%}
+                        <div class="subheader d-flex align-items-center justify-content-between">
+                            <div class="subheader-title">
+                                <h3 class="fs-16"> La Reponse du: <strong>{{ replay.utilisateur}}</strong></h3>
+                            </div><!-- end subheader-title -->
+                            <div class="subheader-actions d-flex align-items-center lh-1">
+                                {% if replay.utilisateur == app.user %}
+                                <h5><a href="{{ path('app_forum_profil', {'id': replay.id}) }}" class="tag-link"style="background-color:khaki  ; color:black">Voir  Profil</a></h5>&nbsp
+                                &nbsp
+
+                                <h5><a href="{{ path('app_replay_sujet_edit', {'id': replay.id}) }}" class="tag-link"style="background-color: skyblue; color:black">Modifier</a></h5>&nbsp
+                                &nbsp
+                              
+                           <h5>{{ include('replay_sujet/_delete_form.html.twig') }}</h5> 
+{%endif%}
+                                <div class="w-100px">
+                                    
+                                </div>
+                            </div><!-- end subheader-actions -->
+                        </div><!-- end subheader -->
+                        <div class="answer-wrap d-flex">
+                            <div class="votes votes-styled w-auto">
+                                <div id="vote2" class="upvotejs">
+                                    <a class="upvote upvote-on" data-toggle="tooltip" data-placement="right" title="This question is useful"></a>
+                                <br>
+                                    <a class="downvote" data-toggle="tooltip" data-placement="right" title="This question is not useful"></a>
+                                    <a class="star check star-on" data-toggle="tooltip" data-placement="right" title="The question owner accepted this answer"></a>
+                                </div>
+                            </div>
+                            
+                             
+                         <!-- end votes -->
+                         <div class="container">
+                            <div class="row">
+                                
+                              <div class="col">
+                                <p> {{replay.message|raw}}</p>
+                              </div>
+                              <div class="col">
+                               
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                {% for image in replay.images|slice(0,1) %}
+                                <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="818" height="150"/>
+    
+                            {% endfor %}
+                            <div class="col">
+                               
+                            </div>
+                              </div>
+                              <div class="col">
+                               
+                              </div>
+                              <div class="col">
+                                
+                              </div>
+                            </div>
+                          </div>
+                         
+                          <div class="votes votes-styled w-auto">
+                            
+                        </div>
+                        </div><!-- end answer-wrap -->
+                  
+                 
+                  <div class="subheader d-flex align-items-center justify-content-between">
+                    <div class="subheader-title">
+                        <h3 class="fs-16"></h3>
+                    </div><!-- end subheader-title -->
+                    <div class="subheader-actions d-flex align-items-center lh-1">
+                        <label class="fs-13 fw-regular mr-1 mb-0"></label>
+                        <div class="w-100px">
+                           
+                        </div>
+                    </div><!-- end subheader-actions -->
+                </div>
+                <br>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        {{ knp_pagination_render(replays,'pagination.html.twig') }}
+                    </div>
+
+                    <br>
+                    {% if app.user is not null  %}
+                    {% if replay.sujet.statut !='Sujet Resolut'%}
+                    <div class="subheader">
+                        <div class="subheader-title">
+                            <h3 class="fs-16">Your Answer</h3>
+                        </div><!-- end subheader-title -->
+                    </div><!-- end subheader -->
+             
+
+                    <div class="post-form">
+                        {{ form_start(form) }}
+                            <div class="input-box">
+                                <label class="fs-14 text-black lh-20 fw-medium">Message</label>
+                               
+                                    <span class="star-red">*</span>
+                                </label>
+                                        {{ form_widget(form.message, {attr:{'class':'form-control'}}) }}
+                            </div>
+                            <br><br>
+                            <div class="input-box">
+                                <label class="fs-14 text-black fw-medium">Image</label>
+                                <div class="form-group">
+                                    <div class="file-upload-wrap file-upload-layout-2">
+                                        {{ form_widget(form.images, {attr:{'class':'file-upload-input'}}) }}
+                                        <span class="file-upload-text d-flex align-items-center justify-content-center"><i class="la la-cloud-upload mr-2 fs-24"></i>Drop files here or click to upload.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+								<div class="doctor-submit text-end">
+									<div class="text-right">
+										{{ form_row(form.Envoyer , {attr:{'class':'btn btn-primary save-btn'}},{attr:{'data-placeholder':'Select a Category'}}) }}
+									
+
+									</div>
+								</div>
+							</div>
+
+                			{{ form_end(form) }}
+                            {%endif%}
+                      
+                            {% else %}
+                            <a href="{{path('app_login')}}" class="btn btn-primary btn-lg">Ajouter une Reponse</a>
+                            {%endif%}
+                           
+
+                    </div>
+                    {%endfor%}
+
+                 
+                </div><!-- end question-main-bar -->
+            </div><!-- end col-lg-9 -->
+        </div>
+    </div><!-- end question-main-bar -->
+</div><!-- end col-lg-9 -->
+</div>
+                </div><!-- end question-main-bar -->
+            </div><!-- end col-lg-9 -->
+       
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end question-area -->
+<!-- ================================
+         END QUESTION AREA
+================================= -->
+
+<!-- ================================
+         END FOOTER AREA
+
+<!-- ================================
+          END FOOTER AREA
+================================= -->
+
+<!-- start back to top -->
+{%endblock%}
+
+{%block script%}
+{{parent()}}
+
+<script>
+$(document).ready(function() {
+    $('.feather-thumbs-up').click(function() {
+        var url = $(this).data('url');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(response) {
+                $('#js-likes-count').html(response.count);
+            },
+            error: function(response) {
+                alert('Une erreur est survenue : ' + response.responseJSON.error);
+            }
+        });
+    });
+    $('.js-dislike-btn').click(function() {
+        var url = $(this).data('url');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(response) {
+                $('#js-likes-count').html(response.count);
+            },
+            error: function(response) {
+                alert('Une erreur est survenue : ' + response.responseJSON.error);
+            }
+        });
+    });
+    $('.feather-thumbs-down').click(function() {
+        var url = $(this).data('url');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(response) {
+                $('#js-likes-count').html(response.count);
+            },
+            error: function(response) {
+                alert('Une erreur est survenue : ' + response.responseJSON.error);
+            }
+        });
+    });
+    $('.js-undislike-btn').click(function() {
+        var url = $(this).data('url');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function(response) {
+                $('#js-likes-count').html(response.count);
+            },
+            error: function(response) {
+                alert('Une erreur est survenue : ' + response.responseJSON.error);
+            }
+        });
+    });
+});
+</script>
+<!-- template js files -->
+<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('js/jquery-te-1.4.0.min.js')}}"></script>
+<script src="{{asset('js/upvote.vanilla.js')}}"></script>
+<script src="{{asset('js/upvote-script.js')}}"></script>
+<script src="{{asset('js/selectize.min.js')}}"></script>
+<script src="{{asset('js/jquery.multi-file.min.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
+{%endblock%}

@@ -1,0 +1,124 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Medecins
+{% endblock %}
+{% block body %}
+	<div class="main-wrapper">
+		<section class="contact-section">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md-12 text-center">
+						<h3 class="mb-4">Contact Us</h3>
+						<p>Great doctor if you need your family member to get effective immediate assistance, emergency treatment or a simple consultation.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 d-flex">
+						<div class="contact-box flex-fill">
+							<div class="infor-img">
+								<div class="image-circle">
+									<i class="feather-phone"></i>
+								</div>
+							</div>
+							<div class="infor-details text-center">
+								<label>Telephone</label>
+								<p>+216 27 841 624</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 d-flex">
+						<div class="contact-box flex-fill">
+							<div class="infor-img">
+								<div class="image-circle bg-primary">
+									<i class="feather-mail"></i>
+								</div>
+							</div>
+							<div class="infor-details text-center">
+								<label>Email</label>
+								<p>
+									soumayaabderahmen@gmail.com
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 d-flex">
+						<div class="contact-box flex-fill">
+							<div class="infor-img">
+								<div class="image-circle">
+									<i class="feather-map-pin"></i>
+								</div>
+							</div>
+							<div class="infor-details text-center">
+								<label>Adresse</label>
+								<p>Rue de la république n°30 en face de la délégation,
+																											Houston, USA 485</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-form">
+			<div class="container">
+              {% for message in app.flashes('message') %}
+              
+       		<div class="p-3 my-2 rounded-2 success">{{ message }}</div>
+    	{% endfor %}
+				<div class="section-header text-center">
+					<h2>Get in touch!</h2>
+				</div>
+               
+				<div class="row">
+
+					<div class="col-md-12">
+						{{ form_start(form) }}
+                        
+							
+						<div class="container">
+							
+
+							<div
+								class="row">
+								
+								<div class="col-md-6">
+									<div class="form-group">
+
+										{{ form_row(form.email) }}
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+
+										{{ form_row(form.sujet) }}
+									</div>
+								</div>
+
+								<div class="col-md-12">
+									<div class="form-group">
+
+										{{ form_row(form.message) }}
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="doctor-submit text-end">
+										<div class="text-right">
+											{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+
+
+										</div>
+									</div>
+								</div>
+
+								{{ form_end(form) }}
+
+
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+			</div>
+		{% endblock %}
+

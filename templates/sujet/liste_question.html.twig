@@ -1,0 +1,288 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}specialites
+{% endblock %}
+
+
+{% block css %}
+	{{parent()}}
+	<!-- inject:css -->
+	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/line-awesome.css')}}">
+	<link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+
+	<link rel="stylesheet" href="{{asset('css/selectize.css')}}">
+	<link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+	<link
+	rel="stylesheet" href="{{asset('css/style.css')}}">
+<!-- end inject -->
+{% endblock %}
+
+
+{% block body %}
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3"></h4>
+			<div class="row">
+				<div class="col-xl-12 col-sm-12 col-12">
+					<div class="card">
+						<div id="preloader">
+							<div class="loader">
+								<svg class="spinner" viewbox="0 0 50 50">
+									<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+								</svg>
+							</div>
+						</div>
+						<!-- end cssload-loader -->
+
+						<!--======================================
+						        START HEADER AREA
+						
+						<!--======================================
+						        END HEADER AREA
+						======================================-->
+
+						<!--======================================
+						        START HERO AREA
+						======================================-->
+							<section class="hero-area bg-white shadow-sm pt-60px pb-60px"> <span class="stroke-shape stroke-shape-1"></span>
+							<span class="stroke-shape stroke-shape-2"></span>
+							<span class="stroke-shape stroke-shape-3"></span>
+							<span class="stroke-shape stroke-shape-4"></span>
+							<span class="stroke-shape stroke-shape-5"></span>
+							<span class="stroke-shape stroke-shape-6"></span>
+							<div class="container">
+								{% for sujet in sujets|slice(0,1) %}
+									<div class="hero-content">
+
+										<div class="d-flex align-items-center pb-3">
+											<div class="icon-element shadow-sm flex-shrink-0 mr-3 border border-gray">
+
+												{% for image in sujet.specialites.images|slice(0, 1) %}
+													<img src="{{ asset('/uploads/'~image.name) }}" alt="" width="40" height="40"/>
+
+												{% endfor %}
+											</div>
+
+											<h2 class="section-title fs-30">{{ sujet.specialites.nom }}</h2>
+
+										</div>
+										<p class="section-desc pb-3">{{ sujet.specialites.description }}</p>
+
+
+									</div>
+								{% endfor %}
+
+								<!-- end hero-content -->
+							</div>
+							<!-- end container -->
+						</section>
+						<!--======================================
+						        END HERO AREA
+						======================================-->
+
+						<!-- ================================
+						         START QUESTION AREA
+						================================= -->
+						<section class="question-area pt-80px pb-40px">
+							<div class="container">
+								<div
+									class="row">
+									<!-- end col-lg-2 -->
+									<div class="col-lg-712">
+										<div class="question-tabs mb-50px">
+											<div
+												class="filter-option-box w-20">
+												<!-- Formulaire de recherche -->
+												<form>
+													<input type="text" id="search-input" placeholder="Rechercher..." class="form-control form--control">
+												</form>
+												<!-- Zone d'affichage des résultats -->
+												<div id="search-results"></div>
+
+												<script>
+													// Écouter les événements de saisie de texte dans le champ de recherche
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () { // Récupérer le contenu du champ de recherche
+const keyword = searchInput.value.trim();
+
+// Effectuer la requête AJAX si le contenu est non vide
+if (keyword) {
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4 && xhr.status === 200) { // Traitement des données de réponse ici
+const response = JSON.parse(xhr.responseText);
+const resultsContainer = document.getElementById('search-results');
+const listeRend = document.querySelector('#liste-consultation');
+resultsContainer.innerHTML = '';
+if (response.data.length > 0) {
+let dataHtml = "";
+
+response.data.forEach(function (result) { /*
+                                                                        liste-consultation
+                                                                        */
+
+const element = `
+                            
+                                                                        <div class="questions-snippet" >
+                                                        <div class="media media-card media--card align-items-center">
+                                                            <div class="votes">
+                                                                <div class="vote-block d-flex align-items-center justify-content-between"
+                                                                    title="Votes">
+                                                                    <span class="vote-icon"></span>
+                                                                </div>
+                                                                <div class="answer-block d-flex align-items-center justify-content-between"
+                                                                    title="Answers">
+                                                                  
+                                                                    <span class="answer-icon"></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="media-body" style="background-color:lightblue;">
+
+                                                                <small class="meta">
+                                                                    <span
+                                                                        class="pr-1">${
+result.title
+}</span>
+                                                                </small><br>
+                                                                
+                                                               
+                                                                <small class="meta">
+                                                                    <span
+                                                                        class="pr-1">          ${
+result.message
+}</span>
+                                                                </small><br>
+                                                                <small class="meta">
+                                                                    <span
+                                                                        class="pr-1">${
+result.date
+}</span>
+                                                                </small>
+                                                              
+                                                        </div><!-- end media --></div></div>
+                                                        
+                          
+                           `;
+
+console.log(result);
+dataHtml += element;
+/* const resultElement = document.createElement('div');
+                                                                        resultElement.textContent = result.date;
+                                                                        resultsContainer.appendChild(resultElement);*/
+});
+listeRend.innerHTML = dataHtml;
+} else {
+const noResultsElement = document.createElement('div');
+noResultsElement.textContent = 'Aucun résultat trouvé.';
+resultsContainer.appendChild(noResultsElement);
+}
+}
+};
+xhr.open('GET',"{{ path('app_rest_search') }}?keyword=" + keyword);
+xhr.send();
+}
+});
+												</script>
+											</div>
+											<div class="tab-content pt-40px">
+												<div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+
+													<div class="question-main-bar all-question-bar">
+														<div class="filters d-flex align-items-center justify-content-between pb-9">
+
+															<h3 class="fs-17 fw-medium">Tous les Questions</h3>
+
+															<div class="filter-option-box w-20"></div>
+														</div>
+														<!-- end filters -->
+														{%for sujet in sujets%}
+															<div class="questions-snippet" id="liste-consultation">
+																<div class="media media-card media--card align-items-center">
+																	<div class="votes">
+																		<div class="vote-block d-flex align-items-center justify-content-between" title="Votes">
+																			<span class="vote-counts">0</span>
+																			<span class="vote-icon"></span>
+																		</div>
+																		<div class="answer-block d-flex align-items-center justify-content-between" title="Answers">
+																			<span class="vote-counts">0</span>
+																			<span class="answer-icon"></span>
+																		</div>
+																	</div>
+
+																	<div class="media-body" style="background-color:lightblue;">
+
+																		<h5>
+																			<a href="{{path('app_sujet_avoir', {'id': sujet.id}) }}">{{sujet.title}}</a>
+																		</h5>
+																		<small class="meta">
+																			<span class="pr-1">{{sujet.date|date('y/m/d')}}</span>
+																		</small>
+
+
+																		<div class="subheader-actions d-flex align-items-center lh-1">
+																			<a href="{{ path('app_sujet_edit', {'id': sujet.id}) }}" class="btn btn-sm bg-info-light">
+																				<i class="far fa-edit"></i>
+
+																			</a>
+																			&nbsp;
+
+																			<h5></h5>
+
+																			<h5>
+																				<a href="{{ path('app_statut_edit', {'id': sujet.id}) }}" class="tag-link" style="background-color: darkcyan; color:black">SujetResolu</a>
+																			</h5>
+
+																			<h5>{{ include('sujet/_delete_form.html.twig') }}
+																			</h5>
+
+
+																		</div>
+
+																	</div>
+
+																</div>
+																<!-- end media -->
+																{%endfor%}
+																<br>
+																<div class="d-flex justify-content-center">
+																	{{ knp_pagination_render(sujets,'pagination.html.twig') }}
+																</div>
+
+
+															</div>
+															<!-- end questions-snippet -->
+														</div>
+														<!-- end question-main-bar -->
+													</div>
+													<!-- end tab-pane -->
+
+
+												</div>
+												<!-- end container -->
+											</section>
+											<!-- end question-area -->
+										<!-- ================================
+										         END QUESTION AREA
+										================================= -->
+
+											<!-- ================================
+											         START CTA AREA
+											================================= -->
+
+
+										{% endblock %}
+
+
+										{% block script %}
+
+											{{parent()}}
+											<!-- template js files -->
+											<script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+											<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+											<script src="{{asset('js/owl.carousel.min.js')}}"></script>
+											<script src="{{asset('js/main.js')}}"></script>
+											<script src="{{asset('js/selectize.min.js')}}"></script>
+
+										{% endblock %}

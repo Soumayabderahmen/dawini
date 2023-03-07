@@ -1,0 +1,309 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Details Article
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="blog-view">
+						{% for article in articles %}
+							<div class="blog blog-single-post">
+								<div class="blog-image">
+									<a href="javascript:void(0);">
+										{% for image in article.images|slice(0, 1) %}
+											<img src="{{ asset('/uploads/'~image.name) }}" alt="" width="10" height="10"/>
+										{% endfor %}
+									</a>
+								</div>
+								<h3 class="blog-title">{{article.nom }}</h3>
+								<div class="blog-info clearfix">
+									<div class="post-left">
+										<ul>
+											<li>
+												<div class="post-author">
+													<a href="doctor-profile.html">
+														
+                                                         <img src="{{ asset('/uploads/'~article.medecin.image) }}" alt="" width="28" height="28" /> 
+														<span>Dr.
+															{{article.medecin}}</span>
+													</a>
+												</div>
+											</li>
+											<li>
+												<i class="far fa-calendar"></i>
+												{{article.date|date ('d/m/y') }}</li>
+											<li>
+												<i class="far fa-comments"></i>
+												Comments</li>
+
+											<li>
+												<i class="feather-package"></i>
+												{{article.specialites }}
+											</li>
+
+											<li>
+												{% if app.user %}
+													<div>
+
+														{#<button class="feather-thumbs-up" data-url="{{ path('article_like', {'id': article.id}) }}">Like</button> #}
+																        <a data-url="{{ path('article_like', {'id': article.id}) }}" class="feather-thumbs-up"></a>
+																		<a data-url="{{ path('article_unlike', {'id': article.id}) }}" class="feather-thumbs-down"></a>
+																		<span id="js-likes-count">{{ article.articleLikes|length }}</span> Likes
+																		
+														       {# <button class="js-dislike-btn" data-url="{{ path('article_dislike', {'id': article.id}) }}">Dislike</button>
+														        <button class="js-unlike-btn" data-url="{{ path('article_unlike', {'id': article.id}) }}">Unlike</button>
+														        <button class="js-undislike-btn" data-url="{{ path('article_undislike', {'id': article.id}) }}">Undislike</button>
+														#}
+													</div>
+
+												{% endif %}
+											</li>
+										</ul>
+
+									</div>
+								</div>
+								<div class="blog-content">
+									{{article.description|raw}}
+								</div>
+
+
+							</div>
+						{% endfor %}
+
+						<div class="card author-widget clearfix"></div>
+						<div class="card blog-comments clearfix">
+							<div class="card-header">
+								<h4 class="card-title">Commentaires
+								</h4>
+							</div>
+							{%for commentaire in commentaires %}
+								<div class="card-body pb-0">
+									<ul class="comments-list">
+										<li>
+											<div class="comment">
+												<div class="comment-author">
+													 <img src="{{ asset('/uploads/'~commentaire.utilisateur.image) }}" alt="" width="58" height="58" /> 
+												</div>
+												<class="comment-block">
+													<span class="comment-by">
+														<span class="blog-author-name"><p>{{commentaire.utilisateur.nom}} {{commentaire.utilisateur.prenom}}</p></h3></span>
+													</span>
+													<p>{{commentaire.message }}</p>
+													<p class="blog-date">{{commentaire.date|date('y-m-d')}}</p>
+
+
+												</div>
+											</li>
+										</li>
+									</ul>
+								</div>
+							{%endfor %}
+						</div>
+						<div class="card new-comment clearfix">
+							<div class="card-header">
+								<h4 class="card-title">Laisser un commentaire</h4>
+							</div>
+							<div class="card-body">
+								{{ form_start(form) }}
+
+
+								<div class="form-group">
+									<label>Votre Commentaire</label>
+									{{ form_widget(form.message, {attr:{'class':'form-control bg-grey floating'}}) }}
+								</div>
+								<div class="submit-section">
+									{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
+								</div>
+								{{ form_end(form) }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
+					<div class="card search-widget">
+						<div class="card-body">
+							<form class="search-form">
+								<div class="input-group">
+									<input type="text" placeholder="recherche..." class="form-control">
+									<button type="submit" class="btn btn-primary">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="card post-widget">
+						<div class="card-header">
+
+							<h4 class="card-title">Derniers Articles</h4>
+						</div>
+						<div class="card-body">
+							{% for article in article|slice(0,2) %}
+
+								<ul class="latest-posts">
+									<span>
+										<li>
+											<div class="post-thumb">
+
+
+												<a href="{{ path('app_blog_details',{id: article.id}) }}">
+
+													{% for image in article.images|slice(0, 1) %}
+														<img src="{{ asset('/uploads/'~image.name) }}" alt="" width="80" height="53,3333"/>
+													{% endfor %}
+												</a>
+												<br>
+
+											</div>
+
+
+											<h4>
+												&nbsp;
+												<a href="blog-details.html">{{article.nom }}</a>
+											</h4>
+
+											<p>&nbsp;{{article.date|date('d/m/y') }}</p>
+
+										</li>
+
+
+									</span>
+
+								</ul>
+
+
+							{% endfor %}
+						</div>
+
+
+						<div class="card blog-share clearfix">
+							<div class="card-header">
+								<h4 class="card-title">Partager l'article</h4>
+							</div>
+							<div class="card-body">
+								<ul class="social-share">
+									<li>
+										<a href="#" title="Facebook">
+											<i class="fab fa-facebook"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" title="Twitter">
+											<i class="fab fa-twitter"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" title="Linkedin">
+											<i class="fab fa-linkedin"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" title="Google Plus">
+											<i class="fab fa-google-plus"></i>
+										</a>
+									</li>
+									<li>
+										<a href="#" title="Youtube">
+											<i class="fab fa-youtube"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="card category-widget">
+							<div class="card-header">
+								<h4 class="card-title">Catégories des articles</h4>
+							</div>
+							{%for specialite in specialities %}
+								<div class="card-body">
+									<ul class="categories">
+										{{specialite.nom}}
+
+									</ul>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{% block script %}
+
+	{{ parent() }}
+	<script>
+		$(document).ready(function () {
+$('.feather-thumbs-up').click(function () {
+var url = $(this).data('url');
+
+$.ajax({
+type: 'POST',
+url: url,
+success: function (response) {
+$('#js-likes-count').html(response.count);
+},
+error: function (response) {
+alert('Une erreur est survenue : ' + response.responseJSON.error);
+}
+});
+});
+
+$('.js-dislike-btn').click(function () {
+var url = $(this).data('url');
+
+$.ajax({
+type: 'POST',
+url: url,
+success: function (response) {
+$('#js-likes-count').html(response.count);
+},
+error: function (response) {
+alert('Une erreur est survenue : ' + response.responseJSON.error);
+}
+});
+});
+
+$('.feather-thumbs-down').click(function () {
+var url = $(this).data('url');
+
+$.ajax({
+type: 'POST',
+url: url,
+success: function (response) {
+$('#js-likes-count').html(response.count);
+},
+error: function (response) {
+alert('Une erreur est survenue : ' + response.responseJSON.error);
+}
+});
+});
+
+$('.js-undislike-btn').click(function () {
+var url = $(this).data('url');
+
+$.ajax({
+type: 'POST',
+url: url,
+success: function (response) {
+$('#js-likes-count').html(response.count);
+},
+error: function (response) {
+alert('Une erreur est survenue : ' + response.responseJSON.error);
+}
+});
+});
+});
+	</script>
+{% endblock %}
+{% block footer %}
+	{{ parent() }}
+
+{% endblock %}

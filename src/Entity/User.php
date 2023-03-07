@@ -123,8 +123,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
-    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reclamation::class)]
-    private Collection $reclamations;
+  
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups('medecin')]
@@ -140,6 +139,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     #[ORM\Column(length: 255, nullable: true)]
     private  ?string $token;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SujetLike::class)]
+    private Collection $sujetLikes;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Sujet::class)]
+    private Collection $sujets;
+
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: ReplaySujet::class)]
+    private Collection $replaySujets;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ArticleFavorie::class)]
+    private Collection $articleFavories;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ArticleLike::class)]
+    private Collection $articleLikes;
     
 
    
@@ -161,8 +175,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        
        
         $this->commentaires = new ArrayCollection();
-        $this->reclamations = new ArrayCollection();
-        $this->enabled = true;
+       
+        $this->enabled = false;
+        $this->sujetLikes = new ArrayCollection();
+        $this->sujets = new ArrayCollection();
+        $this->replaySujets = new ArrayCollection();
+        $this->articleFavories = new ArrayCollection();
+        $this->articleLikes = new ArrayCollection();
      
        
        
@@ -390,40 +409,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reclamation>
-     */
-    public function getReclamations(): Collection
-    {
-        return $this->reclamations;
-    }
-
-    public function addReclamation(Reclamation $reclamation): self
-    {
-        if (!$this->reclamations->contains($reclamation)) {
-            $this->reclamations->add($reclamation);
-            $reclamation->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReclamation(Reclamation $reclamation): self
-    {
-        if ($this->reclamations->removeElement($reclamation)) {
-            // set the owning side to null (unless already changed)
-            if ($reclamation->getUtilisateur() === $this) {
-                $reclamation->setUtilisateur(null);
-            }
-        }
-
-        return $this;
-
-
-
-    
-    }
-  
+   
     
 
     public function getImage(): ?string
@@ -476,6 +462,156 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SujetLike>
+     */
+    public function getSujetLikes(): Collection
+    {
+        return $this->sujetLikes;
+    }
+
+    public function addSujetLike(SujetLike $sujetLike): self
+    {
+        if (!$this->sujetLikes->contains($sujetLike)) {
+            $this->sujetLikes->add($sujetLike);
+            $sujetLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSujetLike(SujetLike $sujetLike): self
+    {
+        if ($this->sujetLikes->removeElement($sujetLike)) {
+            // set the owning side to null (unless already changed)
+            if ($sujetLike->getUser() === $this) {
+                $sujetLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sujet>
+     */
+    public function getSujets(): Collection
+    {
+        return $this->sujets;
+    }
+
+    public function addSujet(Sujet $sujet): self
+    {
+        if (!$this->sujets->contains($sujet)) {
+            $this->sujets->add($sujet);
+            $sujet->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSujet(Sujet $sujet): self
+    {
+        if ($this->sujets->removeElement($sujet)) {
+            // set the owning side to null (unless already changed)
+            if ($sujet->getUtilisateur() === $this) {
+                $sujet->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ReplaySujet>
+     */
+    public function getReplaySujets(): Collection
+    {
+        return $this->replaySujets;
+    }
+
+    public function addReplaySujet(ReplaySujet $replaySujet): self
+    {
+        if (!$this->replaySujets->contains($replaySujet)) {
+            $this->replaySujets->add($replaySujet);
+            $replaySujet->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReplaySujet(ReplaySujet $replaySujet): self
+    {
+        if ($this->replaySujets->removeElement($replaySujet)) {
+            // set the owning side to null (unless already changed)
+            if ($replaySujet->getUtilisateur() === $this) {
+                $replaySujet->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleFavorie>
+     */
+    public function getArticleFavories(): Collection
+    {
+        return $this->articleFavories;
+    }
+
+    public function addArticleFavory(ArticleFavorie $articleFavory): self
+    {
+        if (!$this->articleFavories->contains($articleFavory)) {
+            $this->articleFavories->add($articleFavory);
+            $articleFavory->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleFavory(ArticleFavorie $articleFavory): self
+    {
+        if ($this->articleFavories->removeElement($articleFavory)) {
+            // set the owning side to null (unless already changed)
+            if ($articleFavory->getUser() === $this) {
+                $articleFavory->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticleLike>
+     */
+    public function getArticleLikes(): Collection
+    {
+        return $this->articleLikes;
+    }
+
+    public function addArticleLike(ArticleLike $articleLike): self
+    {
+        if (!$this->articleLikes->contains($articleLike)) {
+            $this->articleLikes->add($articleLike);
+            $articleLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticleLike(ArticleLike $articleLike): self
+    {
+        if ($this->articleLikes->removeElement($articleLike)) {
+            // set the owning side to null (unless already changed)
+            if ($articleLike->getUser() === $this) {
+                $articleLike->setUser(null);
+            }
+        }
 
         return $this;
     }

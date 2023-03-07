@@ -22,8 +22,7 @@ class Sujet
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?User $utilisateur = null;
+   
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -34,9 +33,23 @@ class Sujet
     #[ORM\OneToMany(mappedBy: 'sujet', targetEntity: ReplaySujet::class)]
     private Collection $replaySujets;
 
+    #[ORM\ManyToOne(inversedBy: 'sujets')]
+    private ?Specialites $specialites = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $statut = null;
+
+    #[ORM\OneToMany(mappedBy: 'sujet', targetEntity: SujetLike::class)]
+    private Collection $sujetLikes;
+
+    #[ORM\ManyToOne(inversedBy: 'sujets')]
+    private ?User $utilisateur = null;
+
     public function __construct()
     {
         $this->replaySujets = new ArrayCollection();
+        $this->sujetLikes = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
     public function getId(): ?int
@@ -68,17 +81,7 @@ class Sujet
         return $this;
     }
 
-    public function getUtilisateur(): ?User
-    {
-        return $this->utilisateur;
-    }
-
-    public function setUtilisateur(?User $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
+   
 
     public function getTitle(): ?string
     {
@@ -132,5 +135,79 @@ class Sujet
         }
 
         return $this;
+    }
+
+    public function getSpecialites(): ?Specialites
+    {
+        return $this->specialites;
+    }
+
+    public function setSpecialites(?Specialites $specialites): self
+    {
+        $this->specialites = $specialites;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SujetLike>
+     */
+    public function getSujetLikes(): Collection
+    {
+        return $this->sujetLikes;
+    }
+
+    public function addSujetLike(SujetLike $sujetLike): self
+    {
+        if (!$this->sujetLikes->contains($sujetLike)) {
+            $this->sujetLikes->add($sujetLike);
+            $sujetLike->setSujet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSujetLike(SujetLike $sujetLike): self
+    {
+        if ($this->sujetLikes->removeElement($sujetLike)) {
+            // set the owning side to null (unless already changed)
+            if ($sujetLike->getSujet() === $this) {
+                $sujetLike->setSujet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+    public function __toString(): string{
+        return (string)$this->title;
+       }
+
+       public function getLikesCount(): int
+    {
+        return $this->sujetLikes->count();
     }
 }

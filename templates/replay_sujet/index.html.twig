@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReplaySujet index{% endblock %}
+
+{% block body %}
+    <h1>ReplaySujet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for replay_sujet in replay_sujets %}
+            <tr>
+                <td>{{ replay_sujet.id }}</td>
+                <td>{{ replay_sujet.message }}</td>
+                <td>{{ replay_sujet.date ? replay_sujet.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_replay_sujet_show', {'id': replay_sujet.id}) }}">show</a>
+                    <a href="{{ path('app_replay_sujet_edit', {'id': replay_sujet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_replay_sujet_new') }}">Create new</a>
+{% endblock %}

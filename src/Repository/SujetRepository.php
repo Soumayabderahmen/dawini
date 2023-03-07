@@ -63,4 +63,40 @@ class SujetRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function search($keyword)
+    {
+        dd($keyword);
+        return $this->createQueryBuilder('s')
+            ->where('s.title LIKE :key')
+            ->setParameter('key', '%' . $keyword . '%')
+            ->getQuery()->getResult();
+    }
+    public function getLikesCount($sujetId)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('COUNT(l.id)');
+        $qb->leftJoin('s.likes', 'l');
+        $qb->where('s.id = :sujetId');
+        $qb->setParameter('sujetId', $sujetId);
+        $query = $qb->getQuery();
+        $result = $query->getSingleScalarResult();
+    
+        return $result;
+    }
+    /**
+     * Returns number of Annonces
+     * @return void 
+     */
+    public function getTotalAnnonces($filters = null){
+        $query = $this->createQueryBuilder('s')
+            ->select('COUNT(s)');
+        // On filtre les données
+        if($filters != null){
+            $query->andWhere('s.specialites IN(:spec)')
+                ->setParameter(':spec', array_values($filters));
+        }
+
+        return $query->getQuery()->getSingleScalarResult();
+    }
 }

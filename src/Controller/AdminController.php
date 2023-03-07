@@ -348,7 +348,7 @@ public function editAdminJson(Request $request, $id,NormalizerInterface $normali
         $entityManager->persist($medecin);
         $entityManager->flush();
         
-        $this->addFlash('success', 'Le médecin a été bloqué avec succès');
+        $this->addFlash('success', 'Le médecin a été débloqué avec succès');
         
         return $this->redirectToRoute('app_medecin_index');
     }
@@ -363,7 +363,7 @@ public function editAdminJson(Request $request, $id,NormalizerInterface $normali
         $entityManager->persist($medecin);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Le médecin a été débloqué avec succès');
+        $this->addFlash('success', 'Le médecin a été bloqué avec succès');
         
         return $this->redirectToRoute('app_medecin_index');
     }

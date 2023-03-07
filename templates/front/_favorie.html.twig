@@ -1,0 +1,21 @@
+<a href
+       style="display: {{ article.id not in idsArticlesInFavorites ? 'block' : 'none' }}"
+       data-href="{{ path('article_favorie', {'id': article.id}) }}"
+       data-entity-id="{{ article.id }}"
+       class="add-to-favorites"
+       id="add-to-favorites-{{ article.id }}"
+       title="Ajouter aux favoris">
+        <strong class="hidden-sm hidden-xs"></strong>
+        <i class="theme-color far fa-heart toggler-inactive"
+           style="color: #444"></i>
+    </a>
+    <a href
+       style="display: {{ article.id in idsArticlesInFavorites ? 'block' : 'none' }}"
+       data-href="{{ path('article_favorie', {'id': article.id}) }}"
+       data-entity-id="{{ article.id }}"
+       class="remove-from-favorites"
+       id="remove-from-favorites-{{ article.id }}"
+       title="retirer de mes favoris">
+        <strong class="hidden-sm hidden-xs"></strong>
+        <i class="theme-color fas fa-heart toggler-active" style="color: red"></i>
+    </a>

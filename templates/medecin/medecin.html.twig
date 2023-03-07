@@ -81,17 +81,17 @@
                         
                           <td>
                     {% if medecin.isEnabled %}
-                        <span class="badge bg-danger">Bloqué</span>
-                    {% else %}
                         <span class="badge bg-success">Actif</span>
+                    {% else %}
+                        <span class="badge bg-danger">Bloqué</span>
                     {% endif %}
 					
                 </td>
                 <td>
                     {% if medecin.isEnabled %}
-                        <a href="{{ path('admin_medecin_unblock', {'id': medecin.id}) }}" class="btn btn-success">Enable</a>
+                        <a href="{{ path('admin_medecin_unblock', {'id': medecin.id}) }}" class="btn btn-danger">Enable</a>
                     {% else %}
-                        <a href="{{ path('admin_medecin_block', {'id': medecin.id}) }}" class="btn btn-danger">Disable</a>
+                        <a href="{{ path('admin_medecin_block', {'id': medecin.id}) }}" class="btn btn-success">Disable</a>
                     {% endif %}
                 </td>
                         

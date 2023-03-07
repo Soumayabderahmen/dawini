@@ -1,0 +1,74 @@
+{% extends 'home.html.twig'%}
+
+{% block title %}specialites
+{% endblock %}
+
+
+{% block css  %}
+	{{parent()}}
+	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/line-awesome.css')}}">
+	<link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/style.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<div class="page-wrapper">
+	<div class="content container-fluid pb-0">
+		<h4 class="mb-3"></h4>
+		<div class="row">
+			<div class="col-xl-12 col-sm-6 col-6"><div class="hero-content">
+				{% if app.user is not null %}
+				<div class="col-12">
+					<div class="doctor-submit text-end">
+						<div class="text-right">
+							<a href="{{ path('app_sujet_new',{'id': app.user.id })}}" class="btn theme-btn theme-btn-sm" style="margin-left:auto">Poser un Question</a>
+						</div>
+
+					</div>
+				</div>
+
+									  {% endif%}
+									  </div>
+				<div class="card" style="background-color: aliceblue;">
+					
+					
+<section class="clinic-section-five">
+	<div class="container">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="section-header section-header-five text-center aos" data-aos="fade-up">
+	<h2 class="title-five">Nos Specialités</h2>
+	</div>
+	</div>
+	
+	</div>
+	<div class="row justify-content-center">
+		{% for specialite in specialites %}
+	<div class="col-lg-2 col-md-4 d-flex aos" data-aos="fade-up">
+	<div class="clinic-grid-five w-100 hvr-bounce-to-bottom" style="background-color: skyblue;">
+	<div class="clinic-grid-img">
+	<div class="clinic-img-five">
+		{% for image in specialite.images|slice(0, 1) %}
+		<img src="{{ asset('/uploads/'~image.name) }}" alt="" width="40" height="40"/>
+
+	{% endfor %}
+	</div>
+	</div>
+	<div class="clinic-grid-info">
+	<p>{{ specialite.nom }}</p>
+	
+	<div class="clinic-five-btn">
+	<a href="{{path('app_sujet_list', {'id': specialite.id}) }}" class="btn">Consulter</a>
+	</div>
+	</div>
+	</div>
+	</div>
+{%endfor%}
+	</div>
+	
+	</div>
+	</section>
+	{% endblock %}

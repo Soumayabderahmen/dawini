@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReplaySujet{% endblock %}
+
+{% block body %}
+    <h1>ReplaySujet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ replay_sujet.id }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ replay_sujet.message }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ replay_sujet.date ? replay_sujet.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_replay_sujet_index') }}">back to list</a>
+
+    <a href="{{ path('app_replay_sujet_edit', {'id': replay_sujet.id}) }}">edit</a>
+
+    {{ include('replay_sujet/_delete_form.html.twig') }}
+{% endblock %}

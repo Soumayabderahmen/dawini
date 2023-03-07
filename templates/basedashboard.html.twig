@@ -170,6 +170,12 @@
                                                 <span>Assistant</span>
                                             </a>
                                         </li>
+                                         <li>
+                                            <a href="{{path('app_article_mine')}}">
+                                                <i class="feather-grid"></i>
+                                                <span>Mes Articles</span>
+                                            </a>
+                                        </li>
                                         {% endif %}
 
                                           {% if app.user.roles ==["ROLE_PATIENT"]%}
@@ -186,12 +192,7 @@
                                             </a>
                                         </li>
                                         {% endif %}
-                                        <li>
-                                            <a href="appointments.html">
-                                                <i class="fas fa-calendar-check"></i>
-                                                <span>Appointments</span>
-                                            </a>
-                                        </li>
+                                       
                                       
                                        
                                         <li>

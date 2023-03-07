@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Dawini
+{% endblock %}
+{% block css %}
+	{{parent()}}
+	<link rel="shortcut icon" href="{{ asset('admin/assets/img/favicon.png')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap.min.css')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/plugins/fontawesome/css/all.min.css')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/css/feather.css')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/plugins/daterangepicker/daterangepicker.css')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/plugins/select2/css/select2.min.css')}}">
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/css/style.css')}}">
+{% endblock %}
+{% block content%}
+
+<div class="page-wrapper">
+	<div class="content container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-lg-10 col-xl-8">
+
+				<div class="blog-view">
+					<div class="blog-single-post">
+						<a href="{{ path('app_article_index') }}" class="back-btn">
+							<i class="feather-chevron-left"></i>
+							Liste des articles</a>
+						 <div class="blog-image">
+                                  <img <center> {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" /> {% endfor %}</a>
+                         </div>    
+                         </div>
+						<h3 class="blog-title">{{article.nom }}</h3>
+						<div class="blog-info">
+							<div class="post-list">
+								<ul>
+									<li>
+										   <div class="post-author">
+                                            <a href="profile.html">
+                                                <img src="{{ asset('/uploads/'~article.medecin.image) }}" alt="" width="152.26" height="228.4" /> 
+                                                <span>par le Dr.{{article.medecin}}
+												</span>
+											</a>
+										</div>
+									</li>
+									<li>
+											<i class="far fa-calendar"></i>{{article.date|date ('d/m/y') }}</li>
+										<li>
+										<i class="feather-message-circle"></i>
+										Commentaires</li>
+									<li>
+										<i class="feather-package"></i>
+										{{article.specialites }}</li>
+								</ul>
+							</div>
+						</div>
+						<div class="blog-content">
+                        	{{article.description|raw}}
+                        </div>
+					</div>
+
+					
+
+<div class="card blog-comments clearfix">
+							<div class="card-header">
+								<h4 class="card-title">Commentaires </h4>
+							</div>
+							{%for commentaire in commentaires %}
+							<div class="card-body pb-0">
+								<ul class="comments-list">
+									<li>
+										<div class="comment">
+											<div class="comment-author">
+												 <img src="{{ asset('/uploads/'~commentaire.utilisateur.image) }}" alt="" width="58" height="58" />
+											</div>
+											<div class="comment-block">
+												<span class="comment-by">
+																											<span class="blog-author-name"><p>{{commentaire.utilisateur.nom}} {{commentaire.utilisateur.prenom}}</p></h3></span>
+
+												</span>
+												<p>{{commentaire.message }}</p>
+												<p class="blog-date">Dec 6, 2017</p>
+												
+											</div>
+										</div>
+										
+									</li>
+								
+									
+								</ul>
+							</div>
+							{%endfor %}
+						</div>
+
+
+					
+					
+				</div>
+                
+			</div>
+  
+
+
+{%endblock%}
+{%block script%}
+{{parent()}}
+<script src="assets/js/jquery-3.6.0.min.js"></script>
+
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="assets/js/moment.min.js"></script>
+<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+
+<script src="assets/js/script.js"></script></body>
+
+{%endblock%}
