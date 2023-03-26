@@ -1,37 +1,196 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaire index{% endblock %}
-
-{% block body %}
-    <h1>Commentaire index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Message</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commentaire in commentaires %}
-            <tr>
-                <td>{{ commentaire.id }}</td>
-                <td>{{ commentaire.date ? commentaire.date|date('Y-m-d') : '' }}</td>
-                <td>{{ commentaire.message }}</td>
-                <td>
-                    <a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
-                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_commentaire_new') }}">Create new</a>
+{% block title %}commentaires
 {% endblock %}
+
+{% block content %}
+	<div class="page-wrapper">
+		<div class="content container-fluid pb-0">
+			<h4 class="mb-3">Commentaires</h4>
+			<div class="row">
+
+
+				<div class="page-header">
+					<div class="row align-items-center">
+						<div class="col-md-12 d-flex justify-content-end"></div>
+					</div>
+
+
+				</div>
+				<div
+					class="filter-option-box w-20">
+					<!-- Formulaire de recherche -->
+					<form>
+						<input type="text" id="search-input" placeholder="Rechercher..." class="form-control form--control">
+					</form>
+					<!-- Zone d'affichage des résultats -->
+					<div id="search-results"></div>
+					<br><br>
+					<script>
+						// Écouter les événements de saisie de texte dans le champ de recherche
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () { // Récupérer le contenu du champ de recherche
+const keyword = searchInput.value.trim();
+// Effectuer la requête AJAX si le contenu est non vide
+if (keyword) {
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4 && xhr.status === 200) { // Traitement des données de réponse ici
+const response = JSON.parse(xhr.responseText);
+const resultsContainer = document.getElementById('search-results');
+const listeRend = document.querySelector('#liste-consultation');
+resultsContainer.innerHTML = '';
+if (response.data.length > 0) {
+let dataHtml = "";
+response.data.forEach(function (result) { /*
+                                                                        liste-consultation
+                                                                        */
+const element = `
+                             <tr>
+                                   
+                                    
+                                                      <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    ${
+result.nom
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    ${
+result.description
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td></td>
+                                                        
+                          
+                           `;
+
+console.log(result);
+dataHtml += element;
+/* const resultElement = document.createElement('div');
+                                                                        resultElement.textContent = result.date;
+                                                                        resultsContainer.appendChild(resultElement);*/
+});
+listeRend.innerHTML = dataHtml;
+} else {
+const noResultsElement = document.createElement('div');
+noResultsElement.textContent = 'Aucun résultat trouvé.';
+resultsContainer.appendChild(noResultsElement);
+}
+}
+};
+xhr.open('GET',"{{ path('app_rest_search') }}?keyword=" + keyword);
+xhr.send();
+}
+});
+					</script>
+				</div>
+
+
+				<table class="table datatable-basic table table-borderless hover-table" id="datatable">
+
+
+					<thead>
+						<tr>
+							<th>
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+
+
+										Id
+
+
+									</font>
+								</font>
+							</th>
+							<th>
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+
+
+										Article
+
+
+									</font>
+								</font>
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+
+
+										<center>Date</center>
+
+
+									</font>
+								</font>
+							</th>
+
+							<th>
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+
+
+										<center>Message</center>
+
+
+									</font>
+								</font>
+							</th>
+							<th colspan="3">
+								<font style="vertical-align: inherit;">
+									<font style="vertical-align: inherit;">
+
+
+										<center>Actions</center>
+
+
+									</font>
+								</font>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="liste-consultation">
+						{% for commentaire in commentaires %}
+							<tr>
+								<td>{{ commentaire.id }}</td>
+								<td>
+									<center>{{ commentaire.article }}</center>
+								</td>
+								<td colspan="2"></td>
+								<td>
+									<center>{{ commentaire.date| date ('y-d-m') }}</center>
+
+								</td>
+								<td colspan="3">
+									<center>{{commentaire.message|slice(0,20) }}...</center>
+								</td>
+								<td class="text-end" colspan="3">
+									<center>
+										<div class="actions">
+
+											<a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}" class="btn btn-sm bg-primary-light">
+												<i class="far fa-eye"></i>
+											</a>
+
+
+										</div>
+									</center>
+								</td>
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="4">no records found</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+
+			{% endblock %}

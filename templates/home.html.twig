@@ -272,7 +272,7 @@
 {% for medecin in medecins %}
 				<div class="profile-widget">
 					<div class="doc-img">
-						<a href="{{ path('app_profil',{id: medecin.id})}}">
+						<a href="{{ path('app_avis',{id: medecin.id})}}">
 							 <img src="{{ asset('/uploads/'~medecin.image) }}" alt="" width="152.26" height="228.4" /> 
 						</a>
 						<a href="javascript:void(0)" class="fav-btn">
@@ -283,7 +283,7 @@
 					<div class="pro-content">
 						<h3 class="title">
 
-							<a href="{{ path('app_profil',{id: medecin.id})}}">{{ medecin.nom }} {{ medecin.prenom }}</a>
+							<a href="{{ path('app_avis',{id: medecin.id})}}">{{ medecin.nom }} {{ medecin.prenom }}</a>
 							<i class="fas fa-check-circle verified"></i>
 						</h3>
 						<p class="speciality"><td>{{ medecin.specialites.nom }}</td></p>
@@ -302,7 +302,7 @@
 						</ul>
 						<div class="row row-sm">
 							<div class="col-6">
-								<a href="{{ path('app_profil',{id: medecin.id})}}" class="btn view-btn">Voir le profil</a>
+								<a href="{{ path('app_avis',{id: medecin.id})}}" class="btn view-btn">Voir le profil</a>
 							</div>
 							<div class="col-6">
 								<a href="booking.html" class="btn book-btn">rendez-vous</a>

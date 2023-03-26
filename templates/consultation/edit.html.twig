@@ -1,0 +1,97 @@
+{% extends 'basedashboard.html.twig' %}
+
+{% block title %}
+    Edit Consulation
+        
+    
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            Modifier une consultation
+                                                    
+                        </font>
+                    </font>
+                </h4>
+            </div>
+            <div class="card-body">
+
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width: 200px">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    Heure debut
+                                                                                                    
+                                                </font>
+                                            </font>
+                                        </th>
+
+                                        <th style="min-width: 80px">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    Heure fin
+                                                                                                    
+                                                </font>
+                                            </font>
+                                        </th>
+                                        
+
+                                        <th style="min-width: 80px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ form_start(form) }}
+                                    <tr>
+                                        <td>
+                                            {{ form_widget(form.heuredebut, {attr:{'class':'form-control' }}
+                                            ) }}
+                                                                                    
+                                        </td>
+
+                                        <td>
+                                            {{ form_widget(form.heurefin, {attr:{'class':'form-control' }}
+                                            ) }}
+                                                                                    
+                                        </td>
+
+                                       
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="submit-section">
+                            {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary submit-btn' }}
+                            ) }}
+                            {{ form_end(form) }}
+                                                        
+                                                        
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;"></font>
+                            </font>
+                        </button>
+                    </div>
+                </div>
+               
+            <div class="card card-table"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

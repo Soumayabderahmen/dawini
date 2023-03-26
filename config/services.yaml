@@ -7,7 +7,12 @@ parameters:
     images_directory: '%kernel.project_dir%/public/uploads'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
     router.request_context.host: '127.0.0.1:8000'
+    od_directory: '%kernel.project_dir%/public/ordannaces'
+
 services:
+    App\EventListener\CommentaireListener:
+        tags:
+            - { name: doctrine.orm.entity_listener }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

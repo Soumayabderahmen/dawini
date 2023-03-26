@@ -106,21 +106,25 @@
 								{% endfor %}
 							</div>
 
-
+<table>
 							<div class="card category-widget">
 								<div class="card-header">
 									<h4 class="card-title">Catégories des articles</h4>
 								</div>
 								{%for specialite in specialities %}
-									<div class="card-body">
-										<ul class="categories">
-											{{specialite.nom}}
-										</ul>
-									</div>
+									<tr>
+
+											<td>{{specialite.nom}}</td>
+											
+										
 								{% endfor %}
 							</div>
 						</div>
-
+						<td>
+						<h4>({{ countarticles }})</h4>
+						</td>
+						</tr>
+</table>
 
 					</div>
 				</div>

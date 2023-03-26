@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\OrdonnanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,18 +15,34 @@ class Ordonnance
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("getConsul")]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(
+       message: 'la description ne doit pas etre vide',
+    )]
+    #[Assert\Length(
+        min: 5,
+        max: 500,
+        minMessage: 'La description doit être au moins  {{ limit }} caracteres',
+        maxMessage: 'La description ne doit pas depasser {{ limit }} caracteres',
+    )]
+    #[Groups("getConsul")]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'ordonnance', targetEntity: Consulation::class)]
-    private Collection $consultation;
+   
 
-    public function __construct()
-    {
-        $this->consultation = new ArrayCollection();
-    }
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'ordonnance')]
+    private ?Consulation $consulation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+    private ?string $imageFile = null;
+
 
     public function getId(): ?int
     {
@@ -44,33 +61,58 @@ class Ordonnance
         return $this;
     }
 
+
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getConsulation(): ?Consulation
+    {
+        return $this->consulation;
+    }
+
+    public function setConsulation(?Consulation $consulation): self
+    {
+        $this->consulation = $consulation;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->id;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    
+
     /**
-     * @return Collection<int, Consulation>
+     * Get the value of imageFile
+     *
+     * @return ?string
      */
-    public function getConsultation(): Collection
+    public function getImageFile(): ?string
     {
-        return $this->consultation;
-    }
-
-    public function addConsultation(Consulation $consultation): self
-    {
-        if (!$this->consultation->contains($consultation)) {
-            $this->consultation->add($consultation);
-            $consultation->setOrdonnance($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConsultation(Consulation $consultation): self
-    {
-        if ($this->consultation->removeElement($consultation)) {
-            // set the owning side to null (unless already changed)
-            if ($consultation->getOrdonnance() === $this) {
-                $consultation->setOrdonnance(null);
-            }
-        }
-
-        return $this;
+        return $this->imageFile;
     }
 }

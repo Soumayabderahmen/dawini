@@ -87,4 +87,19 @@ public function searchByTerm($searchTerm)
 
     return $qb->getQuery()->getResult();
 }
+
+
+//    /**
+//     * @return Medecin[] Returns an array of Medecin objects
+//     */
+public function listByPatient($idPatient): array
+{
+    return $this->createQueryBuilder('m')
+        ->andWhere('m.idPatient = :patient')
+        ->setParameter('patient', $idPatient)
+        ->orderBy('m.id', 'DESC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
 }

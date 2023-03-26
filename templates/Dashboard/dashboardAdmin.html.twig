@@ -37,14 +37,11 @@
 								<div class="dash-count">
 									<h5 class="dash-title">Patients</h5>
 									<div class="dash-counts">
-										<p>2000</p>
+										<p>{{countpatient}}</p>
 									</div>
 								</div>
 							</div>
-							<p class="trade-level mb-0">
-								<span class="text-success me-1">
-									<i class="fas fa-caret-up me-1"></i>4.5%</span>
-								last week</p>
+							
 						</div>
 					</div>
 				</div>
@@ -53,19 +50,16 @@
 						<div class="card-body">
 							<div class="dash-widget-header">
 								<span class="dash-widget-icon bg-warning">
-									<img src="{{asset('admin/assets/img/icon/calendar.png')}}" alt="User Image">
+									<img src="{{asset('admin/assets/img/icon/avis.png')}}" width=52 height=52 alt="User Image">
 								</span>
 								<div class="dash-count">
-									<h5 class="dash-title">Appointment</h5>
+									<h5 class="dash-title">Avis</h5>
 									<div class="dash-counts">
-										<p>4500</p>
+										<p>{{countmedecin}}</p>
 									</div>
 								</div>
 							</div>
-							<p class="trade-level mb-0">
-								<span class="text-success me-1">
-									<i class="fas fa-caret-up me-1"></i>9.65%</span>
-								last week</p>
+							
 						</div>
 					</div>
 				</div>
@@ -74,19 +68,16 @@
 						<div class="card-body">
 							<div class="dash-widget-header">
 								<span class="dash-widget-icon bg-danger">
-									<img src="{{asset('admin/assets/img/icon/chart.png')}}" alt="User Image">
+									<img src="{{asset('admin/assets/img/icon/specialite.webp')}}" width=52 height=52 alt="User Image">
 								</span>
 								<div class="dash-count">
-									<h5 class="dash-title">Revenue</h5>
+									<h5 class="dash-title">Specialites</h5>
 									<div class="dash-counts">
-										<p>$62523</p>
+										<p>{{countspecialites}}</p>
 									</div>
 								</div>
 							</div>
-							<p class="trade-level mb-0">
-								<span class="text-danger me-1">
-									<i class="fas fa-caret-up me-1"></i>40.5%</span>
-								last week</p>
+							
 						</div>
 					</div>
 				</div>
@@ -207,112 +198,35 @@
 						</div>
 						<div class="card-body p-0">
 							<div class="table-responsive">
+							
 								<table class="table doc-table">
+								{% for medecin in medecin|slice(0,5) %}
 									<tbody>
 										<tr>
 											<td>
 												<h2 class="table-avatar">
-													<a class="avatar-pos avatar-online" href="profile.html"><img class="avatar avatar-img" src="{{asset('admin/assets/img/profiles/avatar-05.jpg')}}" alt="User Image"></a>
+													<img src="{{ asset('/uploads/'~medecin.image) }}" alt="" width="48" height="48" /> 
 													<a href="#" class="user-name">
-														<span class="text-muted">Dr.
-															                                                                Rayan</span>
-														<span class="tab-subtext">Gyanoclogist</span>
+														<span class="text-muted">{{ medecin.nom }} {{ medecin.prenom }}</span>
+														<span class="tab-subtext">{{ medecin.specialites }}</span>
 													</a>
 												</h2>
 											</td>
 											<td>
 												<span class="table-rating">
 													<i class="fas fa-star me-2"></i>
-													4.5</span>
+													{{ countavis }}</span>
 											</td>
 											<td class="text-right">
 												<span class="text-muted">200 Patients</span>
 											</td>
 										</tr>
-										<tr>
-											<td>
-												<h2 class="table-avatar">
-													<a class="avatar-pos avatar-online" href="profile.html"><img class="avatar avatar-img" src="{{asset('admin/assets/img/profiles/avatar-10.jpg')}}" alt="User Image"></a>
-													<a href="#" class="user-name">
-														<span class="text-muted">Dr.
-															                                                                Bea</span>
-														<span class="tab-subtext">Dentist</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="table-rating">
-													<i class="fas fa-star me-2"></i>
-													4.9</span>
-											</td>
-											<td class="text-right">
-												<span class="text-muted">180 Patients</span>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<h2 class="table-avatar">
-													<a class="avatar-pos avatar-offline" href="profile.html"><img class="avatar avatar-img" src="{{asset('admin/assets/img/profiles/avatar-11.jpg')}}" alt="User Image"></a>
-													<a href="#" class="user-name">
-														<span class="text-muted">Dr.
-															                                                                Monroe</span>
-														<span class="tab-subtext">Hair
-															                                                                Specialities</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="table-rating">
-													<i class="fas fa-star me-2"></i>
-													4.8</span>
-											</td>
-											<td class="text-right">
-												<span class="text-muted">160 Patients</span>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<h2 class="table-avatar">
-													<a class="avatar-pos avatar-offline" href="profile.html"><img class="avatar avatar-img" src="{{asset('admin/assets/img/profiles/avatar-13.jpg')}}" alt="User Image"></a>
-													<a href="#" class="user-name">
-														<span class="text-muted">Dr.
-															                                                                Lester</span>
-														<span class="tab-subtext">Orthopaedics</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="table-rating">
-													<i class="fas fa-star me-2"></i>
-													4.7</span>
-											</td>
-											<td class="text-right">
-												<span class="text-muted">140 Patients</span>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<h2 class="table-avatar">
-													<a class="empty-user" href="profile.html">
-														<i class="feather-user"></i>
-													</a>
-													<a href="#" class="user-name">
-														<span class="text-muted">Dr.
-															                                                                Clint</span>
-														<span class="tab-subtext">Neurology</span>
-													</a>
-												</h2>
-											</td>
-											<td>
-												<span class="table-rating">
-													<i class="fas fa-star me-2"></i>
-													4.6</span>
-											</td>
-											<td class="text-right">
-												<span class="text-muted">120 Patients</span>
-											</td>
-										</tr>
+										
+										
+										
+									
 									</tbody>
+									{%endfor%}
 								</table>
 							</div>
 						</div>
@@ -358,7 +272,7 @@
 											</tr>
 										</thead>
 									  <tbody>
-        {% for user in users %}
+        {% for user in users|slice(0,5) %}
         {% if user.roles == ["ROLE_PATIENT"]%}
             <tr>
                

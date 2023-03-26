@@ -1,0 +1,51 @@
+{% extends 'basedashboard.html.twig' %}
+
+{% block title %}Diagnostique{% endblock %}
+
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+        <div class="text-end">
+            <a href="{{ path('app_consultation_index') }}" class="add-new-btn">
+                <font style="vertical-align: inherit;">
+                    <font style="vertical-align: inherit;">
+                        Retour
+
+
+                    </font>
+                </font>
+            </a>
+        </div>
+
+        <div class="appointments">
+
+            <div class="appointment-list">
+                <div class="profile-info-widget">
+
+                    <div class="profile-det-info">
+                        
+                        <div class="patient-details">
+                            <h5><i class="far fa-clock"></i><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">id:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ diagnostique.id}}</font></font>
+                            </h5>
+                            <h5><i class="far fa-clock"></i><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">date:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ diagnostique.date|date('d-m-Y') }}</font></font>
+                            </h5>
+                            <h5><i class="far fa-clock"></i><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">symptome:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ diagnostique.symptome }}</font></font>
+                            </h5>
+                            <h5><i class="far fa-clock"></i><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">resultat test:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ diagnostique.resultattest }}</font></font>
+                            </h5>
+                            <h5><i class="far fa-clock"></i><font style="vertical-align: inherit;"><font
+                                            style="vertical-align: inherit;">diagnostique:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ diagnostique.diagfinal }}</font></font>
+                            </h5>
+                            <a class="btn bg-success-light fas fa-sharp fa-regular fa-file-pdf" href="{{ path('generatePDF')}}"> Export PDF</a> 
+                           
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

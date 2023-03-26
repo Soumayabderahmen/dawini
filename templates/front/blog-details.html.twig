@@ -37,8 +37,9 @@
 												{{article.date|date ('d/m/y') }}</li>
 											<li>
 												<i class="far fa-comments"></i>
-												Comments</li>
-
+												Commentaire
+												</li>
+{# {{countcommentaire}} #}
 											<li>
 												<i class="feather-package"></i>
 												{{article.specialites }}
@@ -48,15 +49,12 @@
 												{% if app.user %}
 													<div>
 
-														{#<button class="feather-thumbs-up" data-url="{{ path('article_like', {'id': article.id}) }}">Like</button> #}
+														
 																        <a data-url="{{ path('article_like', {'id': article.id}) }}" class="feather-thumbs-up"></a>
 																		<a data-url="{{ path('article_unlike', {'id': article.id}) }}" class="feather-thumbs-down"></a>
 																		<span id="js-likes-count">{{ article.articleLikes|length }}</span> Likes
 																		
-														       {# <button class="js-dislike-btn" data-url="{{ path('article_dislike', {'id': article.id}) }}">Dislike</button>
-														        <button class="js-unlike-btn" data-url="{{ path('article_unlike', {'id': article.id}) }}">Unlike</button>
-														        <button class="js-undislike-btn" data-url="{{ path('article_undislike', {'id': article.id}) }}">Undislike</button>
-														#}
+														       
 													</div>
 
 												{% endif %}
@@ -91,7 +89,7 @@
 													<span class="comment-by">
 														<span class="blog-author-name"><p>{{commentaire.utilisateur.nom}} {{commentaire.utilisateur.prenom}}</p></h3></span>
 													</span>
-													<p>{{commentaire.message }}</p>
+													<p>{{censor.censorString(commentaire.message)}}</p>
 													<p class="blog-date">{{commentaire.date|date('y-m-d')}}</p>
 
 
@@ -107,6 +105,7 @@
 								<h4 class="card-title">Laisser un commentaire</h4>
 							</div>
 							<div class="card-body">
+							{% if app.user %}
 								{{ form_start(form) }}
 
 
@@ -118,6 +117,11 @@
 									{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary save-btn'}}) }}
 								</div>
 								{{ form_end(form) }}
+								{% else %}
+								<div class="text-right">
+																		<a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">Ajouter Commentaire</a>
+																		</div>
+								{%endif%}
 							</div>
 						</div>
 					</div>
@@ -222,7 +226,6 @@
 								<div class="card-body">
 									<ul class="categories">
 										{{specialite.nom}}
-
 									</ul>
 								</div>
 							{% endfor %}

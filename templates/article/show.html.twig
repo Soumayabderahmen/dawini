@@ -83,8 +83,8 @@
 																											<span class="blog-author-name"><p>{{commentaire.utilisateur.nom}} {{commentaire.utilisateur.prenom}}</p></h3></span>
 
 												</span>
-												<p>{{commentaire.message }}</p>
-												<p class="blog-date">Dec 6, 2017</p>
+												{{censor.censorString(commentaire.message) }}
+   								<p class="blog-date">{{commentaire.date|date ('d/m/y')}}</p>
 												
 											</div>
 										</div>

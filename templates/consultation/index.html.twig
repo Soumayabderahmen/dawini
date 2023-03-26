@@ -1,0 +1,1442 @@
+{% extends 'basedashboard.html.twig' %}
+{% block title %}
+    Medecin Dashboard
+    
+    
+    
+{% endblock %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9 dct-appoinment">
+        <div class="card">
+            {% if patient is defined %}
+                <span style="margin-right: 20px;"></span>
+                <h3>
+                    {{ patient.nom ~' '~ patient.prenom }}
+                </h3>
+            {% endif %}
+            <div class="card-body pt-0">
+                <div class="user-tabs">
+                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">
+                                <font style="vertical-align: inherit;">
+                                    <font style="vertical-align: inherit;">
+                                        Consultation
+                                        
+                                        
+                                        									
+                                    </font>
+                                </font>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#pres" data-bs-toggle="tab">
+                                <span>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            Ordonnance
+                                            
+                                            
+                                            										
+                                        </font>
+                                    </font>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#medical" data-bs-toggle="tab">
+                                <span class="med-records">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            Dossiers médicaux
+                                            
+                                            
+                                            										
+                                        </font>
+                                    </font>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#billing" data-bs-toggle="tab">
+                                <span>
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            Facturation
+                                            
+                                            
+                                            										
+                                        </font>
+                                    </font>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="pat_appointments" class="tab-pane fade show active">
+                        <div class="text-end">
+                            {% if patient is defined %}
+                                <a href="{{ path('commencer_consultation', {'id' : patient.id}) }}" class="add-new-btn">
+                                    <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                            Commencer consultation
+                                            
+                                            
+                                            										
+                                        </font>
+                                    </font>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <!-- Formulaire de recherche -->
+                            <form>
+                                <input type="text" id="search-input" class="form-control" placeholder="chercher une date(jour ou mois)..."></form>
+                                <div>
+                                    <br></div>
+                                    <!-- Zone d'affichage des résultats -->
+                                    <div id="search-results"></div>
+                                    <script>
+								// Écouter les événements de saisie de texte dans le champ de recherche
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () { // Récupérer le contenu du champ de recherche
+const keyword = searchInput.value.trim();
+
+// Effectuer la requête AJAX si le contenu est non vide
+if (keyword) {
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4 && xhr.status === 200) { // Traitement des données de réponse ici
+const response = JSON.parse(xhr.responseText);
+const resultsContainer = document.getElementById('search-results');
+const listeRend = document.querySelector('#liste-consultation');
+resultsContainer.innerHTML = '';
+if (response.data.length > 0) {
+let dataHtml = "";
+
+response.data.forEach(function (result) { /*
+                liste-consultation
+              */
+
+const element = `<tr>
+                                                        <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    ${
+result.id
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td>
+                                                            <h4>
+                                                                ${
+result.patient
+}
+                                                            </h4>
+                                                        </td>
+                                                        <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                ${
+result.date
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-block text-info">
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                    ${
+result.debut
+}
+                                                                    </font>
+                                                                </font>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-block text-info">
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                    ${
+result.fin
+}
+                                                                    </font>
+                                                                </font>
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            
+                                                                <div class="table-action">
+                                                                   
+                                                                        <i class="far fa-edit"></i>
+                                                                        Modifier
+                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                            
+                                                                                                                                        
+                                                                    </a>
+                                                                        <i class="far fa-eye"></i>
+                                                                        <font style="vertical-align: inherit;">
+                                                                            <font style="vertical-align: inherit;">
+                                                                                Voir
+
+                                                                            </font>
+                                                                        </font>
+                                                                    </a>
+                                                                </div>
+                                                          
+                                                                <div class="table-action">
+                                                                        Acceder meet
+                                                                                                                                                                        
+                                                                    </a>
+                                                                        <i class="far fa-edit"></i>
+                                                                    </a>
+                                                                </div>
+                                                           
+                                                        </td>
+                                                       `;
+console.log(result);
+dataHtml += element;
+/* const resultElement = document.createElement('div');
+              resultElement.textContent = result.date;
+              resultsContainer.appendChild(resultElement);*/
+});
+listeRend.innerHTML = dataHtml;
+} else {
+const noResultsElement = document.createElement('div');
+noResultsElement.textContent = 'Aucun résultat trouvé.';
+resultsContainer.appendChild(noResultsElement);
+}
+}
+};
+
+xhr.open('GET', '{{ path('app_rest_search') }}?keyword=' + keyword + '&patient=' + {{ user.id }});
+xhr.send();
+}
+});
+							</script>
+                                </div>
+                                <div class="card card-table mb-0">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    ID
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            Patient
+                                                            
+                                                            
+                                                            												
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    Date consultation
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    heure debut
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    heure fin
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    Actions
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    Ordonnance
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="liste-consultation">
+                                                    {% for consulation in consultations %}
+                                                        <tr>
+                                                            <td>
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        {{ consulation.id }}
+                                                                    </font>
+                                                                </font>
+                                                            </td>
+                                                            <td>
+                                                                <h4>
+                                                                    {{ consulation.patients.nomComplet|title }}
+                                                                </h4>
+                                                            </td>
+                                                            <td>
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        {{ consulation.date|date('d-m-Y') }}
+                                                                    </font>
+                                                                </font>
+                                                            </td>
+                                                            <td>
+                                                                <span class="d-block text-info">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">
+                                                                            {{ consulation.heuredebut|date() }}
+                                                                        </font>
+                                                                    </font>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span class="d-block text-info">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        <font style="vertical-align: inherit;">
+                                                                            {{ consulation.heurefin|date() }}
+                                                                        </font>
+                                                                    </font>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                {% if  consulation.estTermine %}
+                                                                    <div class="table-action">
+                                                                        <a href="{{ path('app_consultation_edit', {'id': consulation.id}) }}" class="btn btn-sm bg-success-light">
+                                                                            <i class="far fa-edit"></i>
+                                                                            Modifier
+                                                                            
+                                                                            
+                                                                            																
+                                                                        </a>
+                                                                        <a href="{{ path('app_consultation_show', {'id': consulation.id}) }}" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i>
+                                                                            <font style="vertical-align: inherit;">
+                                                                                <font style="vertical-align: inherit;">
+                                                                                    Voir
+                                                                                    
+                                                                                    
+                                                                                    																		
+                                                                                </font>
+                                                                            </font>
+                                                                        </a>
+                                                                    </div>
+                                                                {% else %}
+                                                                    <div class="table-action">
+                                                                        <a href="{{ consulation.urlConsultation }}" target="_blank" class="btn btn-sm bg-info-light">
+                                                                            Acceder meet
+                                                                            
+                                                                            
+                                                                            																
+                                                                        </a>
+                                                                        <a href="{{ path('continue_consultation', {'id': consulation.id}) }}" class="btn btn-sm bg-success-light">
+                                                                            <i class="far fa-edit"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                {% for ordonnance in consulation.ordonnance %}
+                                                                    <div class="table-action">
+                                                                        <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-sm bg-info-light">
+                                                                            <i class="far fa-eye"></i>
+                                                                            <font style="vertical-align: inherit;">
+                                                                                <font style="vertical-align: inherit;"></font>
+                                                                            </font>
+                                                                        </a>
+                                                                        <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-sm bg-success-light">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            <font style="vertical-align: inherit;">
+                                                                                <font style="vertical-align: inherit;"></font>
+                                                                            </font>
+                                                                        </a>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <div class="mt-4 text-center">
+                                                {{ knp_pagination_render(consultations) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pres">
+                                <div class="text-end">
+                                    <a href="{{ path('app_ordonnance_new', {'id' : patient.id}) }}) }}" class="add-new-btn">
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                Ajouter une ordonnance
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </a>
+                                </div>
+                                <div class="card card-table mb-0">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-center mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    Date
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    description
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    Action
+                                                                    
+                                                                    
+                                                                    														
+                                                                </font>
+                                                            </font>
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for ordonnance in ordonnances %}
+                                                        <tr>
+                                                            <td>
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        {{ ordonnance.date|date('d-m-Y') }}
+                                                                    </font>
+                                                                </font>
+                                                            </td>
+                                                            <td>
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                        {{ ordonnance.description }}
+                                                                    </font>
+                                                                </font>
+                                                            </td>
+                                                            <td>
+                                                                <div class="table-action">
+                                                                    
+                                                                    <a href="{{ path('app_ordonnance_show', {'id': ordonnance.id}) }}" class="btn btn-sm bg-info-light">
+                                                                        <i class="far fa-eye"></i>
+                                                                        <font style="vertical-align: inherit;">
+                                                                            <font style="vertical-align: inherit;"></font>
+                                                                        </font>
+                                                                    </a>
+                                                                    <a href="{{ path('app_ordonnance_edit', {'id': ordonnance.id}) }}" class="btn btn-sm bg-success-light">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        <font style="vertical-align: inherit;">
+                                                                            <font style="vertical-align: inherit;"></font>
+                                                                        </font>
+                                                                    </a>
+                                                                    {{ include('ordonnance/_delete_form.html.twig') }}
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </div>
+                                                </tbody>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="20">
+                                                Aucun enregistrement trouvé
+                                                
+                                                
+                                                									
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </div</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="medical">
+            <div class="row">
+                            <!-- Formulaire de recherche -->
+                            <form>
+                                <input type="text" id="search-input" class="form-control" placeholder="chercher par numero..."></form>
+                                <div>
+                                    <br></div>
+                                    <!-- Zone d'affichage des résultats -->
+                                    <div id="search-results"></div>
+                                    <script>
+								// Écouter les événements de saisie de texte dans le champ de recherche
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () { // Récupérer le contenu du champ de recherche
+const keyword = searchInput.value.trim();
+
+// Effectuer la requête AJAX si le contenu est non vide
+if (keyword) {
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4 && xhr.status === 200) { // Traitement des données de réponse ici
+const response = JSON.parse(xhr.responseText);
+const resultsContainer = document.getElementById('search-results');
+const listeRend = document.querySelector('#liste-dossiers');
+resultsContainer.innerHTML = '';
+if (response.data.length > 0) {
+let dataHtml = "";
+
+response.data.forEach(function (result) { /*
+                liste-dossiers
+              */
+
+const element = `<tr>
+                                                        <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                    ${
+result.id
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td>
+                                                            <h4>
+                                                                ${
+result.numero
+}
+                                                            </h4>
+                                                        </td>
+                                                        <td>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;">
+                                                                ${
+result.code_APCI
+}
+                                                                </font>
+                                                            </font>
+                                                        </td>
+                                                        <td>
+                                                            <span class="d-block text-info">
+                                                                <font style="vertical-align: inherit;">
+                                                                    <font style="vertical-align: inherit;">
+                                                                    ${
+result.description
+}
+                                                                    </font>
+                                                                </font>
+                                                            </span>
+                                                        </td>
+
+                                                       `;
+console.log(result);
+dataHtml += element;
+/* const resultElement = document.createElement('div');
+              resultElement.textContent = result.date;
+              resultsContainer.appendChild(resultElement);*/
+});
+listeRend.innerHTML = dataHtml;
+} else {
+const noResultsElement = document.createElement('div');
+noResultsElement.textContent = 'Aucun résultat trouvé.';
+resultsContainer.appendChild(noResultsElement);
+}
+}
+};
+
+xhr.open('GET', '{{ path('app_rest_searchDossier') }}?keyword=' + keyword + '&patient=' + {{ user.id }});
+xhr.send();
+}
+});
+							</script>
+                                </div>
+                <div class="text-end">
+                    <a href="{{ path('app_dossier_new', {'id_patient' : patient.id}) }}" class="add-new-btn">
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Ajouter des dossiers médicaux
+                                
+                                
+                                					
+                            </font>
+                        </font>
+                    </a>
+                </div>
+                <div class="card card-table mb-0">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-center mb-0">
+                                <div>
+                                    Nombre de dossier: (
+                                    
+                                    							
+                                    {{ dossiers.getTotalItemCount }}
+                                    )
+                                    
+                                    						
+                                </div>
+                            </br>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                id
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                numero
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                code APCI
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                description
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                Action
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                    <th>
+                                        <font style="vertical-align: inherit;">
+                                            <font style="vertical-align: inherit;">
+                                                Diagnostique
+                                                
+                                                
+                                                									
+                                            </font>
+                                        </font>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="liste-dossiers">
+                                {% for dossier in dossiers %}
+                                    <tr>
+                                        <td>
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{ dossier.id }}
+                                                </font>
+                                            </font>
+                                        </td>
+                                        <td>
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{ dossier.numero }}
+                                                </font>
+                                            </font>
+                                        </td>
+                                        <td>
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{ dossier.codeAPCI }}
+                                                </font>
+                                            </font>
+                                        </td>
+                                        <td>
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{ dossier.description }}
+                                                </font>
+                                            </font>
+                                        </td>
+                                        <td>
+                                            <div class="table-action">
+                                                <a href="{{ path('app_dossier_show', {'id': dossier.id}) }}" class="btn btn-sm bg-info-light">
+                                                    <i class="far fa-eye"></i>
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;"></font>
+                                                    </font>
+                                                </a>
+                                                <a href="#" class="btn btn-sm bg-success-light">
+                                                    <i class="fas fa-edit"></i>
+                                                    <font style="vertical-align: inherit;">
+                                                        <font style="vertical-align: inherit;"></font>
+                                                    </font>
+                                                </a>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="table-action">
+                                                {% if  (dossier.getDiagnostiques() is null) %}
+                                                    <a href="{{ path('app_diagnostique_new', {'id_patient': diagnostique.id}) }}" class="btn btn-sm bg-primary-light">
+                                                        <i class="far fa-edit"></i>
+                                                        creer
+                                                        
+                                                        
+                                                        											
+                                                    </a>
+                                                {% else %}
+                                                    {% for diagnostique in dossier.getDiagnostiques() %}
+                                                        <a href="{{ path('app_diagnostique_show', {'id': diagnostique.id}) }}" class="btn btn-sm bg-info-light">
+                                                            <i class="far fa-eye"></i>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;"></font>
+                                                            </font>
+                                                        </a>
+                                                        <a href="{{ path('app_diagnostique_edit', {'id_patient': diagnostique.id}) }}" class="btn btn-sm bg-success-light">
+                                                            <i class="fas fa-edit"></i>
+                                                            <font style="vertical-align: inherit;">
+                                                                <font style="vertical-align: inherit;"></font>
+                                                            </font>
+                                                        </a>
+                                                        <a href="{{ path('app_diagnostique_new', {'id_patient': diagnostique.id}) }}" class="btn btn-sm bg-primary-light">
+                                                            <i class="far fa-edit"></i>
+                                                            creer
+                                                            
+                                                            
+                                                            												
+                                                        </a>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </tbody>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="20">
+                            Aucun enregistrement trouvé
+                            
+                            
+                            				
+                        </td>
+                    </tr>
+                {% endfor %}
+            </div</tbody>
+        </table>
+        <div class="mt-4 text-center">
+            {{ knp_pagination_render(dossiers) }}
+        </div>
+    </div>
+</div></div></div><div class="tab-pane" id="billing"><div class="text-end">
+<a class="add-new-btn" href="add-billing.html">
+    Add Billing
+</a></div><div class="card card-table mb-0">
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-hover table-center mb-0">
+            <thead>
+                <tr>
+                    <th>
+                        Invoice No
+                        
+                        
+                        			
+                    </th>
+                    <th>
+                        Doctor
+                        
+                        
+                        			
+                    </th>
+                    <th>
+                        Amount
+                        
+                        
+                        			
+                    </th>
+                    <th>
+                        Paid On
+                        
+                        
+                        			
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="invoice-view.html">
+                            #INV-0010
+                            
+                            
+                            				
+                        </a>
+                    </td>
+                    <td>
+                        <h2 class="table-avatar">
+                            <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image"></a>
+                                <a href="doctor-profile.html">
+                                    Ruby Perrin
+                                    
+                                    
+                                    						
+                                    <span>
+                                        Dental
+                                        
+                                        
+                                        						
+                                    </span>
+                                </a>
+                            </h2>
+                        </td>
+                        <td>
+                            $450
+                            
+                            
+                            			
+                        </td>
+                        <td>
+                            14 Nov 2019
+                            
+                            
+                            			
+                        </td>
+                        <td class="text-end">
+                            <div class="table-action">
+                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                    <i class="fas fa-print"></i>
+                                    Print
+                                    
+                                    
+                                    					
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                    <i class="far fa-eye"></i>
+                                    View
+                                    
+                                    
+                                    					
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="invoice-view.html">
+                                #INV-0009
+                                
+                                
+                                				
+                            </a>
+                        </td>
+                        <td>
+                            <h2 class="table-avatar">
+                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                    <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-02.jpg" alt="User Image"></a>
+                                    <a href="doctor-profile.html">
+                                        Dr. Darren Elder
+                                        
+                                        
+                                        						
+                                        <span>
+                                            Dental
+                                            
+                                            
+                                            						
+                                        </span>
+                                    </a>
+                                </h2>
+                            </td>
+                            <td>
+                                $300
+                                
+                                
+                                			
+                            </td>
+                            <td>
+                                13 Nov 2019
+                                
+                                
+                                			
+                            </td>
+                            <td class="text-end">
+                                <div class="table-action">
+                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                        <i class="fas fa-print"></i>
+                                        Print
+                                        
+                                        
+                                        					
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                        <i class="far fa-eye"></i>
+                                        View
+                                        
+                                        
+                                        					
+                                    </a>
+                                    <a href="edit-billing.html" class="btn btn-sm bg-success-light">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                        
+                                        
+                                        					
+                                    </a>
+                                    <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                        <i class="far fa-trash-alt"></i>
+                                        Delete
+                                        
+                                        
+                                        					
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="invoice-view.html">
+                                    #INV-0008
+                                    
+                                    
+                                    				
+                                </a>
+                            </td>
+                            <td>
+                                <h2 class="table-avatar">
+                                    <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-03.jpg" alt="User Image"></a>
+                                        <a href="doctor-profile.html">
+                                            Dr. Deborah Angel
+                                            
+                                            
+                                            						
+                                            <span>
+                                                Cardiology
+                                                
+                                                
+                                                						
+                                            </span>
+                                        </a>
+                                    </h2>
+                                </td>
+                                <td>
+                                    $150
+                                    
+                                    
+                                    			
+                                </td>
+                                <td>
+                                    12 Nov 2019
+                                    
+                                    
+                                    			
+                                </td>
+                                <td class="text-end">
+                                    <div class="table-action">
+                                        <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                            <i class="fas fa-print"></i>
+                                            Print
+                                            
+                                            
+                                            					
+                                        </a>
+                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                            <i class="far fa-eye"></i>
+                                            View
+                                            
+                                            
+                                            					
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="invoice-view.html">
+                                        #INV-0007
+                                        
+                                        
+                                        				
+                                    </a>
+                                </td>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                            <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-04.jpg" alt="User Image"></a>
+                                            <a href="doctor-profile.html">
+                                                Dr. Sofia Brient
+                                                
+                                                
+                                                						
+                                                <span>
+                                                    Urology
+                                                    
+                                                    
+                                                    						
+                                                </span>
+                                            </a>
+                                        </h2>
+                                    </td>
+                                    <td>
+                                        $50
+                                        
+                                        
+                                        			
+                                    </td>
+                                    <td>
+                                        11 Nov 2019
+                                        
+                                        
+                                        			
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="table-action">
+                                            <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                <i class="fas fa-print"></i>
+                                                Print
+                                                
+                                                
+                                                					
+                                            </a>
+                                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                <i class="far fa-eye"></i>
+                                                View
+                                                
+                                                
+                                                					
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="invoice-view.html">
+                                            #INV-0006
+                                            
+                                            
+                                            				
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-05.jpg" alt="User Image"></a>
+                                                <a href="doctor-profile.html">
+                                                    Dr. Marvin Campbell
+                                                    
+                                                    
+                                                    						
+                                                    <span>
+                                                        Ophthalmology
+                                                        
+                                                        
+                                                        						
+                                                    </span>
+                                                </a>
+                                            </h2>
+                                        </td>
+                                        <td>
+                                            $600
+                                            
+                                            
+                                            			
+                                        </td>
+                                        <td>
+                                            10 Nov 2019
+                                            
+                                            
+                                            			
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="table-action">
+                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                    <i class="fas fa-print"></i>
+                                                    Print
+                                                    
+                                                    
+                                                    					
+                                                </a>
+                                                <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                    <i class="far fa-eye"></i>
+                                                    View
+                                                    
+                                                    
+                                                    					
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="invoice-view.html">
+                                                #INV-0005
+                                                
+                                                
+                                                				
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                    <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-06.jpg" alt="User Image"></a>
+                                                    <a href="doctor-profile.html">
+                                                        Dr. Katharine Berthold
+                                                        
+                                                        
+                                                        						
+                                                        <span>
+                                                            Orthopaedics
+                                                            
+                                                            
+                                                            						
+                                                        </span>
+                                                    </a>
+                                                </h2>
+                                            </td>
+                                            <td>
+                                                $200
+                                                
+                                                
+                                                			
+                                            </td>
+                                            <td>
+                                                9 Nov 2019
+                                                
+                                                
+                                                			
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="table-action">
+                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                        <i class="fas fa-print"></i>
+                                                        Print
+                                                        
+                                                        
+                                                        					
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                        <i class="far fa-eye"></i>
+                                                        View
+                                                        
+                                                        
+                                                        					
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="invoice-view.html">
+                                                    #INV-0004
+                                                    
+                                                    
+                                                    				
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                    <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                        <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-07.jpg" alt="User Image"></a>
+                                                        <a href="doctor-profile.html">
+                                                            Dr. Linda Tobin
+                                                            
+                                                            
+                                                            						
+                                                            <span>
+                                                                Neurology
+                                                                
+                                                                
+                                                                						
+                                                            </span>
+                                                        </a>
+                                                    </h2>
+                                                </td>
+                                                <td>
+                                                    $100
+                                                    
+                                                    
+                                                    			
+                                                </td>
+                                                <td>
+                                                    8 Nov 2019
+                                                    
+                                                    
+                                                    			
+                                                </td>
+                                                <td class="text-end">
+                                                    <div class="table-action">
+                                                        <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                            <i class="fas fa-print"></i>
+                                                            Print
+                                                            
+                                                            
+                                                            					
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                            <i class="far fa-eye"></i>
+                                                            View
+                                                            
+                                                            
+                                                            					
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="invoice-view.html">
+                                                        #INV-0003
+                                                        
+                                                        
+                                                        				
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <h2 class="table-avatar">
+                                                        <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                            <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-08.jpg" alt="User Image"></a>
+                                                            <a href="doctor-profile.html">
+                                                                Dr. Paul Richard
+                                                                
+                                                                
+                                                                						
+                                                                <span>
+                                                                    Dermatology
+                                                                    
+                                                                    
+                                                                    						
+                                                                </span>
+                                                            </a>
+                                                        </h2>
+                                                    </td>
+                                                    <td>
+                                                        $250
+                                                        
+                                                        
+                                                        			
+                                                    </td>
+                                                    <td>
+                                                        7 Nov 2019
+                                                        
+                                                        
+                                                        			
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <div class="table-action">
+                                                            <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                <i class="fas fa-print"></i>
+                                                                Print
+                                                                
+                                                                
+                                                                					
+                                                            </a>
+                                                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                <i class="far fa-eye"></i>
+                                                                View
+                                                                
+                                                                
+                                                                					
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <a href="invoice-view.html">
+                                                            #INV-0002
+                                                            
+                                                            
+                                                            				
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <h2 class="table-avatar">
+                                                            <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                                <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-09.jpg" alt="User Image"></a>
+                                                                <a href="doctor-profile.html">
+                                                                    Dr. John Gibbs
+                                                                    
+                                                                    
+                                                                    						
+                                                                    <span>
+                                                                        Dental
+                                                                        
+                                                                        
+                                                                        						
+                                                                    </span>
+                                                                </a>
+                                                            </h2>
+                                                        </td>
+                                                        <td>
+                                                            $175
+                                                            
+                                                            
+                                                            			
+                                                        </td>
+                                                        <td>
+                                                            6 Nov 2019
+                                                            
+                                                            
+                                                            			
+                                                        </td>
+                                                        <td class="text-end">
+                                                            <div class="table-action">
+                                                                <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                    <i class="fas fa-print"></i>
+                                                                    Print
+                                                                    
+                                                                    
+                                                                    					
+                                                                </a>
+                                                                <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                    <i class="far fa-eye"></i>
+                                                                    View
+                                                                    
+                                                                    
+                                                                    					
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="invoice-view.html">
+                                                                #INV-0001
+                                                                
+                                                                
+                                                                				
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="doctor-profile.html" class="avatar avatar-sm me-2">
+                                                                    <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image"></a>
+                                                                    <a href="doctor-profile.html">
+                                                                        Dr. Olga Barlow
+                                                                        
+                                                                        
+                                                                        						
+                                                                        <span>
+                                                                            #0010
+                                                                            
+                                                                            
+                                                                            						
+                                                                        </span>
+                                                                    </a>
+                                                                </h2>
+                                                            </td>
+                                                            <td>
+                                                                $550
+                                                                
+                                                                
+                                                                			
+                                                            </td>
+                                                            <td>
+                                                                5 Nov 2019
+                                                                
+                                                                
+                                                                			
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <div class="table-action">
+                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                                                                        <i class="fas fa-print"></i>
+                                                                        Print
+                                                                        
+                                                                        
+                                                                        					
+                                                                    </a>
+                                                                    <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                                                                        <i class="far fa-eye"></i>
+                                                                        View
+                                                                        
+                                                                        
+                                                                        					
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tbody>
+        {% endblock %}
+        {% block script %}
+            alert("lllllll"); 
+        {% endblock %}
+        

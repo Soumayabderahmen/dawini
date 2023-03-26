@@ -63,4 +63,33 @@ class ConsulationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function listByMedecinEtPatient($idMedecin, $idPatient = null)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.medecin = :idMedecin')
+            ->setParameter('idMedecin', $idMedecin);
+        if($idPatient != null)
+        {
+           $qb->andWhere('c.patients = :idPatient')
+            ->setParameter('idPatient', $idPatient);
+        }
+
+        return $qb->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function listByPatient($idPatient)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->where('c.patients = :idPatient')
+            ->setParameter('idPatient', $idPatient);
+
+
+        return $qb->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    
 }

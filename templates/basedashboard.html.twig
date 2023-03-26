@@ -25,6 +25,10 @@
     <link rel="stylesheet" href="{{asset('doctor/assets/plugins/apex/apexcharts.css')}}">
 
     <link rel="stylesheet" href="{{asset('doctor/assets/css/style.css')}}">
+
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datetimepicker.min.css')}}">
+<link rel="stylesheet" href="{{asset('doctor/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css')}}">
+<link rel="stylesheet" href="{{asset('doctor/assets/plugins/dropzone/dropzone.min.css')}}">
     
 </head>
 
@@ -157,10 +161,10 @@
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
-                                          <li>
-                                            <a href="my-patients.html">
+                                         <li>
+                                            <a href="{{path('app_medecin_listpatient')}}">
                                                 <i class="fas fa-user-injured"></i>
-                                                <span>My Patients</span>
+                                                <span>Mes patients</span>
                                             </a>
                                         </li>
                                         <li>
@@ -251,6 +255,12 @@
     <script src="{{asset('doctor/assets/plugins/apex/chart-data.js')}}"></script>
 
     <script src="{{asset('doctor/assets/js/script.js')}}"></script>
+   
+<script src="{{asset('doctor/assets/plugins/dropzone/dropzone.min.js')}}"></script>
+
+<script src="{{asset('doctor/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js')}}"></script>
+
+<script src="{{asset('doctor/assets/js/profile-settings.js')}}"></script>
 </body>
 
 <!-- Mirrored from doccure.dreamguystech.com/html/template/doctor-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 11:39:21 GMT -->

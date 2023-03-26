@@ -185,16 +185,7 @@ public function editAdminJson(Request $request, $id,NormalizerInterface $normali
     $jsonContent=$normalizerInterface->normalize($admin,'json',['groups'=>'medecin']);
     return new Response(json_encode($jsonContent));
 
-  
-   
-
 }
-
-
-  
-
-
-
 
     #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
     public function show(User $user): Response

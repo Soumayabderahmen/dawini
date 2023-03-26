@@ -207,14 +207,12 @@
                                
                                     <span class="star-red">*</span>
                                 </label>
-                                        {{ form_widget(form.message, {attr:{'class':'form-control'}}) }}
                             </div>
                             <br><br>
                             <div class="input-box">
                                 <label class="fs-14 text-black fw-medium">Image</label>
                                 <div class="form-group">
                                     <div class="file-upload-wrap file-upload-layout-2">
-                                        {{ form_widget(form.images, {attr:{'class':'file-upload-input'}}) }}
                                         <span class="file-upload-text d-flex align-items-center justify-content-center"><i class="la la-cloud-upload mr-2 fs-24"></i>Drop files here or click to upload.</span>
                                     </div>
                                 </div>
@@ -222,7 +220,6 @@
                             <div class="col-12">
 								<div class="doctor-submit text-end">
 									<div class="text-right">
-										{{ form_row(form.Envoyer , {attr:{'class':'btn btn-primary save-btn'}},{attr:{'data-placeholder':'Select a Category'}}) }}
 									
 
 									</div>

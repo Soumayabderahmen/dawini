@@ -5,6 +5,7 @@ use App\Form\ContactType;
 use App\Entity\Article;
 use App\Entity\ArticleFavorie;
 use App\Entity\Commentaire;
+use App\Utils\Censor;
 use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
@@ -42,8 +43,8 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/profil/{id}', name: 'app_profil')]
-    public function avis(MedecinRepository $medecinRepository, User $user,PatientRepository $patientRepository,Request $request,$id,AvisRepository $avisRepository): Response
+    #[Route('/avi/{id}', name: 'app_avis')]
+    public function avis(MedecinRepository $medecinRepository,User $user,PatientRepository $patientRepository,Request $request,$id,AvisRepository $avisRepository): Response
     {  
         $medecin = $medecinRepository->findById($id);
         $medecinSelectioner = $medecinRepository->findOneBy(['id' => $id]);
@@ -65,7 +66,7 @@ class FrontController extends AbstractController
             $avi->setPatient($patientConnecter);
             $avisRepository->save($avi, true);
             
-            return $this->redirectToRoute('app_profil' ,['id'=>$id]);
+            return $this->redirectToRoute('app_avis' ,['id'=>$id]);
         }
         return $this->renderForm('front/avis.html.twig', [
             'formAvis' => $formAvis,
@@ -141,13 +142,16 @@ class FrontController extends AbstractController
         foreach($article as $art){
             $idsSelectedArticles[] = $art->getId();
         }
+       
 
         $idsArticlesInFavorites = $this->getArticlesInFavorites($idsSelectedArticles);
-
+        $countarticles = count($articleRepository->findBySpecialites($specialities));
         return $this->render('front/article.html.twig', [
             'articles' => $article,
             'specialities'=>$specialities,
-            'idsArticlesInFavorites'=> $idsArticlesInFavorites
+            'idsArticlesInFavorites'=> $idsArticlesInFavorites,
+            'countarticles'=>$countarticles
+            
             
 
         ]);
@@ -155,15 +159,19 @@ class FrontController extends AbstractController
 
     #[Route('/blogDetails/{id}', name: 'app_blog_details' , methods: ['GET', 'POST'])]
     public function blogDetails(ArticleRepository $articleRepository,SpecialitesRepository $specialitiesRepository,$id,Article $article,Request $request,CommentaireRepository $commentaireRepository,PatientRepository $patientRepository): Response
-    {     
+    {   $message = $request->request->get('message');
         $iduser=$this->getUser();
         $UserConnecter=$patientRepository->findOneBy(['id'=> $iduser]);
-
+        // Appliquer le filtre de censure
+        $censor = new Censor();
+        $censoredMessage = $censor->censorString($message);
         $commentaire = new Commentaire();
+        
+        $commentaire->setMessage($censoredMessage);
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
         $commentaireRepository->findByArticle($article);
-
+        // $countcommentaire = count($commentaireRepository->findAll());
         if ($form->isSubmitted() && $form->isValid()) {
             $em=$this->getDoctrine()->getManager();
             $commentaire->setArticle($article);
@@ -182,7 +190,9 @@ class FrontController extends AbstractController
             'articles' => $articleRepository->findById($id),
             'article'=>$articleRepository->findBy([],['id'=>'desc']),
             'commentaires'=>$commentaireRepository->findByArticle($article),
+            // 'countcommentaire'=>$countcommentaire,
             'specialities'=>$specialitiesRepository->findALL(),
+            'censor' => $censor,
             //'specialities'=>$articleRepository->findBySpecialites($id),
             'form' => $form,
 

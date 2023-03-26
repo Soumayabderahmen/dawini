@@ -168,7 +168,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
    
   
    
-  
+    public function getNomComplet()
+    {
+        return $this->getNom(). ' '.$this->getPrenom();
+    }
 
     public function __construct()
     {

@@ -1,0 +1,68 @@
+{% extends 'basedashboard.html.twig' %}
+{% block title %}
+    Medecin Dashboard
+    
+    
+    
+{% endblock %}
+{% block content %}
+    <div class="col-md-7 col-lg-8 col-xl-9">
+        <h3 class="page-title">
+            Liste de mes patients
+        </h3>
+        <div class="appointments">{% for patient in patients %}
+            <div class="appointment-list">
+                <div class="profile-info-widget">
+                    
+                        <a href="patient-profile.html" class="booking-doc-img">
+                            <img src="{{ asset('doctor/assets/img/patients/patient6.jpg') }}" alt="User Image"></a>
+                            <div class="profile-det-info">
+                                <h3>
+                                    <a href="patient-profile.html">
+                                        {{ patient.nom }}
+                                        {{ patient.prenom }}
+                                    </a>
+                                </h3>
+                                <div class="patient-details">
+                                    <h5>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ patient.adresse }}
+                                    </h5>
+                                    <h5>
+                                        <i class="fas fa-envelope"></i>
+                                        {{ patient.email }}
+                                    </h5>
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-phone"></i>
+                                        {{ patient.telephone }}
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="appointment-action">
+                            <a href="{{ path('app_patient_show_consu',{'id':patient.id}) }}" class="btn btn-sm bg-info-light">
+                                <i class="far fa-eye"></i>
+                                voir
+                                
+                                
+                                						
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
+                                <i class="fas fa-check"></i>
+                                Accept
+                                
+                                
+                                						
+                            </a>
+                            <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                                
+                                
+                                						
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}

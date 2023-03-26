@@ -1,0 +1,25 @@
+<h1 class="align-center">Dawini </h1>
+
+<p>Voila la liste de tout les diagnostiques de votre dossier</p>
+
+<table class="table" border="5">
+    <tr>
+        <th colspan="1">Id</th>
+        <th colspan="2">Date diagnostique</th>
+        <th colspan="2">nom du patient</th>
+        <th colspan="2">Symptome</th>
+        <th colspan="4">resultat du test</th>
+        <th colspan="4">Diagnostique final </th>
+    </tr>
+    {% for diagnostique in diagnostiques %}
+        <tbody>
+            <td colspan="1">{{ diagnostique.id }}</td>
+            <td colspan="2">{{ diagnostique.date ? diagnostique.date|date('Y-m-d') : '' }}</td>
+            <td colspan="2">{{ diagnostique.patient }}</td>
+            <td colspan="2">{{ diagnostique.symptome }}</td>
+            <td colspan="4">{{ diagnostique.resultatTest }}</td>
+            <td colspan="4">{{ diagnostique.diagFinal }}</td>
+         {% endfor %}
+    </tbody>
+
+</table>

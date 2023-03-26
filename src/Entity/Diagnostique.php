@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\DiagnostiqueRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: DiagnostiqueRepository::class)]
 class Diagnostique
 {
@@ -15,15 +15,40 @@ class Diagnostique
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message : "le champs date de diagnostique ne doit pas etre vide")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message : "le champs symptome ne doit pas etre vide")]
+    #[Assert\Length(
+           min : 3,
+           max : 500,
+           minMessage : "Symptome doit avoir au minimun {{ limit }} caracteres ",
+           maxMessage : "Symptome doit avoir au maximum {{ limit }} caracteres"
+      )
+     ]
     private ?string $symptome = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+           min : 3,
+           max : 500,
+           minMessage : "le resultat de test doit avoir au minimun {{ limit }} caracteres ",
+           maxMessage : "le resultat de test doit avoir au maximum {{ limit }} caracteres"
+      )
+    ]
     private ?string $resultat_test = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255)] 
+    #[Assert\NotBlank(message : "le diagnostique final ne doit pas etre vide")]
+    #[Assert\Length(
+           min : 3,
+           max : 500,
+           minMessage : "le diagnostique finale doit avoir au minimun {{ limit }} caracteres ",
+           maxMessage : "le diagnostique finale doit avoir au maximum {{ limit }} caracteres"
+      )
+    ]
     private ?string $diag_final = null;
 
     #[ORM\ManyToOne(inversedBy: 'diagnostiques')]
@@ -31,6 +56,13 @@ class Diagnostique
 
     #[ORM\ManyToOne(inversedBy: 'diagnostiques')]
     private ?Consulation $consultation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'diagnostiques')]
+    private ?Dossier $dossiers = null;
+
+    
+
+ 
 
     public function getId(): ?int
     {
@@ -42,7 +74,7 @@ class Diagnostique
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -108,4 +140,18 @@ class Diagnostique
 
         return $this;
     }
+
+    public function getDossiers(): ?Dossier
+    {
+        return $this->dossiers;
+    }
+
+    public function setDossiers(?Dossier $dossiers): self
+    {
+        $this->dossiers = $dossiers;
+
+        return $this;
+    }
+
+    
 }

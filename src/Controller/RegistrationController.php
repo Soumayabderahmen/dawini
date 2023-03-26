@@ -208,5 +208,34 @@ class RegistrationController extends AbstractController
     }
 
 
+ 
+    // #[Route('/registerjson', name: 'app_registerjson')]
+    //     public function registerJson(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager,NormalizerInterface $normalizer): Response
+    //     {
+    //         $user = new User();
+    
+    //             $user->setPassword(
+    //                 $userPasswordHasher->hashPassword(
+    //                     $user,
+    //                     $request->get('plainPassword')
+    //                 ));
+    //             $user->setRoles(['ROLE_USER']);
+    //             $user->setEmail($request->get('email'));
+    //             $user->setLastname($request->get('lastname'));
+    //             $user->setImage($request->get('image'));
+    //             $entityManager->persist($user);
+    //             $entityManager->flush();
+    //             // do anything else you need here, like send an email
+    //         if($request->get('email') == "" || $request->get('lastname') == ""||$request->get('plainPassword') == ""||$request->get('image') == ""   )
+    //             return new JsonResponse('manque');
+    
+    //         $jsonContent=$normalizer->normalize($user,'json',['groups'=>"users"]);
+    //         return new Response(json_encode($jsonContent));
+    //         }
+    
+    
+    
+    
+         }
 
-}
+

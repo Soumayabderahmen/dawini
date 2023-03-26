@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_sujet_delete', {'id': sujets.id}) }}" onsubmit="return confirm('vous avez sur du supprimer?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sujets.id) }}">
+    <button class="btn btn-sm bg-danger-light" ><i class="far fa-trash-alt"></i></button>
+</form>

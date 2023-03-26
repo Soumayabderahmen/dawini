@@ -11,6 +11,7 @@ use App\Form\Medecin1Type;
 use App\Form\MedProfileType;
 use App\Repository\AssistantRepository;
 use App\Repository\MedecinRepository;
+use App\Repository\PatientRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -204,6 +205,13 @@ class MedecinController extends AbstractController
       
        
 
+    }
+    #[Route('/listpatient', name: 'app_medecin_listpatient', methods: ['GET'])]
+    public function listpatient(PatientRepository $patientRepository): Response
+    {
+        return $this->render('medecin/listpatient.html.twig', [
+            'patients' => $patientRepository->findAll(),
+        ]);
     }
 
    

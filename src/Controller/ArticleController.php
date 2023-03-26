@@ -7,6 +7,7 @@ use App\Entity\ArticleLike;
 use App\Entity\Images;
 use App\Entity\Medecin;
 use App\Entity\Specialites;
+use App\Utils\Censor;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Repository\CommentaireRepository;
@@ -177,11 +178,16 @@ class ArticleController extends AbstractController
 
 
     #[Route('/show/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article ,CommentaireRepository $commentaireRepository): Response
+    public function show(Article $article ,CommentaireRepository $commentaireRepository,Request $request): Response
     {
+        $message = $request->request->get('message');
+       
+        $censor = new Censor();
+        $censoredMessage = $censor->censorString($message);
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'commentaires'=>$commentaireRepository->findByArticle($article),
+            'censor' => $censor,
         ]);
     }
 

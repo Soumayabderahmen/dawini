@@ -39,6 +39,33 @@ class OrdonnanceRepository extends ServiceEntityRepository
         }
     }
 
+    public function listByMedecinEtPatient($idMedecin, $idPatient = null)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->leftJoin('o.consulation', 'c')
+            ->where('c.medecin = :idMedecin')
+            ->setParameter('idMedecin', $idMedecin);
+        if ($idPatient != null) {
+            $qb->andWhere('c.patients = :idPatient')
+                ->setParameter('idPatient', $idPatient);
+        }
+
+        return $qb->orderBy('o.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function listPatient($idPatient)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->leftJoin('o.consulation', 'c')
+            ->andWhere('c.patients = :idPatient')
+            ->setParameter('idPatient', $idPatient)
+            ->orderBy('o.id', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Ordonnance[] Returns an array of Ordonnance objects
 //     */
