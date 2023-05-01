@@ -19,8 +19,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[InheritanceType('JOINED')]
-#[DiscriminatorColumn(name: 'Type', type: 'string')]
-#[DiscriminatorMap(['user' => User::class, 'admin' => Admin::class,'patient'=>Patient::class,'assistant'=>Assistant::class ,'medecin'=>Medecin::class])]
+#[DiscriminatorColumn(name: 'Type', type: 'string', length: 225)]
+#[DiscriminatorMap(['user' => User::class, 'admin' => Admin::class, 'patient' => Patient::class, 'assistant' => Assistant::class, 'medecin' => Medecin::class])]
 #[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé. Veuillez en choisir un autre.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -29,14 +29,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Groups('medecin')]
     private ?int $id = null;
-    
+
     #[ORM\Column(length: 180, unique: true)]
-   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Regex(
-            pattern:'/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-            message:'L\'email {{ value }} n\'est pas un email valide.',
-         )]
-         #[Groups('medecin')]
+        pattern: '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+        message: 'L\'email {{ value }} n\'est pas un email valide.',
+    )]
+    #[Groups('medecin')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -51,29 +51,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // #[Assert\Length(
     //     min: 6,
     //     minMessage: 'Votre mot de passe doit comporter au minimum {{ limit }} caractères',
-       
+
     // )]
     #[Groups('medecin')]
     private ?string $password = null;
 
 
-    
+
     #[ORM\Column(length: 255)]
     #[Groups('medecin')]
     private ?string $nom = null;
-    
+
     #[ORM\Column(length: 255)]
     #[Groups('medecin')]
     private ?string $prenom = null;
-   
+
     #[ORM\Column]
     //#[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
-        
+
         min: 8,
         max: 8,
         exactMessage: 'Cette champ doit comporter exactement 8 caractères',
-       
+
     )]
     #[Groups('medecin')]
     private ?int $cin = null;
@@ -83,13 +83,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $sexe = null;
 
     #[ORM\Column]
-   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
-        
+
         min: 8,
         max: 8,
         exactMessage: 'Cette champ doit comporter exactement 8 caractères',
-       
+
     )]
     #[Groups('medecin')]
     private ?String $telephone = null;
@@ -99,15 +99,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $gouvernorat = null;
 
     #[ORM\Column(length: 255)]
-   // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
+    // #[Assert\NotBlank(message: 'Veuillez renseigner ce champ')]
     #[Assert\Length(
         min: 8,
         minMessage: 'Cette champ doit comporter au moins 8 caractères',
-       
+
     )]
     #[Groups('medecin')]
     private ?string $adresse = null;
-   
+
     /**
      * @var string The hashed password
      */
@@ -118,25 +118,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     //     message :'Vous n\'avez pas saisi le même mot de passe !',
     //     )]
     #[Groups('medecin')]
-    private $confirm_password=null;
+    private $confirm_password = null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
-  
+
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups('medecin')]
     private ?string $image = null;
 
-   
+
     #[ORM\Column(length: 180, nullable: true)]
     #[Groups('medecin')]
     private ?string $reset_token;
 
     #[ORM\Column(nullable: true)]
     private ?bool $enabled = null;
-    
+
     #[ORM\Column(length: 255, nullable: true)]
     private  ?string $token;
 
@@ -154,10 +154,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ArticleLike::class)]
     private Collection $articleLikes;
-    
 
-   
-   
+
+
+
 
     // #[ORM\OneToMany(mappedBy: 'users', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     // private Collection $images;
@@ -165,31 +165,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // #[ORM\OneToMany(mappedBy: 'images', targetEntity: Images::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     // private Collection $images;
 
-   
-  
-   
+
+
+
     public function getNomComplet()
     {
-        return $this->getNom(). ' '.$this->getPrenom();
+        return $this->getNom() . ' ' . $this->getPrenom();
     }
 
     public function __construct()
     {
-       
-       
+
+
         $this->commentaires = new ArrayCollection();
-       
+
         $this->enabled = false;
         $this->sujetLikes = new ArrayCollection();
         $this->sujets = new ArrayCollection();
         $this->replaySujets = new ArrayCollection();
         $this->articleFavories = new ArrayCollection();
         $this->articleLikes = new ArrayCollection();
-     
-       
-       
-       
-       
     }
 
 
@@ -199,11 +194,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    
-    public function __toString(): string{
-        return (string)$this->nom.' '.(string)$this->prenom;
-       }
-    
+
+    public function __toString(): string
+    {
+        return (string)$this->nom . ' ' . (string)$this->prenom;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -239,9 +235,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-         return $roles = $this->roles;
+        return $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-       
+
     }
 
     public function setRoles(array $roles): self
@@ -270,12 +266,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getConfirmPassword()
     {
-      return $this->confirm_password;
+        return $this->confirm_password;
     }
     public function setConfirmPassword($confirm_password)
     {
-    $this->confirm_password = $confirm_password;
-    return $this;
+        $this->confirm_password = $confirm_password;
+        return $this;
     }
 
     /**
@@ -412,8 +408,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   
-    
+
+
 
     public function getImage(): ?string
     {
@@ -426,7 +422,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-      /**
+    /**
      * @return mixed
      */
     public function getResetToken()
@@ -442,7 +438,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reset_token = $reset_token;
     }
 
-   
+
 
     public function isEnabled(): ?bool
     {
@@ -456,7 +452,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+
     public function getToken(): ?string
     {
         return $this->token;
@@ -619,31 +615,3 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
-
-   
-   
-
-
-    
-
-   
-
- 
-  
-  
-
-    
-
-   
- 
-    
-
-
-
-  
-
-       
-    
-
- 
-

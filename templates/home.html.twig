@@ -6,73 +6,74 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        
-		<title>	{% block title %}
-		Dawini
-	{% endblock %}</title>
-{% block css %}
-		<link type="image/x-icon" href="{{asset('client/assets/img/favicon.png')}}" rel="icon">
 
-		<link rel="stylesheet" href="{{asset('client/assets/css/bootstrap.min.css')}}">
+		<title>
+			{% block title %}
+				Dawini
+			{% endblock %}
+		</title>
+		{% block css %}
+			<link type="image/x-icon" href="{{asset('client/assets/img/favicon.png')}}" rel="icon">
 
-		<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
-		<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/all.min.css')}}">
+			<link rel="stylesheet" href="{{asset('client/assets/css/bootstrap.min.css')}}">
 
-		<link rel="stylesheet" href="{{asset('client/assets/css/aos.css')}}">
+			<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/fontawesome.min.css')}}">
+			<link rel="stylesheet" href="{{asset('client/assets/plugins/fontawesome/css/all.min.css')}}">
 
-		<link rel="stylesheet" href="{{asset('client/assets/css/style.css')}}">
+			<link rel="stylesheet" href="{{asset('client/assets/css/aos.css')}}">
+
+			<link rel="stylesheet" href="{{asset('client/assets/css/style.css')}}">
 
 
+			<link rel="stylesheet" href="{{asset('client/assets/css/feather.css')}}">
 
-<link rel="stylesheet" href="{{asset('client/assets/css/feather.css')}}">
-
-			</head>
-{% endblock %}
+		</head>
+	{% endblock %}
 
 
 	<body>
 
-	 <div class="main-wrapper">
+		<div class="main-wrapper">
 
-	    <header class="header">
+			<header class="header">
 				<nav class="navbar navbar-expand-lg header-nav">
-				{% block nav %}
-					<div class="navbar-header">
-						<a id="mobile_btn" href="javascript:void(0);">
-							<span class="bar-icon bar-icon-one">
-								<span></span>
-								<span></span>
-								<span></span>
-							</span>
-						</a>
-						<a href="index.html" class="navbar-brand logo">
-					      <img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
-						</a>
-					</div>
-					<div class="main-menu-wrapper">
-						<div class="menu-header">
-							<a href="index.html" class="menu-logo">
-								    <img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
+					{% block nav %}
+						<div class="navbar-header">
+							<a id="mobile_btn" href="javascript:void(0);">
+								<span class="bar-icon bar-icon-one">
+									<span></span>
+									<span></span>
+									<span></span>
+								</span>
 							</a>
-							<a id="menu_close" class="menu-close" href="javascript:void(0);">
-								<i class="fas fa-times"></i>
+							<a href="index.html" class="navbar-brand logo">
+								<img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
 							</a>
 						</div>
-						<ul class="main-nav">
-							<li class="has-submenu active">
-								<a href="{{ path('app_front') }}">Acceuil
-									
+						<div class="main-menu-wrapper">
+							<div class="menu-header">
+								<a href="index.html" class="menu-logo">
+									<img src="{{asset('admin/assets/img/logo.jpg')}}" class="img-fluid" alt="Logo">
 								</a>
-								
-							</li>
-							<li class="has-submenu">
-								<a href="#">Rendez-vous
-									
+								<a id="menu_close" class="menu-close" href="javascript:void(0);">
+									<i class="fas fa-times"></i>
 								</a>
-								
-							</li>
-							
-<li class="has-submenu">
+							</div>
+							<ul class="main-nav">
+								<li class="has-submenu active">
+									<a href="{{ path('app_front') }}">Acceuil
+
+									</a>
+
+								</li>
+								<li class="has-submenu">
+									<a href="#">Rendez-vous
+
+									</a>
+
+								</li>
+
+								<li class="has-submenu">
 
 									<a href="{{ path('app_blog')}}">Article
 
@@ -80,248 +81,257 @@
 
 
 								</li>
-							
-							<li class="has-submenu">
-								<a href="{{path('app_sujet_index')}}">Forum
-									
-								</a>
-								
+
+								<li class="has-submenu">
+									<a href="{{path('app_sujet_index')}}">Forum
+
+									</a>
+
+								</li>
+								<li class="has-submenu">
+									<a href="#">a propos
+
+									</a>
+								</li>
+								<li class="has-submenu">
+									<a href="{{ path('contact') }}">ContactUs
+
+									</a>
+
+								</li>
+								{% if is_granted('ROLE_PATIENT') %}
+
+									<li class="has-submenu">
+										<a href="{{ path('app_dashpat') }}">Dashboard
+
+										</a>
+									</li>
+
+								{% endif %}
+								{% if is_granted('ROLE_ASSISTANT') %}
+
+									<li class="has-submenu">
+										<a href="{{ path('app_dashAss') }}">Dashboard
+
+										</a>
+									</li>
+
+								{% endif %}
+
+								{% if is_granted('ROLE_MEDECIN') %}
+
+									<li class="has-submenu">
+										<a href="{{ path('app_dash') }}">Dashboard
+
+										</a>
+									</li>
+
+								{% endif %}
+
+
+								<li class="login-link">
+									<a href="{{ path('app_login') }}">Se connecter/ S'inscrire
+									</a>
+								</li>
+							</ul>
+						</div>
+						<ul class="nav header-navbar-rht">
+							<li class="nav-item contact-item">
+								<div class="header-contact-img">
+									<i class="far fa-hospital"></i>
+								</div>
+								<div class="header-contact-detail">
+									<p class="contact-header">Contact</p>
+									<p class="contact-info-header">
+										+216 27 841 624</p>
+								</div>
 							</li>
-							<li class="has-submenu">
-								<a href="#">a propos 
-									
+							<li class="nav-item">
+								<a class="nav-link header-login btn-one-light" href="{{ path('app_login') }}">Se connecter/ S'inscrire
 								</a>
-							</li>	
-                               <li class="has-submenu">
-								<a href="{{ path('contact') }}">ContactUs
-									
-								</a>
-								
-							</li>
-							{% if is_granted('ROLE_PATIENT') %}
-
-							 <li class="has-submenu">
-								<a href="{{ path('app_dashpat') }}">Dashboard 
-									
-								</a>
-							</li>	
-        
-                            {% endif %}
-	{% if is_granted('ROLE_ASSISTANT') %}
-
-							 <li class="has-submenu">
-								<a href="{{ path('app_dashAss') }}">Dashboard 
-									
-								</a>
-							</li>	
-        
-                            {% endif %}
-
-							 {% if is_granted('ROLE_MEDECIN') %}
-
-							 <li class="has-submenu">
-								<a href="{{ path('app_dash') }}">Dashboard 
-									
-								</a>
-							</li>	
-        
-                            {% endif %}
-
-							
-					<li class="login-link">
-						<a href="{{ path('app_login') }}">Se connecter/ S'inscrire </a>
-					</li>
-				</ul>
-			</div>
-			<ul class="nav header-navbar-rht">
-				<li class="nav-item contact-item">
-					<div class="header-contact-img">
-						<i class="far fa-hospital"></i>
-					</div>
-					<div class="header-contact-detail">
-						<p class="contact-header">Contact</p>
-						<p class="contact-info-header">
-							+216 27 841 624</p>
-					</div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link header-login btn-one-light" href="{{ path('app_login') }}">Se connecter/ S'inscrire
-					</a>
-				</li>
-			</ul>
-			{% endblock %}
-		</nav>
-		
-	</body>
-
-</html>
-
-</header>
-{% block body %}
-<section class="section section-search">
-<div class="container-fluid">
-	<div class="banner-wrapper">
-		<div class="banner-header text-center aos" data-aos="fade-up">
-			<h1>Prendre un rendez-vous</h1>
-			<p>Découvrez les meilleurs médecins les plus proches de chez vous .</p>
-		</div>
-
-		<div class="search-box aos" data-aos="fade-up">
-			<form action="https://doccure.dreamguystech.com/html/template/search.html">
-				<div class="form-group search-location">
-					<input type="text" class="form-control" placeholder="Chercher selon localisation">
-					<span class="form-text">Basé sur votre localisation</span>
-				</div>
-				<div class="form-group search-info">
-					<input type="text" class="form-control" placeholder="Chercher des médecins">
-					
-				</div>
-				<button type="submit" class="btn btn-primary search-btn mt-0">
-					<i class="fas fa-search"></i>
-					<span>Cherchez</span>
-				</button>
-			</form>
-		</div>
-
-	</div>
-</div></section>
-	
-<section class="section section-specialities">
-<div class="container-fluid">
-	<div class="section-header text-center aos" data-aos="fade-up">
-		<h2> Nos Specialités</h2>
-		
-	</div>
-	<div class="row justify-content-center">
-		<div class="col-md-9 aos" data-aos="fade-up">
-
-			<div class="specialities-slider slider">
-
-				<div class="speicality-item text-center">
-					<div class="speicality-img">
-						<img src="{{asset('client/assets/img/specialities/specialities-01.png ')}}" class="img-fluid" alt="Speciality">
-						<span>
-							<i class="fa fa-circle" aria-hidden="true"></i>
-						</span>
-					</div>
-					<p>Asthme  </p>
-				</div>
-
-
-				<div class="speicality-item text-center">
-					<div class="speicality-img">
-						<img src="{{asset('client/assets/img/specialities/specialities-02.png ')}}" class="img-fluid" alt="Speciality">
-						<span>
-							<i class="fa fa-circle" aria-hidden="true"></i>
-						</span>
-					</div>
-					<p> Cancer</p>
-				</div>
-
-
-				<div class="speicality-item text-center">
-					<div class="speicality-img">
-						<img src="{{asset('client/assets/img/specialities/specialities-03.png ')}} " class="img-fluid" alt="Speciality">
-						<span>
-							<i class="fa fa-circle" aria-hidden="true"></i>
-						</span>
-					</div>
-					<p>Diabète</p>
-				</div>
-
-
-				<div class="speicality-item text-center">
-					<div class="speicality-img">
-						<img src="{{asset('client/assets/img/specialities/specialities-04.png ')}}" class="img-fluid" alt="Speciality">
-						<span>
-							<i class="fa fa-circle" aria-hidden="true"></i>
-						</span>
-					</div>
-					<p>Cardiovasculaires</p>
-				</div>
-
-
-				<div class="speicality-item text-center">
-					<div class="speicality-img">
-						<img src="{{asset('client/assets/img/specialities/specialities-05.png ')}}" class="img-fluid" alt="Speciality">
-						<span>
-							<i class="fa fa-circle" aria-hidden="true"></i>
-						</span>
-					</div>
-					<p>maux de dos</p>
-				</div>
-
-			</div>
-
-		</div>
-	</div>
-</div></section>
-<section class="section section-doctor">
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-lg-4">
-			<div class="section-header aos" data-aos="fade-up">
-				<h2>Réservez notre médecin</h2>
-			</div>
-			<div class="about-content aos" data-aos="fade-up">
-				Consultez des médecins inscrits à l’ordre des médecins: examen de votre dossier, discussion par messages avec médecin , rendez-vous par vidéo avec médecin via ordinateur , récupérez votre traitement en ligne.
-			</div>
-		</div>
-		<div class="col-lg-8">
-			<div class="doctor-slider slider aos" data-aos="fade-up">
-{% for medecin in medecins %}
-				<div class="profile-widget">
-					<div class="doc-img">
-						<a href="{{ path('app_avis',{id: medecin.id})}}">
-							 <img src="{{ asset('/uploads/'~medecin.image) }}" alt="" width="152.26" height="228.4" /> 
-						</a>
-						<a href="javascript:void(0)" class="fav-btn">
-							<i class="far fa-bookmark"></i>
-						</a>
-					</div>
-						
-					<div class="pro-content">
-						<h3 class="title">
-
-							<a href="{{ path('app_avis',{id: medecin.id})}}">{{ medecin.nom }} {{ medecin.prenom }}</a>
-							<i class="fas fa-check-circle verified"></i>
-						</h3>
-						<p class="speciality"><td>{{ medecin.specialites.nom }}</td></p>
-						
-						<ul class="available-info">
-							<li>
-								<i class="fas fa-map-marker-alt"></i>
-								<td>{{ medecin.gouvernorat }}</td>
-							</li>
-							
-							<li>
-								<i class="far fa-money-bill-alt"></i>
-								<td>{{ medecin.tarif }}</td>
-								<i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Lorem Ipsum"></i>
 							</li>
 						</ul>
-						<div class="row row-sm">
-							<div class="col-6">
-								<a href="{{ path('app_avis',{id: medecin.id})}}" class="btn view-btn">Voir le profil</a>
-							</div>
-							<div class="col-6">
-								<a href="booking.html" class="btn book-btn">rendez-vous</a>
-							</div>
-						</div>
+					{% endblock %}
+				</nav>
+
+			</body>
+
+		</html>
+	</body>
+</html></header>{% block body %}
+<section class="section section-search">
+	<div class="container-fluid">
+		<div class="banner-wrapper">
+			<div class="banner-header text-center aos" data-aos="fade-up">
+				<h1>Prendre un rendez-vous</h1>
+				<p>Découvrez les meilleurs médecins les plus proches de chez vous .</p>
+			</div>
+
+			<div class="search-box aos" data-aos="fade-up">
+				<form action="https://doccure.dreamguystech.com/html/template/search.html">
+					<div class="form-group search-location">
+						<input type="text" class="form-control" placeholder="Chercher selon localisation">
+						<span class="form-text">Basé sur votre localisation</span>
 					</div>
-					
+					<div class="form-group search-info">
+						<input type="text" class="form-control" placeholder="Chercher des médecins">
+
+					</div>
+					<button type="submit" class="btn btn-primary search-btn mt-0">
+						<i class="fas fa-search"></i>
+						<span>Cherchez</span>
+					</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<section class="section section-specialities">
+	<div class="container-fluid">
+		<div class="section-header text-center aos" data-aos="fade-up">
+			<h2>
+				Nos Specialités</h2>
+
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-9 aos" data-aos="fade-up">
+
+				<div class="specialities-slider slider">
+
+					<div class="speicality-item text-center">
+						<div class="speicality-img">
+							<img src="{{asset('client/assets/img/specialities/specialities-01.png ')}}" class="img-fluid" alt="Speciality">
+							<span>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<p>Asthme
+						</p>
+					</div>
+
+
+					<div class="speicality-item text-center">
+						<div class="speicality-img">
+							<img src="{{asset('client/assets/img/specialities/specialities-02.png ')}}" class="img-fluid" alt="Speciality">
+							<span>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<p>
+							Cancer</p>
+					</div>
+
+
+					<div class="speicality-item text-center">
+						<div class="speicality-img">
+							<img src="{{asset('client/assets/img/specialities/specialities-03.png ')}} " class="img-fluid" alt="Speciality">
+							<span>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<p>Diabète</p>
+					</div>
+
+
+					<div class="speicality-item text-center">
+						<div class="speicality-img">
+							<img src="{{asset('client/assets/img/specialities/specialities-04.png ')}}" class="img-fluid" alt="Speciality">
+							<span>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<p>Cardiovasculaires</p>
+					</div>
+
+
+					<div class="speicality-item text-center">
+						<div class="speicality-img">
+							<img src="{{asset('client/assets/img/specialities/specialities-05.png ')}}" class="img-fluid" alt="Speciality">
+							<span>
+								<i class="fa fa-circle" aria-hidden="true"></i>
+							</span>
+						</div>
+						<p>maux de dos</p>
+					</div>
+
 				</div>
- {% endfor %}
-
-			
-
-
-				
 
 			</div>
 		</div>
 	</div>
-</div></section>
+</section>
+<section class="section section-doctor">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="section-header aos" data-aos="fade-up">
+					<h2>Réservez notre médecin</h2>
+				</div>
+				<div class="about-content aos" data-aos="fade-up">
+					Consultez des médecins inscrits à l’ordre des médecins: examen de votre dossier, discussion par messages avec médecin , rendez-vous par vidéo avec médecin via ordinateur , récupérez votre traitement en ligne.
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<div class="doctor-slider slider aos" data-aos="fade-up">
+					{% for medecin in medecins %}
+						<div class="profile-widget">
+							<div class="doc-img">
+								<a href="{{ path('app_avis',{id: medecin.id})}}">
+									<img src="{{ asset('/uploads/'~medecin.image) }}" alt="" width="152.26" height="228.4"/>
+								</a>
+								<a href="javascript:void(0)" class="fav-btn">
+									<i class="far fa-bookmark"></i>
+								</a>
+							</div>
+
+							<div class="pro-content">
+								<h3 class="title">
+
+									<a href="{{ path('app_avis',{id: medecin.id})}}">{{ medecin.nom }}
+										{{ medecin.prenom }}</a>
+									<i class="fas fa-check-circle verified"></i>
+								</h3>
+								{% if medecin.specialites is not null %}
+									<p class="speciality">
+										<td>{{ medecin.specialites.nom }}</td>
+									</p>
+								{% else %}
+									<p class="speciality">Specialite non renseignée</p>
+								{% endif %}
+
+								<ul class="available-info">
+									<li>
+										<i class="fas fa-map-marker-alt"></i>
+										<td>{{ medecin.gouvernorat }}</td>
+									</li>
+
+									<li>
+										<i class="far fa-money-bill-alt"></i>
+										<td>{{ medecin.tarif }}</td>
+										<i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Lorem Ipsum"></i>
+									</li>
+								</ul>
+								<div class="row row-sm">
+									<div class="col-6">
+										<a href="{{ path('app_avis',{id: medecin.id})}}" class="btn view-btn">Voir le profil</a>
+									</div>
+									<div class="col-6">
+										<a href="booking.html" class="btn book-btn">rendez-vous</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					{% endfor %}
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 <section class="section section-blogs">
 	<div class="container-fluid">
 
@@ -329,186 +339,142 @@
 			<h2>Nos Articles</h2>
 
 		</div>
- 
+
 		<div class="row blog-grid-row aos" data-aos="fade-up">
-		{% for article in articles %}
-			<div class="col-md-6 col-lg-3 col-sm-12">
-             
-				<div class="blog grid-blog">
-				
-					<div class="blog-image">
-					
-						<a href="{{ path('app_blog_details',{id: article.id})}}">
-						<img  {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="268,5" height="177,667" />  {% endfor %} </a> <div class="fav-btn"> </div>
-					</div>
-					<div class="blog-content">
-						<ul class="entry-meta meta-item">
-							<li>
-								<div class="post-author">
-									<a href="doctor-profile.html">
-									
-									<a href="doctor-profile.html"> <span> Dr. {{article.medecin }} </span>
-									</a>
-								</div>
+			{% for article in articles %}
+				<div class="col-md-6 col-lg-3 col-sm-12">
+
+					<div class="blog grid-blog">
+
+						<div class="blog-image">
+
+							<a href="{{ path('app_blog_details',{id: article.id})}}">
+								<img</i {% for image in article.images|slice(0, 1) %} <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="268,5" height="177,667" /> {% endfor %} </a> <div class="fav-btn"> </div> </div> <div class="blog-content"> <ul class="entry-meta meta-item"> <li> <div class="post-author"> <a href="doctor-profile.html"> <a href="doctor-profile.html"> <span> dr. {{article.medecin }} </span> </a> </div> </li> <li> <i class="far fa-clock">>
+									{{article.date|date ('d/m/y') }}</li>
 							</li>
-							<li>
-								<i class="far fa-clock"></i>
-								{{article.date|date ('d/m/y') }}</li></li>
 						</ul>
 						<h3 class="blog-title">
-									<a href="{{ path('app_blog_details',{id: article.id})}}">
-										{{article.nom }}</a>
-								</h3>
-								<p class="mb-0">{{article.description|slice(0,50)|raw }}</p>
+							<a href="{{ path('app_blog_details',{id: article.id})}}">
+								{{article.nom }}</a>
+						</h3>
+						<p class="mb-0">{{article.description|slice(0,50)|raw }}</p>
 					</div>
-					
+
 				</div>
 
 			</div>
-			{% endfor %}
-		</div>
-	</div>
-	
-
-
-		<div class="view-all text-center aos" data-aos="fade-up">
-			<a href="{{ path('app_blog')}}" class="btn btn-primary">Voir Tous</a>
-		</div>
-	</div>
-</section>
-{% endblock %}
-
-<footer class="footer">
-{% block footer %}
-<div class="footer-top aos" data-aos="fade-up">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-3 col-md-6">
-
-				<div class="footer-widget footer-about">
-					<div class="footer-logo">
-						<img src="assets/img/footer-logo.png" alt="logo">
-					</div>
-					<div class="footer-about-content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</p>
-						<div class="social-icon">
-							<ul>
-								<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="col-lg-3 col-md-6">
-
-				<div class="footer-widget footer-menu">
-					<h2 class="footer-title">For Patients</h2>
-					<ul>
-						<li><a href="search.html">Search for Doctors</a></li>
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="booking.html">Booking</a></li>
-						<li><a href="patient-dashboard.html">Patient Dashboard</a></li>
-					</ul>
-				</div>
-
-			</div>
-			<div class="col-lg-3 col-md-6">
-
-				<div class="footer-widget footer-menu">
-					<h2 class="footer-title">For Doctors</h2>
-					<ul>
-						<li><a href="appointments.html">Appointments</a></li>
-						<li><a href="chat.html">Chat</a></li>
-						<li><a href="login.html">Login</a></li>
-						<li><a href="doctor-register.html">Register</a></li>
-						<li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-					</ul>
-				</div>
-
-			</div>
-			<div class="col-lg-3 col-md-6">
-
-				<div class="footer-widget footer-contact">
-					<h2 class="footer-title">Contact Us</h2>
-					<div class="footer-contact-info">
-						<div class="footer-address">
-							<span>
-								<i class="fas fa-map-marker-alt"></i>
-							</span>
-							<p>
-								3556 Beech Street, San Francisco,<br>
-								California, CA 94108
-							</p>
-						</div>
-						<p>
-							<i class="fas fa-phone-alt"></i>
-							+1 315 369 5943
-						</p>
-						<p class="mb-0">
-							<i class="fas fa-envelope"></i>
-							<a href="https://doccure.dreamguystech.com/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="b1d5ded2d2c4c3d4f1d4c9d0dcc1ddd49fd2dedc">[email&#160;protected]</a>
-						</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
+		{% endfor %}
 	</div>
 </div>
 
 
-<div class="footer-bottom">
-	<div class="container-fluid">
+<div class="view-all text-center aos" data-aos="fade-up">
+	<a href="{{ path('app_blog')}}" class="btn btn-primary">Voir Tous</a>
+</div></div></section>{% endblock %}<footer class="footer">{% block footer %}<div class="footer-top aos" data-aos="fade-up">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-3 col-md-6">
 
-		<div class="copyright">
-			<div class="row">
-				<div class="col-md-6 col-lg-6">
-					<div class="copyright-text">
-						<p class="mb-0">&copy; 2022 Doccure. All rights reserved.</p>
-					</div>
+			<div class="footer-widget footer-about">
+				<div class="footer-logo">
+					<img src="assets/img/footer-logo.png" alt="logo">
 				</div>
-				<div class="col-md-6 col-lg-6">
-
-					<div class="copyright-menu">
-						<ul class="policy-menu">
-							<li>
-								<a href="term-condition.html">Terms and Conditions</a>
-							</li>
-							<li>
-								<a href="privacy-policy.html">Policy</a>
-							</li>
+				<div class="footer-about-content">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</p>
+					<div class="social-icon">
+						<ul>
+							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
 						</ul>
 					</div>
-
 				</div>
 			</div>
+
 		</div>
+		<div class="col-lg-3 col-md-6">
 
+			<div class="footer-widget footer-menu">
+				<h2 class="footer-title">For Patients</h2>
+				<ul>
+					<li><a href="search.html">Search for Doctors</a></li>
+					<li><a href="login.html">Login</a></li>
+					<li><a href="register.html">Register</a></li>
+					<li><a href="booking.html">Booking</a></li>
+					<li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="col-lg-3 col-md-6">
+
+			<div class="footer-widget footer-menu">
+				<h2 class="footer-title">For Doctors</h2>
+				<ul>
+					<li><a href="appointments.html">Appointments</a></li>
+					<li><a href="chat.html">Chat</a></li>
+					<li><a href="login.html">Login</a></li>
+					<li><a href="doctor-register.html">Register</a></li>
+					<li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="col-lg-3 col-md-6">
+
+			<div class="footer-widget footer-contact">
+				<h2 class="footer-title">Contact Us</h2>
+				<div class="footer-contact-info">
+					<div class="footer-address">
+						<span>
+							<i class="fas fa-map-marker-alt"></i>
+						</span>
+						<p>
+							3556 Beech Street, San Francisco,<br>
+							California, CA 94108
+						</p>
+					</div>
+					<p>
+						<i class="fas fa-phone-alt"></i>
+						+1 315 369 5943
+					</p>
+					<p class="mb-0">
+						<i class="fas fa-envelope"></i>
+						<a href="https://doccure.dreamguystech.com/cdn-cgi/l/email-protection" class="_cf_email_" data-cfemail="b1d5ded2d2c4c3d4f1d4c9d0dcc1ddd49fd2dedc">[email&#160;protected]</a>
+					</p>
+				</div>
+			</div>
+
+		</div>
 	</div>
-</div></footer>
-</div>
-{% endblock %}
+</div></div><div class="footer-bottom">
+<div class="container-fluid">
 
+	<div class="copyright">
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="copyright-text">
+					<p class="mb-0">&copy; 2022 Doccure. All rights reserved.</p>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-6">
 
-{% block script %}
-<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
-</script>
-<script src="{{asset('client/assets/js/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('client/assets/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('client/assets/js/slick.js')}}"></script>
-<script src="{{asset('client/assets/js/aos.js')}}"></script>
-<script src="{{asset('client/assets/js/script.js')}}"></script>
+				<div class="copyright-menu">
+					<ul class="policy-menu">
+						<li>
+							<a href="term-condition.html">Terms and Conditions</a>
+						</li>
+						<li>
+							<a href="privacy-policy.html">Policy</a>
+						</li>
+					</ul>
+				</div>
 
+			</div>
+		</div>
+	</div>
 
-<script src="{{asset('client/assets/js/feather.min.js')}}"></script>
-
-{% endblock %}
-
-</body>
+</div></div></footer></div>{% endblock %}{% block script %}<script data-cfasync="false" src="https://doccure.dreamguystech.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="{{asset('client/assets/js/jquery-3.6.0.min.js')}}"></script><script src="{{asset('client/assets/js/bootstrap.bundle.min.js')}}"></script><script src="{{asset('client/assets/js/slick.js')}}"></script><script src="{{asset('client/assets/js/aos.js')}}"></script><script src="{{asset('client/assets/js/script.js')}}"></script><script src="{{asset('client/assets/js/feather.min.js')}}"></script>{% endblock %}</body>

@@ -7,7 +7,7 @@
 		<div class="onboarding-content-box">
 			<div class="onboarding-title profile-title">
 				<h2>Personnalisez votre profil
-					
+
 				</h2>
 			</div>
 			<div class="onboarding-content passcode-wrap mail-box">
@@ -25,10 +25,9 @@
 								<div class="row">
 									<div class="col">
 										<div class="upload-pic">
-										<img class="upload-pic" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="31"  /> 
+											<img class="upload-pic" src="{{ asset('/uploads/'~app.user.image) }}" alt="" width="31"/>
 
-											
-											
+
 											<div class="upload-pics">
 												<a class="btn-profile"><img src="{{asset('login/assets/img/icons/edit.svg')}}" alt=""></a>
 												{{ form_widget(form.photo, {attr:{'class':'upload'}}) }}
@@ -66,11 +65,10 @@
 								<div class="col">
 
 									<div class="form-group local-forms">
-										<label>Email
-
+										<label>
+											Email
 										</label>
 										{{ form_widget(form.email, {attr:{'class':'form-control'}}) }}
-										
 
 
 									</div>
@@ -86,7 +84,7 @@
 								<div class="col-12 col-md-6 col-xl-4">
 									<div class="form-group local-forms">
 										<label>Telephone
-											
+
 										</label>
 										{{ form_widget(form.telephone, {attr:{'class':'form-control'}}) }}
 									</div>
@@ -96,7 +94,7 @@
 
 									<div class="form-group local-forms">
 										<label>Telephone fixe
-											
+
 										</label>
 										{{ form_widget(form.fixe, {attr:{'class':'form-control'}}) }}
 									</div>
@@ -106,7 +104,7 @@
 								<div class="col-12 col-md-6 col-xl-4">
 									<div class="form-group local-forms">
 										<label>Carte D'identité
-											
+
 										</label>
 										{{ form_widget(form.cin, {attr:{'class':'form-control'}}) }}
 									</div>
@@ -121,7 +119,7 @@
 
 									<div class="form-group">
 										<label class="onboarding-lable">Genre
-											
+
 										</label>
 										{{ form_widget(form.sexe, {attr:{'class':'form-control select'}}) }}
 
@@ -143,7 +141,7 @@
 
 									<div class="form-group">
 										<label class="onboarding-lable">Cnam
-											
+
 										</label>
 										{{ form_widget(form.cnam, {attr:{'class':'form-control select'}}) }}
 									</div>
@@ -256,4 +254,3 @@
 		</div>
 	</div>
 {% endblock %}
-
